@@ -943,12 +943,14 @@
     }
 
     const {entries, total} = cartTotals();
+    const pedidoId = `DOHA-${Date.now()}`;
     if(entries.length === 0){
       showToast('Tu pedido está vacío');
       return;
     }
 
     let msg = `Hola, quiero realizar el siguiente pedido de Doha Burger:\n\n`;
+    msg += 🧾 Pedido: ${pedidoId}\n\n;
     entries.forEach(e=>{
       msg += `${e.product.emoji} ${e.product.name} x${e.item.qty}`;
       if(e.item.combos > 0) msg += ` (+${e.item.combos} combo${e.item.combos>1?'s':''}: papas + ${e.item.soda || SODAS[0]})`;
