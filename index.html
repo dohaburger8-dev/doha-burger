@@ -650,6 +650,20 @@
       price:18000, img:'/images/crunchburger.jpg'
     },
     {
+      id:'callejera', cat:'burger', emoji:'🍔', badge:'Nueva',
+      name:'La Callejera',
+      tagline:'Todo el sabor, en una hamburguesa.',
+      ingredients:'Pan Artesanal • Carne De Res 120 G • Queso Doble Crema • Tocineta • Papa Callejera • Pepinillos Dulces • Lechuga • Salsa De La Casa • Salsa De Tomate.',
+      price:13000, img:'/images/callejera.jpg'
+    },
+    {
+      id:'chiken-bbq', cat:'burger', emoji:'🍔', badge:'Nueva',
+      name:'Chiken BBQ',
+      tagline:'Crocante que se disfruta en cada mordida.',
+      ingredients:'Pan Artesanal • Pollo Apanado 120 G • Bañada En Salsa BBQ • Cubitos De Tocineta • Salsa Especial Chiken • Salsa De Tomate • Lechuga • Queso Doble Crema.',
+      price:14000, img:'/images/chiken_bbq.jpg'
+    },
+    {
       id:'monarca', cat:'burger', emoji:'🍔', badge:'',
       name:'Monarca',
       tagline:'Doble queso. Para los que no negocian con el hambre.',
@@ -950,7 +964,6 @@
     }
 
     let msg = `Hola, quiero realizar el siguiente pedido de Doha Burger:\n\n`;
-    msg += 🧾 Pedido: ${pedidoId}\n\n;
     entries.forEach(e=>{
       msg += `${e.product.emoji} ${e.product.name} x${e.item.qty}`;
       if(e.item.combos > 0) msg += ` (+${e.item.combos} combo${e.item.combos>1?'s':''}: papas + ${e.item.soda || SODAS[0]})`;
