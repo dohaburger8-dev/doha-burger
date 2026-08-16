@@ -212,6 +212,9 @@
   }
   .combo-soda label{display:flex;align-items:center;gap:6px;font-size:12.5px;font-weight:700;color:var(--verde-doha);margin-bottom:8px;}
   .combo-soda label .ic{font-size:15px;}
+  .combo-box.combo-hidden{
+  display:none;
+}
   /* ============ GASEOSAS EN CÍRCULOS ============ */
 
 .soda-options{
@@ -749,8 +752,8 @@
   }
 
   function comboHTML(id){
-  return `
-    <div class="combo-box" data-combo="${id}">
+  return `<div class="combo-box combo-hidden" data-combo="${id}">
+    
       <div class="combo-header">
         <span class="combo-icon">🍟</span>
 
@@ -831,8 +834,8 @@
         <h3 class="card-name">${p.name}</h3>
         <p class="card-tagline">${p.tagline}</p>
         <p class="card-ingredients"><b>Ingredientes:</b> ${p.ingredients}</p>
-        ${comboHTML(p.id)}
         ${stepperHTML(p.id)}
+        ${comboHTML(p.id)}
       </div>`;
     burgerGrid.appendChild(card);
   });
@@ -861,7 +864,11 @@
     const sodaWrap = document.querySelector(`[data-soda-wrap="${id}"]`);
     const comboBox = document.querySelector(`[data-combo="${id}"]`);
     if(sodaWrap) sodaWrap.classList.toggle('show', combos > 0);
-    if(comboBox) comboBox.classList.toggle('active', combos > 0);
+
+if(comboBox){
+  comboBox.classList.toggle('active', combos > 0);
+  comboBox.classList.toggle('combo-hidden', burgerQty === 0);
+  }
   }
 
   document.addEventListener('click', (e)=>{
