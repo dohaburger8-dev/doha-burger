@@ -212,17 +212,75 @@
   }
   .combo-soda label{display:flex;align-items:center;gap:6px;font-size:12.5px;font-weight:700;color:var(--verde-doha);margin-bottom:8px;}
   .combo-soda label .ic{font-size:15px;}
-  .combo-soda select{
-    width:100%;padding:12px 36px 12px 14px;border-radius:10px;
-    border:1.5px solid rgba(15,61,46,.18);background:#fff8ec;
-    font-size:14px;font-weight:600;color:var(--verde-doha);cursor:pointer;
-    transition:border-color .2s, box-shadow .2s;
-    appearance:none;-webkit-appearance:none;
-    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath fill='none' stroke='%230F3D2E' stroke-width='2' d='M1 1l5 5 5-5'/%3E%3C/svg%3E");
-    background-repeat:no-repeat;background-position:right 14px center;
-  }
-  .combo-soda select:focus{outline:none;border-color:var(--verde-doha);box-shadow:0 0 0 3px rgba(15,61,46,0.1);}
+  /* ============ GASEOSAS EN CÍRCULOS ============ */
 
+.soda-options{
+  display:flex;
+  gap:10px;
+  margin-top:10px;
+}
+
+.soda-option{
+  flex:1;
+  min-width:0;
+  padding:10px 6px;
+  border-radius:14px;
+  background:#fff8ec;
+  border:1.5px solid rgba(15,61,46,.15);
+  color:var(--verde-doha);
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  gap:6px;
+  font-size:11.5px;
+  font-weight:700;
+  transition:
+    border-color .2s,
+    background .2s,
+    transform .15s,
+    box-shadow .2s;
+}
+
+.soda-option:active{
+  transform:scale(.94);
+}
+
+.soda-option.selected{
+  border-color:var(--verde-doha);
+  background:rgba(15,61,46,.08);
+  box-shadow:0 5px 14px -8px rgba(15,61,46,.45);
+}
+
+.soda-circle{
+  width:38px;
+  height:38px;
+  border-radius:50%;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  color:#fff;
+  font-family:var(--font-display);
+  font-weight:900;
+  font-size:16px;
+  box-shadow:0 3px 8px rgba(0,0,0,.18);
+}
+
+.soda-circle.pepsi{
+  background:#2454a6;
+}
+
+.soda-circle.coca{
+  background:#b91c1c;
+}
+
+.soda-circle.postobon{
+  background:#d89b22;
+}
+
+.soda-option.selected .soda-circle{
+  transform:scale(1.08);
+}
   /* ============ QTY STEPPER ============ */
   .stepper{
     display:flex;align-items:center;justify-content:space-between;
@@ -631,7 +689,7 @@
   /* ===================== CONFIG ===================== */
   const WA_NUMBER = "573161568650";
   const COMBO_PRICE = 4000;
-  const SODAS = ['Pepsi', 'Coca-Cola', 'Postobón'];
+  const SODAS = ['Pepsi', 'Coca-Cola', 'Postobón Manzana'];
 
   /* ===================== PRODUCT DATA ===================== */
   const PRODUCTS = [
@@ -691,31 +749,74 @@
   }
 
   function comboHTML(id){
-    const sodaOpts = SODAS.map(s=>`<option value="${s}">${s}</option>`).join('');
-    return `
-      <div class="combo-box" data-combo="${id}">
-        <div class="combo-header">
-          <span class="combo-icon">🍟</span>
-          <div class="combo-header-text">
-            <span class="t">Combos <span class="p">+${fmt(COMBO_PRICE)} c/u</span></span>
-            <span class="d">Papas a la francesa + gaseosa a elección</span>
-          </div>
-          <div class="combo-stepper" data-combo-stepper="${id}">
-            <button type="button" class="minus" data-combo-action="dec" data-id="${id}" aria-label="Quitar combo">−</button>
-            <span class="cqty" data-combo-qty="${id}">0</span>
-            <button type="button" class="plus" data-combo-action="inc" data-id="${id}" aria-label="Agregar combo">+</button>
-          </div>
+  return `
+    <div class="combo-box" data-combo="${id}">
+      <div class="combo-header">
+        <span class="combo-icon">🍟</span>
+
+        <div class="combo-header-text">
+          <span class="t">
+            Combos
+            <span class="p">+${fmt(COMBO_PRICE)} c/u</span>
+          </span>
+          <span class="d">Papas a la francesa + gaseosa a elección</span>
         </div>
-        <div class="combo-soda" data-soda-wrap="${id}">
-          <div class="combo-soda-inner">
-            <label><span class="ic">🥤</span> Gaseosa para tus combos</label>
-            <select data-soda="${id}">
-              ${sodaOpts}
-            </select>
-          </div>
+
+        <div class="combo-stepper" data-combo-stepper="${id}">
+          <button type="button" class="minus"
+            data-combo-action="dec"
+            data-id="${id}"
+            aria-label="Quitar combo">−</button>
+
+          <span class="cqty" data-combo-qty="${id}">0</span>
+
+          <button type="button" class="plus"
+            data-combo-action="inc"
+            data-id="${id}"
+            aria-label="Agregar combo">+</button>
         </div>
-      </div>`;
-  }
+      </div>
+
+      <div class="combo-soda" data-soda-wrap="${id}">
+        <div class="combo-soda-inner">
+
+          <label>
+            <span class="ic">🥤</span>
+            Elige tu gaseosa
+          </label>
+
+          <div class="soda-options" data-soda-options="${id}">
+
+            <button type="button"
+              class="soda-option selected"
+              data-soda="${id}"
+              data-soda-value="Pepsi">
+              <span class="soda-circle pepsi">P</span>
+              <span>Pepsi</span>
+            </button>
+
+            <button type="button"
+              class="soda-option"
+              data-soda="${id}"
+              data-soda-value="Coca-Cola">
+              <span class="soda-circle coca">C</span>
+              <span>Coca-Cola</span>
+            </button>
+
+            <button type="button"
+              class="soda-option"
+              data-soda="${id}"
+              data-soda-value="Postobón Manzana">
+              <span class="soda-circle postobon">M</span>
+              <span>Manzana</span>
+            </button>
+
+          </div>
+
+        </div>
+      </div>
+    </div>`;
+}
 
   PRODUCTS.forEach(p=>{
     const card = document.createElement('article');
@@ -771,13 +872,26 @@
     changeComboQty(id, action === 'inc' ? 1 : -1);
   });
 
-  document.querySelectorAll('[data-soda]').forEach(sel=>{
-    sel.addEventListener('change', (e)=>{
-      const id = e.target.getAttribute('data-soda');
-      if(cart[id] && cart[id].combos > 0) cart[id].soda = e.target.value;
-      if(document.getElementById('cartOverlay').classList.contains('show')) renderCart();
-    });
-  });
+  document.addEventListener('click', (e)=>{
+  const sodaBtn = e.target.closest('[data-soda-value]');
+  if(!sodaBtn) return;
+
+  const id = sodaBtn.getAttribute('data-soda');
+  const soda = sodaBtn.getAttribute('data-soda-value');
+
+  if(!cart[id] || cart[id].combos <= 0) return;
+
+  cart[id].soda = soda;
+
+  document.querySelectorAll(`[data-soda-options="${id}"] .soda-option`)
+    .forEach(btn => btn.classList.remove('selected'));
+
+  sodaBtn.classList.add('selected');
+
+  if(document.getElementById('cartOverlay').classList.contains('show')){
+    renderCart();
+  }
+});
 
   /* ===================== STEPPER LOGIC ===================== */
   function getProduct(id){ return PRODUCTS.find(p=>p.id===id); }
