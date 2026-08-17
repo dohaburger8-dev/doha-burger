@@ -607,9 +607,10 @@
   font-weight:800;
 }
 
-  /* ============ COMBO OPTION ============ */
-  .combo-box{
-  background:#202020;
+/* ============ COMBOS — DOHA PREMIUM ============ */
+
+.combo-box{
+  background:#181818;
 
   border:1px solid rgba(243,235,221,.10);
 
@@ -621,61 +622,223 @@
 
   transition:
     border-color .3s var(--ease),
-    box-shadow .3s var(--ease);
+    box-shadow .3s var(--ease),
+    background .3s;
 }
-  .combo-box.active{
-  border-color:rgba(243,235,221,.30);
+
+.combo-box.active{
+  background:#1D1D1D;
+
+  border-color:rgba(243,235,221,.28);
 
   box-shadow:
-    0 10px 28px rgba(0,0,0,.35);
+    0 12px 30px rgba(0,0,0,.38);
 }
-  .combo-header{
-    display:flex;align-items:center;gap:14px;padding:14px 16px;
-  }
-  .combo-icon{
-    width:42px;height:42px;border-radius:12px;flex:none;
-    background:var(--beige);display:flex;align-items:center;justify-content:center;
-    font-size:22px;transition:background .3s, transform .3s var(--ease);
-  }
-  .combo-box.active .combo-icon{background:var(--marron);transform:rotate(-8deg) scale(1.05);}
-  .combo-header-text{flex:1;min-width:0;}
-  .combo-header-text .t{font-family:var(--font-display);font-weight:800;font-size:15.5px;color:var(--verde-doha);display:flex;align-items:baseline;gap:8px;flex-wrap:wrap;}
-  .combo-header-text .p{font-family:var(--font-display);font-weight:800;font-size:14px;color:var(--marron);background:rgba(139,62,31,0.1);padding:2px 8px;border-radius:6px;}
-  .combo-header-text .d{font-size:12.5px;color:var(--verde-claro);line-height:1.45;margin-top:3px;}
 
-  /* mini stepper for combos */
-  .combo-stepper{
-    display:flex;align-items:center;gap:8px;flex:none;
-    background:#fff8ec;border:1.5px solid rgba(15,61,46,0.15);
-    border-radius:100px;padding:4px;
-  }
-  .combo-stepper button{
-    width:30px;height:30px;border-radius:50%;
-    background:var(--verde-doha);color:var(--crema);
-    font-size:16px;font-weight:700;line-height:1;
-    display:flex;align-items:center;justify-content:center;
-    transition:background .2s, transform .15s, opacity .2s;
-  }
-  .combo-stepper button:active{transform:scale(.9);}
-  .combo-stepper button.minus{background:var(--beige);color:var(--verde-doha);}
-  .combo-stepper button:disabled{opacity:.3;pointer-events:none;}
-  .combo-stepper .cqty{
-    font-family:var(--font-display);font-weight:800;font-size:15px;
-    min-width:22px;text-align:center;color:var(--verde-doha);
-  }
+.combo-header{
+  display:flex;
+  align-items:center;
+  gap:12px;
 
-  .combo-soda{
-    padding:0 16px;max-height:0;overflow:hidden;
-    transition:max-height .35s var(--ease), padding .35s var(--ease);
-  }
-  .combo-soda.show{max-height:140px;padding:0 16px 14px;}
-  .combo-soda-inner{
-    padding-top:12px;border-top:1px dashed rgba(15,61,46,0.18);
-  }
-  .combo-soda label{display:flex;align-items:center;gap:6px;font-size:12.5px;font-weight:700;color:var(--verde-doha);margin-bottom:8px;}
-  .combo-soda label .ic{font-size:15px;}
-  .combo-box.combo-hidden{
-  display:none;
+  padding:14px;
+}
+
+.combo-icon{
+  width:42px;
+  height:42px;
+
+  border-radius:7px;
+
+  flex:none;
+
+  background:#252525;
+
+  display:flex;
+  align-items:center;
+  justify-content:center;
+
+  font-size:20px;
+
+  border:1px solid rgba(243,235,221,.08);
+
+  transition:
+    background .3s,
+    transform .3s var(--ease);
+}
+
+.combo-box.active .combo-icon{
+  background:var(--crema);
+
+  transform:rotate(-5deg) scale(1.05);
+}
+
+.combo-header-text{
+  flex:1;
+  min-width:0;
+}
+
+.combo-header-text .t{
+  font-family:var(--font-display);
+
+  font-weight:900;
+
+  font-size:15px;
+
+  color:var(--crema);
+
+  display:flex;
+  align-items:baseline;
+
+  gap:7px;
+
+  flex-wrap:wrap;
+}
+
+.combo-header-text .p{
+  font-family:var(--font-display);
+
+  font-weight:900;
+
+  font-size:12px;
+
+  color:#111;
+
+  background:var(--crema);
+
+  padding:3px 7px;
+
+  border-radius:4px;
+}
+
+.combo-header-text .d{
+  font-size:11.5px;
+
+  color:#9F9990;
+
+  line-height:1.45;
+
+  margin-top:4px;
+}
+
+/* ============ COMBO STEPPER ============ */
+
+.combo-stepper{
+  display:flex;
+  align-items:center;
+
+  gap:6px;
+
+  flex:none;
+
+  background:#111;
+
+  border:1px solid rgba(243,235,221,.12);
+
+  border-radius:6px;
+
+  padding:4px;
+}
+
+.combo-stepper button{
+  width:29px;
+  height:29px;
+
+  border-radius:4px;
+
+  background:var(--crema);
+
+  color:#111;
+
+  font-size:16px;
+
+  font-weight:900;
+
+  line-height:1;
+
+  display:flex;
+  align-items:center;
+  justify-content:center;
+
+  transition:
+    transform .15s var(--ease),
+    background .2s,
+    opacity .2s;
+}
+
+.combo-stepper button:active{
+  transform:scale(.88);
+}
+
+.combo-stepper button.minus{
+  background:#292929;
+  color:var(--crema);
+}
+
+.combo-stepper button:disabled{
+  opacity:.25;
+  pointer-events:none;
+}
+
+.combo-stepper .cqty{
+  font-family:var(--font-display);
+
+  font-weight:900;
+
+  font-size:14px;
+
+  min-width:20px;
+
+  text-align:center;
+
+  color:var(--crema);
+}
+
+/* ============ SODA SELECTOR ============ */
+
+.combo-soda{
+  padding:0 14px;
+
+  max-height:0;
+
+  overflow:hidden;
+
+  transition:
+    max-height .35s var(--ease),
+    padding .35s var(--ease);
+}
+
+.combo-soda.show{
+  max-height:150px;
+
+  padding:0 14px 14px;
+}
+
+.combo-soda-inner{
+  padding-top:12px;
+
+  border-top:1px solid rgba(243,235,221,.08);
+}
+
+.combo-soda label{
+  display:flex;
+  align-items:center;
+
+  gap:6px;
+
+  font-size:11.5px;
+
+  font-weight:800;
+
+  color:var(--crema);
+
+  margin-bottom:9px;
+
+  text-transform:uppercase;
+  letter-spacing:.5px;
+}
+
+.combo-soda label .ic{
+  font-size:14px;
 }
   /* ============ GASEOSAS EN CÍRCULOS ============ */
 
@@ -685,66 +848,238 @@
   margin-top:10px;
 }
 
-.soda-option{
+/* ============ COMBOS — DOHA PREMIUM ============ */
+
+.combo-box{
+  background:#181818;
+
+  border:1px solid rgba(243,235,221,.10);
+
+  border-radius:10px;
+
+  margin-bottom:16px;
+
+  overflow:hidden;
+
+  transition:
+    border-color .3s var(--ease),
+    box-shadow .3s var(--ease),
+    background .3s;
+}
+
+.combo-box.active{
+  background:#1D1D1D;
+
+  border-color:rgba(243,235,221,.28);
+
+  box-shadow:
+    0 12px 30px rgba(0,0,0,.38);
+}
+
+.combo-header{
+  display:flex;
+  align-items:center;
+  gap:12px;
+
+  padding:14px;
+}
+
+.combo-icon{
+  width:42px;
+  height:42px;
+
+  border-radius:7px;
+
+  flex:none;
+
+  background:#252525;
+
+  display:flex;
+  align-items:center;
+  justify-content:center;
+
+  font-size:20px;
+
+  border:1px solid rgba(243,235,221,.08);
+
+  transition:
+    background .3s,
+    transform .3s var(--ease);
+}
+
+.combo-box.active .combo-icon{
+  background:var(--crema);
+
+  transform:rotate(-5deg) scale(1.05);
+}
+
+.combo-header-text{
   flex:1;
   min-width:0;
-  padding:10px 6px;
-  border-radius:14px;
-  background:#fff8ec;
-  border:1.5px solid rgba(15,61,46,.15);
-  color:var(--verde-doha);
-  display:flex;
-  flex-direction:column;
-  align-items:center;
-  justify-content:center;
-  gap:6px;
-  font-size:11.5px;
-  font-weight:700;
-  transition:
-    border-color .2s,
-    background .2s,
-    transform .15s,
-    box-shadow .2s;
 }
 
-.soda-option:active{
-  transform:scale(.94);
-}
-
-.soda-option.selected{
-  border-color:var(--verde-doha);
-  background:rgba(15,61,46,.08);
-  box-shadow:0 5px 14px -8px rgba(15,61,46,.45);
-}
-
-.soda-circle{
-  width:38px;
-  height:38px;
-  border-radius:50%;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  color:#fff;
+.combo-header-text .t{
   font-family:var(--font-display);
+
   font-weight:900;
+
+  font-size:15px;
+
+  color:var(--crema);
+
+  display:flex;
+  align-items:baseline;
+
+  gap:7px;
+
+  flex-wrap:wrap;
+}
+
+.combo-header-text .p{
+  font-family:var(--font-display);
+
+  font-weight:900;
+
+  font-size:12px;
+
+  color:#111;
+
+  background:var(--crema);
+
+  padding:3px 7px;
+
+  border-radius:4px;
+}
+
+.combo-header-text .d{
+  font-size:11.5px;
+
+  color:#9F9990;
+
+  line-height:1.45;
+
+  margin-top:4px;
+}
+
+/* ============ COMBO STEPPER ============ */
+
+.combo-stepper{
+  display:flex;
+  align-items:center;
+
+  gap:6px;
+
+  flex:none;
+
+  background:#111;
+
+  border:1px solid rgba(243,235,221,.12);
+
+  border-radius:6px;
+
+  padding:4px;
+}
+
+.combo-stepper button{
+  width:29px;
+  height:29px;
+
+  border-radius:4px;
+
+  background:var(--crema);
+
+  color:#111;
+
   font-size:16px;
-  box-shadow:0 3px 8px rgba(0,0,0,.18);
+
+  font-weight:900;
+
+  line-height:1;
+
+  display:flex;
+  align-items:center;
+  justify-content:center;
+
+  transition:
+    transform .15s var(--ease),
+    background .2s,
+    opacity .2s;
 }
 
-.soda-circle.pepsi{
-  background:#2454a6;
+.combo-stepper button:active{
+  transform:scale(.88);
 }
 
-.soda-circle.coca{
-  background:#b91c1c;
+.combo-stepper button.minus{
+  background:#292929;
+  color:var(--crema);
 }
 
-.soda-circle.postobon{
-  background:#d89b22;
+.combo-stepper button:disabled{
+  opacity:.25;
+  pointer-events:none;
 }
 
-.soda-option.selected .soda-circle{
-  transform:scale(1.08);
+.combo-stepper .cqty{
+  font-family:var(--font-display);
+
+  font-weight:900;
+
+  font-size:14px;
+
+  min-width:20px;
+
+  text-align:center;
+
+  color:var(--crema);
+}
+
+/* ============ SODA SELECTOR ============ */
+
+.combo-soda{
+  padding:0 14px;
+
+  max-height:0;
+
+  overflow:hidden;
+
+  transition:
+    max-height .35s var(--ease),
+    padding .35s var(--ease);
+}
+
+.combo-soda.show{
+  max-height:150px;
+
+  padding:0 14px 14px;
+}
+
+.combo-soda-inner{
+  padding-top:12px;
+
+  border-top:1px solid rgba(243,235,221,.08);
+}
+
+.combo-soda label{
+  display:flex;
+  align-items:center;
+
+  gap:6px;
+
+  font-size:11.5px;
+
+  font-weight:800;
+
+  color:var(--crema);
+
+  margin-bottom:9px;
+
+  text-transform:uppercase;
+  letter-spacing:.5px;
+}
+
+.combo-soda label .ic{
+  font-size:14px;
 }
 /* ============ QTY STEPPER — DOHA ============ */
 
@@ -810,17 +1145,31 @@
 
   color:var(--crema);
 }
- /* ============ BRAND STORY ============ */
+/* ============ STORY — DOHA PREMIUM ============ */
 
 .story{
   background:#111;
+  padding:76px 0 80px;
+  margin-top:50px;
 
-  padding:70px 0;
+  border-top:1px solid rgba(243,235,221,.08);
+  border-bottom:1px solid rgba(243,235,221,.08);
+}
 
-  margin-top:70px;
+.story .section-head{
+  margin-bottom:36px;
+}
 
-  border-top:
-    1px solid rgba(243,235,221,.08);
+.story .eyebrow{
+  color:#B9AA95;
+}
+
+.story .section-title{
+  color:var(--crema);
+}
+
+.story .section-desc{
+  color:#8F8A83;
 }
 
 .story-grid{
@@ -828,24 +1177,57 @@
 
   grid-template-columns:1fr;
 
-  gap:14px;
+  gap:10px;
 }
 
 @media (min-width:720px){
   .story-grid{
     grid-template-columns:repeat(3,1fr);
+    gap:14px;
   }
 }
 
 .story-item{
-  background:#1A1A1A;
+  position:relative;
+
+  background:#191919;
 
   border-radius:10px;
 
   padding:24px;
 
-  border:
-    1px solid rgba(243,235,221,.08);
+  border:1px solid rgba(243,235,221,.08);
+
+  overflow:hidden;
+
+  transition:
+    transform .35s var(--ease),
+    border-color .3s,
+    background .3s;
+}
+
+.story-item::before{
+  content:"";
+
+  position:absolute;
+
+  left:0;
+  top:0;
+  bottom:0;
+
+  width:3px;
+
+  background:var(--rojo-doha);
+
+  opacity:.8;
+}
+
+.story-item:hover{
+  transform:translateY(-4px);
+
+  background:#1D1D1D;
+
+  border-color:rgba(243,235,221,.18);
 }
 
 .story-item .num{
@@ -853,13 +1235,13 @@
 
   font-weight:900;
 
-  font-size:13px;
+  font-size:11px;
 
-  color:#A16D58;
+  color:#A69C8E;
 
   display:block;
 
-  margin-bottom:9px;
+  margin-bottom:12px;
 
   letter-spacing:1.5px;
 }
@@ -867,33 +1249,127 @@
 .story-item h4{
   font-family:var(--font-display);
 
-  font-weight:800;
+  font-weight:900;
 
-  font-size:18px;
+  font-size:19px;
 
-  margin:0 0 8px;
+  margin:0 0 9px;
 
   color:var(--crema);
 }
 
 .story-item p{
-  font-size:13.5px;
+  font-size:13px;
 
   line-height:1.6;
 
-  color:#9F9991;
+  color:#918C84;
 
   margin:0;
 }
-  /* ============ FOOTER ============ */
-  .footer{background:var(--negro);color:var(--crema);padding:56px 0 30px;text-align:center;}
-  .footer-logo{height:52px;margin:0 auto 18px;}
-  .footer h3{font-family:var(--font-accent);font-weight:600;font-size:26px;color:var(--beige);margin:0 0 26px;}
-  .footer-cta{display:inline-flex;align-items:center;gap:10px;background:var(--marron);color:var(--crema);padding:16px 30px;border-radius:100px;font-weight:700;font-size:16px;box-shadow:0 14px 30px -10px rgba(139,62,31,.6);margin-bottom:34px;transition:transform .25s var(--ease);}
-  .footer-cta:hover{transform:translateY(-2px);}
-  .footer-cta svg{width:20px;height:20px;}
-  .footer-meta{font-size:12.5px;color:rgba(242,232,211,0.55);line-height:1.8;}
-  .footer-meta strong{color:rgba(242,232,211,0.85);}
+/* ============ FOOTER — DOHA PREMIUM ============ */
+
+.footer{
+  background:#090909;
+
+  color:var(--crema);
+
+  padding:70px 0 34px;
+
+  text-align:center;
+
+  border-top:1px solid rgba(243,235,221,.08);
+}
+
+.footer-logo{
+  height:56px;
+
+  margin:0 auto 20px;
+
+  filter:
+    drop-shadow(0 8px 20px rgba(0,0,0,.5));
+}
+
+.footer h3{
+  font-family:var(--font-accent);
+
+  font-weight:600;
+
+  font-size:27px;
+
+  color:#B9AA95;
+
+  margin:0 0 28px;
+}
+
+.footer-cta{
+  display:inline-flex;
+
+  align-items:center;
+  justify-content:center;
+
+  gap:10px;
+
+  background:var(--crema);
+
+  color:#090909;
+
+  padding:15px 28px;
+
+  border-radius:6px;
+
+  font-weight:900;
+
+  font-size:12px;
+
+  letter-spacing:.6px;
+
+  text-transform:uppercase;
+
+  box-shadow:
+    0 12px 30px rgba(0,0,0,.45);
+
+  margin-bottom:38px;
+
+  transition:
+    transform .25s var(--ease),
+    background .2s,
+    box-shadow .2s;
+}
+
+.footer-cta:hover{
+  background:#fff;
+
+  transform:translateY(-3px);
+
+  box-shadow:
+    0 16px 34px rgba(0,0,0,.55);
+}
+
+.footer-cta:active{
+  transform:scale(.96);
+}
+
+.footer-cta svg{
+  width:19px;
+  height:19px;
+}
+
+.footer-meta{
+  font-size:11.5px;
+
+  color:rgba(243,235,221,.42);
+
+  line-height:1.9;
+
+  padding-top:22px;
+
+  border-top:1px solid rgba(243,235,221,.07);
+}
+
+.footer-meta strong{
+  color:rgba(243,235,221,.78);
+}
 
 /* ============ STICKY ORDER BAR — DOHA PREMIUM ============ */
 
