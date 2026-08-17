@@ -85,29 +85,116 @@
     display:flex;align-items:center;justify-content:space-between;gap:12px;
   }
   @media (min-width:900px){.topbar-inner{max-width:1080px;}}
-  .topbar-logo{display:flex;align-items:center;gap:9px;}
-  .topbar-logo svg{height:30px;width:auto;}
+  .topbar-logo{
+  display:flex;
+  align-items:center;
+  gap:10px;
+
+  transition:transform .25s var(--ease);
+}
+
+.topbar-logo:active{
+  transform:scale(.97);
+}
+
+.topbar-logo svg{
+  height:32px;
+  width:auto;
+
+  filter:
+    brightness(1.08)
+    drop-shadow(0 5px 12px rgba(0,0,0,.55));
+}
   .topbar-cart-btn{
-    position:relative;
-    display:flex;align-items:center;gap:8px;
-    background:var(--verde-doha);color:var(--crema);
-    padding:9px 14px 9px 12px;border-radius:100px;
-    font-weight:700;font-size:13px;
-    box-shadow:0 6px 16px -6px rgba(15,61,46,.5);
-    transition:transform .25s var(--ease);
-  }
-  .topbar-cart-btn:active{transform:scale(.96);}
-  .topbar-cart-btn svg{width:18px;height:18px;flex:none;}
+  position:relative;
+
+  display:flex;
+  align-items:center;
+  justify-content:center;
+
+  width:44px;
+  height:40px;
+
+  padding:0;
+
+  background:#1B1B1B;
+
+  color:var(--crema);
+
+  border:1px solid rgba(243,235,221,.12);
+
+  border-radius:6px;
+
+  box-shadow:
+    0 7px 20px rgba(0,0,0,.35);
+
+  transition:
+    transform .2s var(--ease),
+    background .2s,
+    border-color .2s;
+}
+
+.topbar-cart-btn:hover{
+  background:#252525;
+
+  border-color:rgba(243,235,221,.25);
+}
+
+.topbar-cart-btn:active{
+  transform:scale(.92);
+}
+
+.topbar-cart-btn svg{
+  width:19px;
+  height:19px;
+}
   .cart-count{
-    position:absolute;top:-6px;right:-6px;
-    background:var(--marron);color:var(--crema);
-    font-size:11px;font-weight:800;
-    min-width:19px;height:19px;border-radius:50%;
-    display:flex;align-items:center;justify-content:center;
-    padding:0 4px;
-    border:2px solid var(--crema);
+  position:absolute;
+
+  top:-7px;
+  right:-7px;
+
+  background:var(--rojo-doha);
+
+  color:#fff;
+
+  font-size:10px;
+  font-weight:900;
+
+  min-width:19px;
+  height:19px;
+
+  border-radius:50%;
+
+  display:flex;
+  align-items:center;
+  justify-content:center;
+
+  padding:0 4px;
+
+  border:2px solid #090909;
+
+  box-shadow:
+    0 4px 10px rgba(0,0,0,.4);
+
+  animation:cartPop .25s var(--ease);
+}
+
+@keyframes cartPop{
+  0%{
+    transform:scale(.5);
+    opacity:.4;
   }
 
+  70%{
+    transform:scale(1.15);
+  }
+
+  100%{
+    transform:scale(1);
+    opacity:1;
+  }
+}
 /* ============ CATEGORY NAV — DOHA PREMIUM ============ */
 
 .quicknav{
