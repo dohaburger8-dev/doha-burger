@@ -108,21 +108,23 @@
     border:2px solid var(--crema);
   }
 
-  /* ============ CATEGORY NAV ============ */
+/* ============ CATEGORY NAV — DOHA PREMIUM ============ */
 
 .quicknav{
   position:sticky;
-  top:54px;
+  top:0;
   z-index:50;
 
-  background:#111;
+  background:rgba(9,9,9,.96);
+  backdrop-filter:blur(18px);
 
-  border-bottom:1px solid rgba(243,235,221,.07);
+  border-bottom:1px solid rgba(243,235,221,.09);
 
   overflow-x:auto;
-
   -ms-overflow-style:none;
   scrollbar-width:none;
+
+  box-shadow:0 8px 25px rgba(0,0,0,.25);
 }
 
 .quicknav::-webkit-scrollbar{
@@ -131,19 +133,17 @@
 
 .quicknav-inner{
   display:flex;
-
+  align-items:center;
   gap:8px;
 
-  padding:12px 20px;
+  padding:10px 20px;
 
-  max-width:560px;
-
+  max-width:1080px;
   margin:0 auto;
 }
 
 @media (min-width:900px){
   .quicknav-inner{
-    max-width:1080px;
     justify-content:center;
   }
 }
@@ -151,42 +151,40 @@
 .chip{
   flex:none;
 
-  padding:9px 17px;
+  padding:10px 17px;
 
-  border-radius:5px;
+  border-radius:4px;
 
-  background:#1C1C1C;
+  background:#181818;
+  color:#AFA99F;
 
-  color:#AAA49B;
+  border:1px solid rgba(243,235,221,.10);
 
   font-size:11px;
-
-  font-weight:800;
-
-  letter-spacing:.6px;
-
+  font-weight:900;
+  letter-spacing:.7px;
   text-transform:uppercase;
 
-  border:1px solid rgba(243,235,221,.08);
-
   transition:
-    background .25s,
-    color .25s,
-    border-color .25s,
-    transform .2s;
+    background .25s var(--ease),
+    color .25s var(--ease),
+    border-color .25s var(--ease),
+    transform .2s var(--ease);
 }
 
-.chip.active,
 .chip:hover{
-  background:var(--crema);
-
-  color:#111;
-
-  border-color:var(--crema);
+  color:var(--crema);
+  border-color:rgba(243,235,221,.25);
+  transform:translateY(-1px);
 }
 
-.chip:active{
-  transform:scale(.96);
+.chip.active{
+  background:var(--crema);
+  color:#090909;
+  border-color:var(--crema);
+
+  box-shadow:
+    0 5px 18px rgba(0,0,0,.35);
 }
   /* ============ PREMIUM HERO ============ */
 
@@ -404,53 +402,39 @@
   /* ============ SECTION HEADERS ============ */
 
 .section{
-  padding:64px 0 12px;
+  background:#F1E9DC;
+  padding:72px 0 30px;
 }
 
 .section-head{
   text-align:center;
-  margin-bottom:34px;
+  margin-bottom:38px;
 }
 
 .eyebrow{
   font-family:var(--font-accent);
-
-  font-size:21px;
-
-  color:#A16D58;
-
+  font-size:23px;
+  color:var(--rojo-doha);
   font-weight:600;
-
   display:block;
-
-  margin-bottom:0;
+  margin-bottom:3px;
 }
 
 .section-title{
   font-family:var(--font-display);
-
   font-weight:900;
-
-  font-size:clamp(29px,6vw,42px);
-
-  letter-spacing:-.5px;
-
-  color:#151515;
-
+  font-size:clamp(28px,6vw,40px);
+  letter-spacing:.3px;
+  color:#111;
   text-transform:uppercase;
-
   margin:0;
 }
 
 .section-desc{
   font-size:14px;
-
-  color:#756F67;
-
-  max-width:420px;
-
-  margin:10px auto 0;
-
+  color:#68635D;
+  max-width:440px;
+  margin:12px auto 0;
   line-height:1.6;
 }
  /* ============ BURGERS PREMIUM ============ */
@@ -469,21 +453,19 @@
 }
 
 .card{
-  background:#191919;
-
-  border-radius:var(--radius-lg);
-
+  background:#1A1A1A;
+  border-radius:16px;
   overflow:hidden;
 
   box-shadow:
-    0 18px 45px -18px rgba(0,0,0,.8);
+    0 18px 45px -18px rgba(0,0,0,.75);
 
-  border:1px solid rgba(255,255,255,.07);
+  border:1px solid rgba(255,255,255,.06);
 
   transition:
-    transform .35s var(--ease),
-    box-shadow .35s var(--ease),
-    border-color .35s;
+    transform .4s var(--ease),
+    box-shadow .4s var(--ease),
+    border-color .3s;
 }
 
 .card:hover{
@@ -492,17 +474,7 @@
   box-shadow:
     0 28px 55px -20px rgba(0,0,0,.9);
 
-  border-color:rgba(243,235,221,.18);
-}
-
-.card-media{
-  position:relative;
-
-  overflow:hidden;
-
-  aspect-ratio:4/3.1;
-
-  background:#050505;
+  border-color:rgba(243,235,221,.16);
 }
 
 .card-media::after{
@@ -601,49 +573,39 @@
 
 .card-name{
   font-family:var(--font-display);
-
   font-weight:900;
-
   font-size:24px;
 
   color:var(--crema);
 
   margin:0 0 6px;
-
   letter-spacing:.1px;
 }
 
 .card-tagline{
-  font-size:13px;
-
-  color:#C9A78D;
-
+  font-size:14px;
+  color:#C9BCA9;
   font-weight:600;
 
   margin:0 0 14px;
-
   line-height:1.45;
 }
 
 .card-ingredients{
   font-size:13px;
-
-  color:#AFA9A0;
+  color:#9D9890;
 
   line-height:1.6;
 
   margin:0 0 18px;
-
   padding-top:14px;
 
-  border-top:
-    1px solid rgba(255,255,255,.08);
+  border-top:1px solid rgba(243,235,221,.10);
 }
 
 .card-ingredients b{
   color:var(--crema);
-
-  font-weight:700;
+  font-weight:800;
 }
 
   /* ============ COMBO OPTION ============ */
