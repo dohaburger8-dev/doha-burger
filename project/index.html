@@ -10,8 +10,8 @@
 <link href="https://fonts.googleapis.com/css2?family=Bitter:wght@500;600;700;800;900&family=Inter:wght@400;500;600;700;800&family=Caveat:wght@500;600;700&display=swap" rel="stylesheet">
 <style>
   :root{
-  --verde-doha:#17231D;
-  --verde-claro:#30443A;
+  --verde-doha:#18352B;
+  --verde-claro:#315246;
 
   --crema:#F3EBDD;
   --beige:#D8C8AE;
@@ -74,12 +74,12 @@
   /* ============ TOP BAR ============ */
   .topbar{
     position:fixed;top:0;left:0;right:0;z-index:60;
-    background:rgba(242,232,211,0.92);
+    background:rgba(9,9,9,.94);
     backdrop-filter:blur(10px);
-    border-bottom:1px solid rgba(15,61,46,0.08);
+    border-bottom:1px solid rgba(243,235,221,.08);
     transition:box-shadow .3s;
   }
-  .topbar.scrolled{box-shadow:0 8px 22px -14px rgba(15,61,46,0.35);}
+  .topbar.scrolled{background:rgba(9,9,9,.98);box-shadow:0 10px 35px rgba(0,0,0,.55);}
   .topbar-inner{
     max-width:560px;margin:0 auto;padding:12px 20px;
     display:flex;align-items:center;justify-content:space-between;gap:12px;
@@ -234,44 +234,20 @@
     justify-content:center;
   }
 }
+@keyframes cartPop{
+  0%{
+    transform:scale(.5);
+    opacity:.4;
+  }
 
-.chip{
-  flex:none;
+  70%{
+    transform:scale(1.15);
+  }
 
-  padding:10px 17px;
-
-  border-radius:4px;
-
-  background:#181818;
-  color:#AFA99F;
-
-  border:1px solid rgba(243,235,221,.10);
-
-  font-size:11px;
-  font-weight:900;
-  letter-spacing:.7px;
-  text-transform:uppercase;
-
-  transition:
-    background .25s var(--ease),
-    color .25s var(--ease),
-    border-color .25s var(--ease),
-    transform .2s var(--ease);
-}
-
-.chip:hover{
-  color:var(--crema);
-  border-color:rgba(243,235,221,.25);
-  transform:translateY(-1px);
-}
-
-.chip.active{
-  background:var(--crema);
-  color:#090909;
-  border-color:var(--crema);
-
-  box-shadow:
-    0 5px 18px rgba(0,0,0,.35);
+  100%{
+    transform:scale(1);
+    opacity:1;
+  }
 }
   /* ============ PREMIUM HERO ============ */
 
@@ -285,7 +261,7 @@
     ),
     #090909;
 
-  padding:118px 20px 0;
+  padding:154px 20px 0;
   overflow:hidden;
 
   display:flex;
@@ -489,39 +465,40 @@
   /* ============ SECTION HEADERS ============ */
 
 .section{
-  background:#F1E9DC;
-  padding:72px 0 30px;
+  padding:68px 0 18px;
 }
 
 .section-head{
   text-align:center;
-  margin-bottom:38px;
-}
 
-.eyebrow{
-  font-family:var(--font-accent);
-  font-size:23px;
-  color:var(--rojo-doha);
-  font-weight:600;
-  display:block;
-  margin-bottom:3px;
+  margin-bottom:34px;
 }
 
 .section-title{
   font-family:var(--font-display);
+
   font-weight:900;
+
   font-size:clamp(28px,6vw,40px);
+
   letter-spacing:.3px;
-  color:#111;
+
+  color:#171717;
+
   text-transform:uppercase;
+
   margin:0;
 }
 
 .section-desc{
   font-size:14px;
-  color:#68635D;
+
+  color:#777169;
+
   max-width:440px;
-  margin:12px auto 0;
+
+  margin:11px auto 0;
+
   line-height:1.6;
 }
  /* ============ BURGERS PREMIUM ============ */
@@ -692,119 +669,6 @@
 .card-ingredients b{
   color:var(--crema);
   font-weight:800;
-}
-
-/* ============ COMBOS — DOHA PREMIUM ============ */
-
-.combo-box{
-  background:#181818;
-
-  border:1px solid rgba(243,235,221,.10);
-
-  border-radius:10px;
-
-  margin-bottom:16px;
-
-  overflow:hidden;
-
-  transition:
-    border-color .3s var(--ease),
-    box-shadow .3s var(--ease),
-    background .3s;
-}
-
-.combo-box.active{
-  background:#1D1D1D;
-
-  border-color:rgba(243,235,221,.28);
-
-  box-shadow:
-    0 12px 30px rgba(0,0,0,.38);
-}
-
-.combo-header{
-  display:flex;
-  align-items:center;
-  gap:12px;
-
-  padding:14px;
-}
-
-.combo-icon{
-  width:42px;
-  height:42px;
-
-  border-radius:7px;
-
-  flex:none;
-
-  background:#252525;
-
-  display:flex;
-  align-items:center;
-  justify-content:center;
-
-  font-size:20px;
-
-  border:1px solid rgba(243,235,221,.08);
-
-  transition:
-    background .3s,
-    transform .3s var(--ease);
-}
-
-.combo-box.active .combo-icon{
-  background:var(--crema);
-
-  transform:rotate(-5deg) scale(1.05);
-}
-
-.combo-header-text{
-  flex:1;
-  min-width:0;
-}
-
-.combo-header-text .t{
-  font-family:var(--font-display);
-
-  font-weight:900;
-
-  font-size:15px;
-
-  color:var(--crema);
-
-  display:flex;
-  align-items:baseline;
-
-  gap:7px;
-
-  flex-wrap:wrap;
-}
-
-.combo-header-text .p{
-  font-family:var(--font-display);
-
-  font-weight:900;
-
-  font-size:12px;
-
-  color:#111;
-
-  background:var(--crema);
-
-  padding:3px 7px;
-
-  border-radius:4px;
-}
-
-.combo-header-text .d{
-  font-size:11.5px;
-
-  color:#9F9990;
-
-  line-height:1.45;
-
-  margin-top:4px;
 }
 
 /* ============ COMBO STEPPER ============ */
@@ -1845,55 +1709,101 @@
     margin-top:10px;text-align:center;
   }
 
-  /* checkout form */
-  .field{margin-bottom:16px;}
-  .field label{display:block;font-size:13px;font-weight:700;color:var(--verde-doha);margin-bottom:7px;}
-  .field .req{color:var(--marron);}
-  .field input[type="text"], .field textarea{
-    width:100%;padding:13px 14px;border-radius:12px;
-    border:1.5px solid rgba(15,61,46,.18);background:#fff8ec;
-    font-size:14.5px;color:var(--verde-doha);
-    transition:border-color .2s;
+  /* ============ CHECKOUT — DOHA PREMIUM ============ */
+  .empty-cart{text-align:center;padding:44px 10px;color:#9D9890;line-height:1.7;}
+  .empty-cart .icon{font-size:40px;margin-bottom:10px;}
+
+  .totals-row{display:flex;justify-content:space-between;align-items:center;padding:6px 0;font-size:14px;color:#9D9890;}
+  .totals-row.grand{padding-top:12px;margin-top:6px;border-top:1px dashed rgba(243,235,221,.16);}
+  .totals-row.grand .amount{font-family:var(--font-display);font-weight:900;font-size:24px;color:var(--crema);}
+  .totals-row.grand .label{font-family:var(--font-display);font-weight:900;font-size:15px;text-transform:uppercase;color:var(--crema);}
+
+  .btn-primary{
+    width:100%;padding:15px 18px;border-radius:6px;
+    background:var(--crema);color:#090909;
+    font-weight:900;font-size:13px;letter-spacing:.3px;text-transform:uppercase;
+    display:flex;align-items:center;justify-content:center;gap:9px;
+    box-shadow:0 10px 24px rgba(0,0,0,.35);
+    transition:transform .2s var(--ease),background .2s;
   }
-  .field input:focus, .field textarea:focus{outline:none;border-color:var(--verde-doha);}
-  .field textarea{resize:vertical;min-height:70px;}
-  .field.invalid input, .field.invalid textarea{border-color:var(--marron);}
-  .field-error{font-size:12px;color:var(--marron);margin-top:5px;display:none;font-weight:600;}
+  .btn-primary:hover{background:#fff;}
+  .btn-primary:active{transform:scale(.97);}
+  .btn-primary svg{width:19px;height:19px;flex:none;}
+  .btn-primary.wa{background:#25D366;color:#07130B;}
+  .btn-primary.wa:hover{background:#48E681;}
+  .btn-primary:disabled{opacity:.4;pointer-events:none;}
+
+  .btn-ghost{
+    width:100%;padding:12px 18px;border-radius:6px;
+    background:transparent;color:#BEB4A5;
+    font-weight:700;font-size:13px;
+    border:1px solid rgba(243,235,221,.14);
+    margin-top:10px;text-align:center;
+  }
+
+  .field{margin-bottom:16px;}
+  .field label{display:block;font-size:12px;font-weight:800;color:var(--crema);margin-bottom:7px;text-transform:uppercase;letter-spacing:.4px;}
+  .field .req{color:#C56A55;}
+  .field input[type="text"], .field textarea{
+    width:100%;padding:13px 14px;border-radius:7px;
+    border:1px solid rgba(243,235,221,.14);background:#1A1A1A;
+    font-size:14px;color:var(--crema);
+    transition:border-color .2s,background .2s;
+  }
+  .field input::placeholder,.field textarea::placeholder{color:#706C66;}
+  .field input:focus,.field textarea:focus{outline:none;border-color:rgba(243,235,221,.45);background:#202020;}
+  .field textarea{resize:vertical;min-height:76px;}
+  .field.invalid input,.field.invalid textarea{border-color:#B84C3C;}
+  .field-error{font-size:11.5px;color:#D26A58;margin-top:5px;display:none;font-weight:700;}
   .field.invalid .field-error{display:block;}
 
   .pay-options{display:flex;gap:10px;}
   .pay-opt{
-    flex:1;padding:14px 10px;border-radius:12px;
-    border:1.5px solid rgba(15,61,46,.18);background:#fff8ec;
-    text-align:center;font-weight:700;font-size:14.5px;color:var(--verde-doha);
+    flex:1;padding:13px 10px;border-radius:7px;
+    border:1px solid rgba(243,235,221,.14);background:#1A1A1A;
+    text-align:center;font-weight:800;font-size:13px;color:#BEB4A5;
     display:flex;flex-direction:column;align-items:center;gap:6px;
-    transition:border-color .2s, background .2s;
+    transition:border-color .2s,background .2s,transform .2s;
+    cursor:pointer;
   }
   .pay-opt .ic{font-size:20px;}
-  .pay-opt.selected{border-color:var(--verde-doha);background:var(--verde-doha);color:var(--crema);}
+  .pay-opt.selected{border-color:var(--crema);background:var(--crema);color:#090909;}
+  .pay-opt:active{transform:scale(.97);}
 
   .checkout-summary{
-    background:var(--beige);border-radius:14px;padding:14px 16px;margin-bottom:18px;font-size:13.5px;color:var(--verde-doha);
+    background:#1A1A1A;border:1px solid rgba(243,235,221,.10);
+    border-radius:9px;padding:14px 16px;margin-bottom:18px;
+    font-size:13px;color:#BEB4A5;line-height:1.65;
   }
-  .checkout-summary strong{display:block;font-family:var(--font-display);font-size:15px;margin-bottom:6px;}
+  .checkout-summary strong{display:block;font-family:var(--font-display);font-size:15px;color:var(--crema);margin-bottom:6px;}
+
   .location-note{
-    display:flex;gap:12px;background:linear-gradient(135deg, rgba(139,62,31,0.08), rgba(46,95,71,0.08));
-    border:1.5px solid rgba(139,62,31,0.25);
-    border-radius:14px;padding:16px 16px;font-size:13px;color:var(--verde-doha);line-height:1.55;margin-bottom:18px;
-    align-items:flex-start;
+    display:flex;gap:12px;background:#181818;
+    border:1px solid rgba(243,235,221,.12);
+    border-radius:9px;padding:15px;font-size:12.5px;color:#9D9890;
+    line-height:1.6;margin-bottom:18px;align-items:flex-start;
   }
   .location-note .ic{
-    font-size:24px;flex:none;line-height:1;
-    background:var(--marron);color:var(--crema);
-    width:40px;height:40px;border-radius:50%;
-    display:flex;align-items:center;justify-content:center;
+    font-size:20px;flex:none;line-height:1;background:var(--crema);color:#090909;
+    width:38px;height:38px;border-radius:7px;display:flex;align-items:center;justify-content:center;
   }
-  .location-note strong{color:var(--marron);}
+  .location-note strong{color:var(--crema);}
   .location-note .step{
-    display:inline-block;background:var(--marron);color:var(--crema);
-    font-size:11px;font-weight:800;width:18px;height:18px;border-radius:50%;
+    display:inline-block;background:var(--crema);color:#090909;
+    font-size:10px;font-weight:900;width:18px;height:18px;border-radius:50%;
     text-align:center;line-height:18px;margin-right:5px;flex:none;
   }
+
+  .toast{
+    position:fixed;left:50%;bottom:96px;transform:translate(-50%,20px);
+    background:#F3EBDD;color:#090909;
+    padding:11px 20px;border-radius:6px;font-size:12.5px;font-weight:800;
+    box-shadow:0 10px 24px rgba(0,0,0,.4);
+    opacity:0;pointer-events:none;transition:opacity .3s,transform .3s;
+    z-index:95;display:flex;align-items:center;gap:8px;
+  }
+  .toast.show{opacity:1;transform:translate(-50%,0);}
+
 
   .toast{
     position:fixed;left:50%;bottom:96px;transform:translate(-50%,20px);
@@ -1904,12 +1814,268 @@
     z-index:95;display:flex;align-items:center;gap:8px;
   }
   .toast.show{opacity:1;transform:translate(-50%,0);}
+
+  /* ============ MISSING PRODUCT/SODA BASES — FINAL ============ */
+  .card-media{
+    position:relative;
+    width:100%;
+    height:270px;
+    overflow:hidden;
+    background:#222;
+  }
+  .card-media img{
+    height:100%;
+    width:100%;
+    object-fit:cover;
+  }
+  .soda-options{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px;}
+  .soda-option{
+    flex:1;
+    min-width:82px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    gap:6px;
+    padding:8px 7px;
+    border-radius:7px;
+    border:1px solid rgba(243,235,221,.10);
+    background:#202020;
+    color:#BEB4A5;
+    font-size:10.5px;
+    font-weight:800;
+    transition:all .2s var(--ease);
+  }
+  .soda-option:hover{border-color:rgba(243,235,221,.25);color:var(--crema);}
+  .soda-option.selected{
+    background:var(--crema);
+    color:#090909;
+    border-color:var(--crema);
+    transform:translateY(-1px);
+  }
+  .soda-circle{
+    width:24px;height:24px;border-radius:50%;
+    display:flex;align-items:center;justify-content:center;
+    font-size:11px;font-weight:900;
+    background:#333;color:#fff;
+  }
+  .soda-circle.pepsi{background:#2455A4;}
+  .soda-circle.coca{background:#B91C1C;}
+  .soda-circle.postobon{background:#D1A928;color:#111;}
+  .combo-hidden{display:none;}
+  .combo-box:not(.combo-hidden){display:block;}
+  @media (max-width:480px){
+    .card-media{height:245px;}
+    .card-body{padding:19px 17px 17px;}
+    .card-name{font-size:22px;}
+  }
+
+
+  /* ============ DOHA BRAND SIGNATURE ============ */
+  .topbar-cart-btn{
+    background:var(--verde-doha);
+    color:var(--crema);
+    border:1px solid rgba(112,154,133,.24);
+    box-shadow:0 8px 24px rgba(0,0,0,.42);
+  }
+  .topbar-cart-btn:hover{background:#21483A;}
+  .quicknav{
+    background:#0C0E0D;
+  }
+  .chip{
+    background:#151817;
+    border-color:rgba(112,154,133,.16);
+    color:#A9B0AA;
+  }
+  .chip.active{
+    background:var(--verde-doha);
+    color:var(--crema);
+    border-color:rgba(112,154,133,.45);
+    box-shadow:0 7px 18px rgba(24,53,43,.35);
+  }
+  .chip:hover{border-color:rgba(112,154,133,.35);color:var(--crema);}
+
+  .card-badge{
+    background:var(--verde-doha);
+    color:var(--crema);
+    border:1px solid rgba(112,154,133,.22);
+  }
+  .card-price-float{
+    background:rgba(9,9,9,.88);
+    color:var(--crema);
+    border:1px solid rgba(112,154,133,.24);
+  }
+
+  .stepper{
+    border-color:rgba(112,154,133,.22);
+    background:#151817;
+  }
+  .stepper button{
+    color:#B7C4BC;
+  }
+  .stepper button:hover{background:var(--verde-doha);color:var(--crema);}
+  .stepper .qty{color:var(--crema);}
+
+  .combo-box{
+    border-color:rgba(112,154,133,.18);
+  }
+  .combo-box.active{
+    border-color:rgba(112,154,133,.45);
+    background:#111714;
+    box-shadow:0 12px 28px rgba(0,0,0,.28);
+  }
+  .combo-icon{
+    background:var(--verde-doha);
+    color:var(--crema);
+  }
+  .combo-box.active .combo-icon{
+    background:#21483A;
+  }
+
+  .soda-option.selected{
+    background:var(--verde-doha);
+    color:var(--crema);
+    border-color:rgba(112,154,133,.55);
+    transform:translateY(-1px);
+  }
+
+  .orderbar{
+    border-top:1px solid rgba(112,154,133,.22);
+  }
+  .orderbar-btn{
+    background:var(--verde-doha);
+    color:var(--crema);
+    border:1px solid rgba(112,154,133,.28);
+  }
+  .orderbar-btn:hover{background:#21483A;}
+
+  .section-head .eyebrow{
+    color:#739685;
+  }
+  .section-title:after{
+    background:var(--verde-doha);
+  }
+
+  .footer-cta{
+    background:var(--verde-doha);
+    box-shadow:0 14px 30px -10px rgba(24,53,43,.7);
+    border:1px solid rgba(112,154,133,.25);
+  }
+  .footer-cta:hover{background:#21483A;}
+
+  .btn-primary{
+    border:1px solid rgba(112,154,133,.28);
+  }
+  .btn-primary:hover{
+    background:#EAF2EC;
+  }
+
+  .pay-opt.selected{
+    border-color:#739685;
+    box-shadow:0 0 0 1px rgba(115,150,133,.18);
+  }
+
+  /* Small brand accents */
+  .hero-tagline{color:var(--crema);}
+  .hero-sub{color:#A6B3AB;}
+  .story .num{color:#739685;}
+
+
+  /* ============ MENU NAV — CORRAL-INSPIRED, DOHA OWN ============ */
+  .quicknav-inner{
+    gap:7px;
+    padding:10px 16px;
+    overflow-x:auto;
+  }
+  .chip{
+    padding:9px 15px;
+    border-radius:5px;
+    font-size:10px;
+    letter-spacing:.7px;
+  }
+  .chip.active{
+    box-shadow:inset 0 -2px 0 #89A997, 0 6px 16px rgba(24,53,43,.25);
+  }
+
+  /* Ingredients: easier to read without becoming visually heavy */
+  .card-ingredients{
+    font-size:13.5px !important;
+    line-height:1.65 !important;
+    color:#6E6A63 !important;
+    letter-spacing:.05px;
+  }
+  .card-ingredients b{
+    color:#2B302D !important;
+    font-weight:900;
+  }
+
+  /* Product cards: cleaner premium menu hierarchy */
+  .card{
+    border-radius:14px !important;
+    border:1px solid rgba(24,53,43,.10) !important;
+    box-shadow:0 16px 36px rgba(0,0,0,.08) !important;
+    overflow:hidden;
+  }
+  .card-name{
+    letter-spacing:.1px;
+  }
+
+  /* More tactile controls */
+  .stepper{
+    border-radius:6px !important;
+  }
+  .stepper button{
+    min-width:34px;
+    min-height:34px;
+  }
+
+  /* Category strip feels like a real restaurant menu */
+  @media (max-width:899px){
+    .quicknav{
+      top:54px;
+    }
+    .quicknav-inner{
+      justify-content:flex-start;
+    }
+  }
+
 </style>
 </head>
-<body> 
+<body id="inicio">
+
+  <!-- ============ TOPBAR ============ -->
+  <header class="topbar" id="topbar">
+    <div class="topbar-inner">
+      <a class="topbar-logo" href="#inicio" aria-label="DOHA Burger">
+        <svg viewBox="0 0 300 80" xmlns="http://www.w3.org/2000/svg">
+          <text x="150" y="48" text-anchor="middle" font-family="Bitter, serif" font-weight="900" font-size="52" fill="#F2E8D3" letter-spacing="2">DOHA</text>
+          <text x="150" y="72" text-anchor="middle" font-family="Caveat, cursive" font-weight="600" font-size="22" fill="#E8CFA8">burger</text>
+        </svg>
+      </a>
+      <button class="topbar-cart-btn" id="openCartTop" type="button" aria-label="Abrir pedido">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <circle cx="9" cy="21" r="1.5" fill="currentColor" stroke="none"/>
+          <circle cx="18" cy="21" r="1.5" fill="currentColor" stroke="none"/>
+          <path d="M2 3h2l2.6 12.6a2 2 0 002 1.6h8.8a2 2 0 002-1.6L21 7H6"/>
+        </svg>
+        <span class="cart-count" id="topCartCount" style="display:none">0</span>
+      </button>
+    </div>
+  </header>
+
+  <!-- ============ CATEGORY NAV ============ -->
+  <nav class="quicknav" aria-label="Categorías">
+    <div class="quicknav-inner">
+      <a class="chip active" href="#inicio">Inicio</a>
+      <a class="chip" href="#hamburguesas">Hamburguesas</a>
+      <a class="chip" href="#hamburguesas">Combos</a>
+      <a class="chip" href="#historia">Nuestra esencia</a>
+      <a class="chip" href="#contacto">Contacto</a>
+    </div>
+  </nav>
+ 
 
   <!-- ============ HERO ============ -->
-  <section class="hero">
+  <section class="hero" id="inicio">
     <div class="hero-glow"></div>
     <svg class="hero-logo" viewBox="0 0 300 80" xmlns="http://www.w3.org/2000/svg" aria-label="DOHA Burger — logo">
       <text x="150" y="48" text-anchor="middle" font-family="Bitter, serif" font-weight="900" font-size="52" fill="#F2E8D3" letter-spacing="2">DOHA</text>
@@ -1962,9 +2128,9 @@
       </div>
       <div class="story-grid">
         <div class="story-item reveal">
-          <span class="num">VERDE DOHA</span>
-          <h4>Frescura y confianza</h4>
-          <p>Nuestro color principal. Habla de ingredientes frescos y de un sabor natural, sin trucos.</p>
+          <span class="num">NEGRO DOHA</span>
+          <h4>Elegancia y carácter</h4>
+          <p>Nuestro color dominante. Representa el carácter, la fuerza y la personalidad de Doha.</p>
         </div>
         <div class="story-item reveal">
           <span class="num">BEIGE ARENA</span>
@@ -2352,6 +2518,17 @@ if(comboBox){
     if(document.getElementById('cartOverlay').classList.contains('show')) renderCart();
   });
 
+
+  /* ===================== TOPBAR INTERACTION ===================== */
+  const topbar = document.getElementById('topbar');
+  document.getElementById('openCartTop').addEventListener('click', ()=>{
+    renderCart();
+    openSheet(cartOverlay);
+  });
+  window.addEventListener('scroll', ()=>{
+    topbar.classList.toggle('scrolled', window.scrollY > 8);
+  }, {passive:true});
+
   /* ===================== ORDER BAR ===================== */
   const orderbar = document.getElementById('orderbar');
   const orderbarCount = document.getElementById('orderbarCount');
@@ -2525,7 +2702,7 @@ if(comboBox){
 
   /* ===================== ACTIVE CHIP ON SCROLL ===================== */
   const chips = document.querySelectorAll('.chip');
-  const sectionIds = ['hamburguesas','historia','contacto'];
+  const sectionIds = ['inicio','hamburguesas','contacto'];
   const sections = sectionIds.map(id=>document.getElementById(id)).filter(Boolean);
   const chipObserver = new IntersectionObserver((entries)=>{
     entries.forEach(entry=>{
