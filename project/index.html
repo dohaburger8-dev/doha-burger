@@ -1541,13 +1541,15 @@ if(comboBox){
   }
 
   function updateOrderbar(){
-    const {items, total} = cartTotals();
-    orderbar.classList.toggle('show', items > 0);
-    orderbarCount.textContent = `${items} ${items===1?'producto':'productos'}`;
-    orderbarTotal.textContent = fmt(total);
-    if(items>0){ topCartCount.style.display='flex'; topCartCount.textContent = items; }
-    else { topCartCount.style.display='none'; }
-  }
+  const {items, total} = cartTotals();
+
+  orderbar.classList.toggle('show', items > 0);
+
+  orderbarCount.textContent =
+    `${items} ${items === 1 ? 'producto' : 'productos'}`;
+
+  orderbarTotal.textContent = fmt(total);
+}
 
   /* ===================== CART SHEET ===================== */
   const cartOverlay = document.getElementById('cartOverlay');
@@ -1692,12 +1694,6 @@ if(comboBox){
     clearTimeout(toastTimer);
     toastTimer = setTimeout(()=> toast.classList.remove('show'), 1600);
   }
-
-  /* ===================== TOP BAR SCROLL SHADOW ===================== */
-  const topbar = document.getElementById('topbar');
-  window.addEventListener('scroll', ()=>{
-    topbar.classList.toggle('scrolled', window.scrollY > 8);
-  }, {passive:true});
 
   /* ===================== ACTIVE CHIP ON SCROLL ===================== */
   const chips = document.querySelectorAll('.chip');
