@@ -2819,6 +2819,346 @@
     }
   }
 
+
+  /* =========================================================
+     DOHA V5 — MOBILE FIRST / MÁS AIRE / PRODUCTO SIN MARCO
+     ========================================================= */
+
+  /* El interior de las tarjetas pasa a un carbón más claro,
+     para que el contenido respire sin perder la elegancia. */
+  .card{
+    background:
+      radial-gradient(circle at 50% 0%,rgba(247,238,215,.065),transparent 38%),
+      linear-gradient(145deg,#1B211E 0%,#151A18 100%);
+    border-color:rgba(53,88,72,.28);
+    box-shadow:
+      0 18px 38px -28px rgba(0,0,0,.9),
+      inset 0 1px 0 rgba(247,238,215,.035);
+  }
+
+  .card::before{
+    background:
+      linear-gradient(
+        135deg,
+        rgba(228,207,163,.045),
+        transparent 32%,
+        transparent 68%,
+        rgba(53,88,72,.035)
+      );
+  }
+
+  /* ================= PRODUCTO: SIN MARCO ================= */
+
+  .card-media{
+    position:relative;
+    height:285px;
+    background:
+      radial-gradient(
+        ellipse at 50% 62%,
+        rgba(247,238,215,.12),
+        transparent 48%
+      ),
+      transparent;
+    overflow:visible;
+  }
+
+  .card-media::before{
+    content:"";
+    position:absolute;
+    z-index:0;
+    left:14%;
+    right:14%;
+    bottom:9%;
+    height:34%;
+    background:radial-gradient(
+      ellipse,
+      rgba(228,207,163,.13),
+      transparent 68%
+    );
+    filter:blur(18px);
+    pointer-events:none;
+  }
+
+  .card-media::after{
+    background:
+      linear-gradient(
+        to bottom,
+        transparent 56%,
+        rgba(11,13,12,.42) 88%,
+        rgba(11,13,12,.72) 100%
+      );
+    z-index:1;
+  }
+
+  .card-media img{
+    position:relative;
+    z-index:2;
+    width:100%;
+    height:100%;
+    object-fit:cover;
+    object-position:center center;
+    transform:scale(1.08);
+    mix-blend-mode:screen;
+    filter:
+      saturate(1.08)
+      contrast(1.06)
+      brightness(1.08)
+      drop-shadow(0 18px 20px rgba(0,0,0,.62));
+    -webkit-mask-image:
+      radial-gradient(
+        ellipse at center,
+        #000 48%,
+        rgba(0,0,0,.96) 62%,
+        transparent 94%
+      );
+    mask-image:
+      radial-gradient(
+        ellipse at center,
+        #000 48%,
+        rgba(0,0,0,.96) 62%,
+        transparent 94%
+      );
+  }
+
+  .card:hover .card-media img{
+    transform:scale(1.11);
+  }
+
+  .card-badge{
+    z-index:4;
+    top:14px;
+    left:14px;
+    background:rgba(228,207,163,.94);
+    color:#15130F;
+  }
+
+  .card-price-float{
+    z-index:4;
+    bottom:14px;
+    right:14px;
+    background:rgba(9,10,9,.84);
+    color:var(--beige);
+    font-size:22px;
+    font-weight:900;
+    padding:9px 13px;
+    border:1px solid rgba(228,207,163,.22);
+    box-shadow:0 8px 18px rgba(0,0,0,.32);
+  }
+
+  /* ================= TEXTO MÁS LEGIBLE ================= */
+
+  .card-body{
+    padding:25px 20px 20px;
+  }
+
+  .card-name{
+    color:#FFF7E7;
+    font-size:27px;
+    margin-bottom:9px;
+  }
+
+  .card-tagline{
+    color:#E5DCCC;
+    font-size:15px;
+    line-height:1.55;
+    margin-bottom:19px;
+  }
+
+  .card-ingredients{
+    color:#F0E7D8;
+    font-size:15.5px;
+    line-height:1.76;
+    font-weight:550;
+    padding-top:17px;
+    margin-bottom:20px;
+    border-top:1px solid rgba(228,207,163,.16);
+  }
+
+  .card-ingredients b{
+    color:var(--beige);
+    font-size:12px;
+    letter-spacing:1.15px;
+  }
+
+  /* ================= CONTROLES ================= */
+
+  .stepper{
+    background:rgba(9,10,9,.40) !important;
+    border-color:rgba(228,207,163,.13) !important;
+  }
+
+  .stepper button{
+    background:var(--verde-doha) !important;
+    color:var(--crema) !important;
+  }
+
+  .stepper button.minus{
+    background:#294D3D !important;
+  }
+
+  /* ================= MOBILE: MÁS AIRE ================= */
+
+  @media (max-width:899px){
+
+    body{
+      padding-bottom:92px;
+    }
+
+    .container{
+      padding-left:17px;
+      padding-right:17px;
+    }
+
+    .hero{
+      min-height:760px;
+      padding:118px 17px 10px;
+    }
+
+    .hero-logo{
+      width:195px;
+      margin-bottom:5px;
+    }
+
+    .hero-tagline{
+      max-width:350px;
+      font-size:clamp(38px,10.5vw,52px);
+      line-height:.96;
+    }
+
+    .hero-sub{
+      max-width:330px;
+      font-size:13.5px;
+      line-height:1.55;
+    }
+
+    .hero-photo-wrap{
+      min-height:485px;
+      margin-top:-4px;
+    }
+
+    .hero-photo-wrap img{
+      width:118%;
+      height:515px;
+      transform:translate(-50%,-47%) scale(1.04);
+    }
+
+    .hero-photo-wrap.is-changing img{
+      transform:translate(-50%,-47%) scale(1.11);
+    }
+
+    .hero-photo-wrap::after{
+      font-size:36vw;
+      color:rgba(247,238,215,.028);
+    }
+
+    .hero-photo-caption{
+      bottom:18px;
+      width:88%;
+    }
+
+    .hero-photo-caption .name{
+      font-size:30px;
+    }
+
+    .section{
+      padding-top:66px;
+      padding-bottom:36px;
+    }
+
+    .section-head{
+      margin-bottom:32px;
+    }
+
+    .section-title{
+      font-size:34px;
+    }
+
+    .section-desc{
+      font-size:14px;
+      line-height:1.7;
+    }
+
+    .grid{
+      gap:22px;
+    }
+
+    .card{
+      border-radius:16px;
+    }
+
+    .card-media{
+      height:300px;
+    }
+
+    .card-media img{
+      transform:scale(1.10);
+    }
+
+    .card:hover .card-media img{
+      transform:scale(1.10);
+    }
+
+    .card-body{
+      padding:25px 20px 21px;
+    }
+
+    .card-name{
+      font-size:28px;
+    }
+
+    .card-tagline{
+      font-size:15px;
+      max-width:95%;
+    }
+
+    .card-ingredients{
+      font-size:15.5px;
+      line-height:1.78;
+    }
+
+    .card-price-float{
+      font-size:22px;
+      bottom:13px;
+      right:13px;
+    }
+
+    .stepper{
+      margin-top:4px;
+    }
+
+    .stepper button{
+      width:42px !important;
+      height:42px !important;
+      min-width:42px !important;
+    }
+  }
+
+  @media (max-width:380px){
+    .hero{
+      min-height:720px;
+    }
+
+    .hero-photo-wrap{
+      min-height:445px;
+    }
+
+    .hero-photo-wrap img{
+      height:470px;
+    }
+
+    .card-media{
+      height:275px;
+    }
+
+    .card-name{
+      font-size:25px;
+    }
+
+    .card-ingredients{
+      font-size:14.5px;
+    }
+  }
+
 </style>
 </head>
 <body id="inicio">
