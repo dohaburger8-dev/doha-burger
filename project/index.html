@@ -963,11 +963,11 @@
 
 .combo-stepper button.minus{
   background:#263D33;
-  
+
   color:var(--crema);
 }
 .combo-stepper button:disabled{
-  opacity:.25;
+  opacity:.25; 
   pointer-events:none;
 }
 
@@ -2038,6 +2038,119 @@
     }
   }
 
+
+
+  /* =========================================================
+     DOHA FINAL VISUAL LAYER — NEGRO + CREMA + VERDE SUTIL
+     ========================================================= */
+  body{background:var(--negro);color:var(--crema);}
+
+  .quicknav{background:rgba(9,9,9,.94);border-bottom:1px solid rgba(112,154,133,.18);}
+  .chip{
+    background:#121514;color:#BEB8AE;border:1px solid rgba(112,154,133,.20);
+    transition:background .25s var(--ease),color .25s,border-color .25s,transform .2s var(--ease);
+  }
+  .chip.active,.chip:hover{background:var(--verde-doha);color:var(--crema);border-color:rgba(115,150,133,.60);}
+  .chip:active{transform:scale(.96);}
+
+  .hero{
+    background:
+      radial-gradient(circle at 50% 45%,rgba(58,90,77,.16),transparent 32%),
+      radial-gradient(circle at 50% 18%,rgba(216,200,174,.08),transparent 34%),#090909;
+  }
+  .hero::before{opacity:.18;}
+  .hero-glow{
+    background:
+      radial-gradient(ellipse at 50% 48%,rgba(243,235,221,.065),transparent 48%),
+      radial-gradient(ellipse at 50% 72%,rgba(58,90,77,.12),transparent 42%);
+  }
+  .hero-photo-wrap{
+    border:1px solid rgba(112,154,133,.34);border-bottom:0;
+    background:radial-gradient(circle at 50% 42%,rgba(243,235,221,.10),transparent 34%),linear-gradient(145deg,#171A18,#090909 70%);
+    box-shadow:0 -30px 90px -35px rgba(58,90,77,.55),0 22px 70px rgba(0,0,0,.70);isolation:isolate;
+  }
+  .hero-photo-wrap img{
+    position:relative;z-index:1;opacity:1;transform:scale(1.025);
+    transition:opacity .34s ease,transform .55s var(--ease),filter .5s ease;
+    filter:saturate(.94) contrast(1.06) brightness(.98);
+  }
+  .hero-photo-wrap.is-changing img{opacity:0;transform:scale(1.055);}
+  .hero-photo-glow{
+    position:absolute;inset:8% 8% 12%;z-index:0;
+    background:radial-gradient(circle,rgba(243,235,221,.13),transparent 58%);filter:blur(22px);pointer-events:none;
+  }
+  .hero-photo-shine{
+    position:absolute;inset:0;z-index:2;pointer-events:none;
+    background:linear-gradient(115deg,transparent 20%,rgba(243,235,221,.055) 48%,transparent 58%);
+    transform:translateX(-100%);animation:heroShine 7s ease-in-out infinite;
+  }
+  @keyframes heroShine{
+    0%,55%{transform:translateX(-100%);opacity:0;}63%{opacity:1;}76%,100%{transform:translateX(100%);opacity:0;}
+  }
+  .hero-photo-caption{
+    z-index:4;padding:48px 18px 20px;
+    background:linear-gradient(to top,rgba(0,0,0,.88),transparent);
+  }
+  .hero-photo-copy{display:flex;flex-direction:column;gap:3px;}
+  .hero-photo-caption .name{color:var(--crema);font-size:25px;letter-spacing:.2px;}
+  .hero-photo-caption .desc{color:#D0C8BA;font-size:11px;font-weight:600;}
+  .hero-photo-caption .tag{background:var(--beige);color:#111;border:1px solid rgba(243,235,221,.50);box-shadow:0 8px 24px rgba(0,0,0,.35);}
+  .hero-dots{position:absolute;left:50%;bottom:9px;z-index:5;transform:translateX(-50%);display:flex;gap:6px;}
+  .hero-dot{width:7px;height:7px;padding:0;border-radius:50%;background:rgba(243,235,221,.32);border:1px solid rgba(243,235,221,.28);transition:transform .25s var(--ease),background .25s,width .25s;}
+  .hero-dot.active{width:22px;border-radius:99px;background:var(--beige);border-color:var(--beige);}
+  .hero-dot:active{transform:scale(.88);}
+
+  .section{
+    background:radial-gradient(circle at 50% 0%,rgba(58,90,77,.08),transparent 35%),#090909;
+    padding-top:72px;
+  }
+  .section-head .eyebrow{color:#88A997;font-weight:800;letter-spacing:2px;}
+  .section-title{color:var(--crema);text-shadow:0 4px 22px rgba(0,0,0,.45);}
+  .section-title:after{content:"";display:block;width:34px;height:2px;margin:12px auto 0;background:var(--verde-claro);border-radius:99px;}
+  .section-desc{color:#BEB7AC;}
+
+  .card{
+    background:radial-gradient(circle at 50% 0%,rgba(243,235,221,.055),transparent 38%),linear-gradient(145deg,#171918,#101110 72%);
+    border:1px solid rgba(112,154,133,.48);box-shadow:0 20px 55px -25px rgba(0,0,0,.95);
+  }
+  .card:hover{border-color:rgba(115,150,133,.82);box-shadow:0 30px 65px -25px rgba(0,0,0,.95),0 0 0 1px rgba(58,90,77,.10);}
+  .card-media{background:radial-gradient(circle at 50% 48%,rgba(243,235,221,.10),transparent 44%),linear-gradient(145deg,#181B19,#080908);}
+  .card-media::after{background:linear-gradient(to bottom,transparent 45%,rgba(0,0,0,.78));}
+  .card-badge{background:rgba(9,9,9,.82);color:var(--beige);border-color:rgba(112,154,133,.48);}
+  .card-price-float{background:rgba(9,9,9,.88);color:var(--crema);border-color:rgba(112,154,133,.45);}
+  .card-name{color:var(--crema);}
+  .card-tagline{color:#D0C7B9;font-weight:600;}
+  .card-ingredients{color:#E1D9CC;font-size:13.5px;line-height:1.68;border-top-color:rgba(112,154,133,.22);}
+  .card-ingredients b{color:#91B19F;font-weight:900;}
+
+  .stepper{background:#101211;border-color:rgba(112,154,133,.42);}
+  .stepper button{background:var(--verde-doha);color:var(--crema);border:1px solid rgba(112,154,133,.28);}
+  .stepper button.minus{background:#202421;color:var(--crema);}
+  .stepper button:hover{background:#285342;color:var(--crema);}
+  .stepper .qty{color:var(--crema);}
+
+  .combo-box{background:#121413;border:1px solid rgba(112,154,133,.28);}
+  .combo-box.active{background:#151816;border-color:rgba(115,150,133,.62);}
+  .combo-icon{background:#202421;border-color:rgba(112,154,133,.30);}
+  .combo-box.active .combo-icon{background:var(--verde-doha);}
+  .combo-header-text .p{background:var(--beige);color:#111;}
+  .combo-header-text .d{color:#B8B0A4;}
+  .combo-stepper{border-color:rgba(112,154,133,.42);}
+  .combo-stepper button{background:var(--verde-doha);color:var(--crema);}
+  .combo-stepper button.minus{background:#202421;color:var(--crema);}
+  .soda-option{background:#181A19;color:#C8C0B4;border-color:rgba(112,154,133,.22);}
+  .soda-option.selected{background:var(--beige);color:#111;border-color:var(--beige);}
+
+  .hero::after{background:var(--beige);color:#111;}
+  .footer-cta{background:var(--verde-doha);color:var(--crema);}
+  .footer-cta:hover{background:#285342;}
+  .orderbar-btn{background:var(--beige);color:#111;}
+  .orderbar-btn:hover{background:#E8DCC8;}
+  .story{background:#0D0F0E;}
+  .story-item{background:#151716;border-color:rgba(112,154,133,.28);}
+  .story-item::before{background:var(--verde-doha);}
+  @media (prefers-reduced-motion:reduce){.hero-photo-shine{animation:none;}.hero-photo-wrap img{transition:none;}}
+
 </style>
 </head>
 <body id="inicio">
@@ -2067,8 +2180,6 @@
     <div class="quicknav-inner">
       <a class="chip active" href="#inicio">Inicio</a>
       <a class="chip" href="#hamburguesas">Hamburguesas</a>
-      <a class="chip" href="#hamburguesas">Combos</a>
-      <a class="chip" href="#historia">Nuestra esencia</a>
       <a class="chip" href="#contacto">Contacto</a>
     </div>
   </nav>
@@ -2084,11 +2195,21 @@
     <p class="hero-tagline">menos promesas, más sabor.</p>
     <p class="hero-sub">Hamburguesas artesanales · Pide en minutos</p>
 
-    <div class="hero-photo-wrap">
-      <img src="/images/dulcinea.jpg" alt="DULCINEA — doble carne 240g" loading="eager">
+    <div class="hero-photo-wrap" id="heroPhotoWrap">
+      <div class="hero-photo-glow"></div>
+      <img id="heroPhoto" class="hero-changing" src="/images/dulcinea.jpg" alt="Dulcinea — doble carne 240g" loading="eager">
+      <div class="hero-photo-shine"></div>
       <div class="hero-photo-caption">
-        <span class="name">Dulcinea</span>
-        <span class="tag">La más grande</span>
+        <div class="hero-photo-copy">
+          <span class="name" id="heroPhotoName">Dulcinea</span>
+          <span class="desc" id="heroPhotoDesc">240g de carne en dos capas.</span>
+        </div>
+        <span class="tag" id="heroPhotoTag">La más grande</span>
+      </div>
+      <div class="hero-dots" id="heroDots" aria-label="Hamburguesa destacada">
+        <button type="button" class="hero-dot" data-hero-dot="0" aria-label="Ver Doha Clásica"></button>
+        <button type="button" class="hero-dot" data-hero-dot="1" aria-label="Ver Monarca"></button>
+        <button type="button" class="hero-dot active" data-hero-dot="2" aria-label="Ver Dulcinea"></button>
       </div>
     </div>
   </section>
@@ -2101,7 +2222,7 @@
         C715,10 705,65 655,65 C605,65 595,18 545,18
         C495,18 485,75 435,75 C385,75 375,12 325,12
         C275,12 265,68 215,68 C165,68 155,15 105,15
-        C60,15 45,45 0,45 Z" fill="var(--crema)"/>
+        C60,15 45,45 0,45 Z" fill="var(--crema)" opacity=".12"/>
     </svg>
   </div>
 
@@ -2312,6 +2433,54 @@
   let selectedPago = null;
 
   const fmt = n => '$' + n.toLocaleString('es-CO');
+
+  /* ===================== HERO ROTATIVO ===================== */
+  const HERO_ITEMS = [
+    {name:'Doha Clásica',desc:'La original. Equilibrada, jugosa y con carácter.',tag:'La original',img:'/images/doha_clasica.jpg'},
+    {name:'Monarca',desc:'Doble queso. Para los que no negocian con el hambre.',tag:'Doble queso',img:'/images/monarca.jpg'},
+    {name:'Dulcinea',desc:'240g de carne en dos capas. La más contundente.',tag:'La más grande',img:'/images/dulcinea.jpg'}
+  ];
+
+  const heroPhotoWrap = document.getElementById('heroPhotoWrap');
+  const heroPhoto = document.getElementById('heroPhoto');
+  const heroPhotoName = document.getElementById('heroPhotoName');
+  const heroPhotoDesc = document.getElementById('heroPhotoDesc');
+  const heroPhotoTag = document.getElementById('heroPhotoTag');
+  const heroDots = document.querySelectorAll('[data-hero-dot]');
+  let heroIndex = 2;
+  let heroTimer = null;
+  let heroBusy = false;
+
+  function setHero(index, animate=true){
+    if(!heroPhoto || !heroPhotoWrap || !HERO_ITEMS[index] || heroBusy) return;
+    heroIndex=index;
+    const item=HERO_ITEMS[index];
+    const apply=()=>{
+      heroPhoto.src=item.img;
+      heroPhoto.alt=item.name;
+      heroPhotoName.textContent=item.name;
+      heroPhotoDesc.textContent=item.desc;
+      heroPhotoTag.textContent=item.tag;
+      heroDots.forEach(dot=>dot.classList.toggle('active',Number(dot.dataset.heroDot)===index));
+      heroPhotoWrap.classList.remove('is-changing');
+      heroBusy=false;
+    };
+    if(!animate){apply();return;}
+    heroBusy=true;
+    heroPhotoWrap.classList.add('is-changing');
+    window.setTimeout(apply,300);
+  }
+
+  heroDots.forEach(dot=>{
+    dot.addEventListener('click',()=>{
+      const index=Number(dot.dataset.heroDot);
+      setHero(index);
+      if(heroTimer) window.clearInterval(heroTimer);
+      heroTimer=window.setInterval(()=>setHero((heroIndex+1)%HERO_ITEMS.length),5200);
+    });
+  });
+  heroTimer=window.setInterval(()=>setHero((heroIndex+1)%HERO_ITEMS.length),5200);
+
 
   /* ===================== RENDER PRODUCT CARDS ===================== */
   const burgerGrid = document.getElementById('burgerGrid');
