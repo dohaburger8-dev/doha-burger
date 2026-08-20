@@ -3159,6 +3159,324 @@
     }
   }
 
+
+  /* =========================================================
+     DOHA V6 — PRODUCTO LIMPIO / CARBÓN ELEGANTE / TEXTO LEGIBLE
+     ========================================================= */
+
+  /* ================= TARJETA: CARBÓN PROFUNDO ================= */
+
+  .card{
+    background:
+      radial-gradient(
+        ellipse at 50% 0%,
+        rgba(247,238,215,.035),
+        transparent 40%
+      ),
+      linear-gradient(145deg,#111614 0%,#0D100F 100%);
+    border:1px solid rgba(53,88,72,.30);
+    box-shadow:
+      0 18px 42px -30px rgba(0,0,0,.95),
+      inset 0 1px 0 rgba(247,238,215,.025);
+  }
+
+  .card::before{
+    background:
+      linear-gradient(
+        135deg,
+        rgba(228,207,163,.025),
+        transparent 30%,
+        transparent 70%,
+        rgba(53,88,72,.025)
+      );
+  }
+
+  .card:hover{
+    border-color:rgba(53,88,72,.46);
+    box-shadow:
+      0 24px 48px -32px rgba(0,0,0,.95),
+      0 0 24px rgba(53,88,72,.045);
+  }
+
+  /* ================= FOTO: QUE SE FUNDA CON EL NEGRO ================= */
+
+  .card-media{
+    height:292px;
+    background:
+      radial-gradient(
+        ellipse at 50% 56%,
+        rgba(228,207,163,.075) 0%,
+        rgba(53,88,72,.035) 31%,
+        transparent 64%
+      ),
+      #090B0A;
+    border-bottom:1px solid rgba(53,88,72,.10);
+    overflow:hidden;
+  }
+
+  .card-media::before{
+    content:"";
+    position:absolute;
+    z-index:3;
+    inset:0;
+    pointer-events:none;
+    background:
+      radial-gradient(
+        ellipse at center 54%,
+        transparent 45%,
+        rgba(9,11,10,.42) 82%,
+        rgba(9,11,10,.88) 100%
+      );
+  }
+
+  .card-media::after{
+    z-index:4;
+    background:
+      linear-gradient(
+        to bottom,
+        transparent 50%,
+        rgba(9,11,10,.10) 70%,
+        rgba(9,11,10,.58) 100%
+      );
+  }
+
+  .card-media img{
+    z-index:2;
+    width:112%;
+    height:112%;
+    left:-6%;
+    top:-6%;
+    object-fit:cover;
+    object-position:center center;
+
+    /* El negro de la fotografía se mezcla con el negro de la página. */
+    mix-blend-mode:screen;
+
+    filter:
+      brightness(1.10)
+      contrast(1.16)
+      saturate(1.08)
+      drop-shadow(0 18px 22px rgba(0,0,0,.72));
+
+    -webkit-mask-image:
+      radial-gradient(
+        ellipse 48% 49% at 50% 51%,
+        #000 48%,
+        rgba(0,0,0,.96) 60%,
+        rgba(0,0,0,.40) 73%,
+        transparent 88%
+      );
+    mask-image:
+      radial-gradient(
+        ellipse 48% 49% at 50% 51%,
+        #000 48%,
+        rgba(0,0,0,.96) 60%,
+        rgba(0,0,0,.40) 73%,
+        transparent 88%
+      );
+
+    transform:scale(1.06);
+  }
+
+  .card:hover .card-media img{
+    transform:scale(1.09);
+  }
+
+  /* Un brillo fino, no una caja clara. */
+  .card-media .media-glow{
+    position:absolute;
+    z-index:1;
+    left:17%;
+    right:17%;
+    top:15%;
+    bottom:13%;
+    border-radius:50%;
+    background:
+      radial-gradient(
+        ellipse,
+        rgba(247,238,215,.07),
+        transparent 66%
+      );
+    filter:blur(22px);
+    pointer-events:none;
+  }
+
+  /* ================= PRECIO ================= */
+
+  .card-price-float{
+    background:rgba(7,9,8,.88);
+    color:#F3DDAF;
+    border:1px solid rgba(228,207,163,.24);
+    box-shadow:
+      0 7px 18px rgba(0,0,0,.40),
+      0 0 16px rgba(228,207,163,.035);
+    font-size:21px;
+    letter-spacing:.15px;
+  }
+
+  /* ================= TEXTO ================= */
+
+  .card-body{
+    background:transparent;
+    padding:24px 20px 20px;
+  }
+
+  .card-name{
+    color:#F8EFD9;
+    font-size:27px;
+    letter-spacing:-.1px;
+    text-shadow:0 2px 14px rgba(0,0,0,.30);
+  }
+
+  .card-tagline{
+    color:#D7CCBA;
+    font-size:14.5px;
+    font-weight:550;
+    line-height:1.58;
+  }
+
+  /* Ingredientes: cuerpo limpio + etiqueta con personalidad. */
+  .card-ingredients{
+    color:#DAD0C0;
+    font-family:var(--font-body);
+    font-size:14.5px;
+    font-weight:500;
+    line-height:1.82;
+    letter-spacing:.05px;
+    padding-top:17px;
+    border-top:1px solid rgba(228,207,163,.12);
+    text-shadow:0 1px 8px rgba(0,0,0,.28);
+  }
+
+  .card-ingredients b{
+    display:inline-block;
+    color:#E4CFA3;
+    font-family:var(--font-accent);
+    font-size:19px;
+    font-weight:600;
+    letter-spacing:.2px;
+    text-transform:none;
+    margin-right:4px;
+    vertical-align:-1px;
+  }
+
+  /* ================= SELECTOR: VERDE + CARBÓN, NADA BLANCO ================= */
+
+  .stepper{
+    background:#090D0B !important;
+    border:1px solid rgba(53,88,72,.34) !important;
+    box-shadow:inset 0 1px 0 rgba(247,238,215,.025) !important;
+  }
+
+  .stepper button{
+    background:#244D3C !important;
+    color:#F7EED7 !important;
+    border:1px solid rgba(247,238,215,.05) !important;
+    box-shadow:none !important;
+  }
+
+  .stepper button.minus{
+    background:#19382D !important;
+  }
+
+  .stepper button:hover{
+    background:#2D5B48 !important;
+  }
+
+  .stepper .qty{
+    color:#F1E7D3 !important;
+    font-size:16px;
+  }
+
+  /* ================= COMBO: MISMA LÍNEA VISUAL ================= */
+
+  .combo-box{
+    background:#0B0F0D;
+    border:1px solid rgba(53,88,72,.24);
+  }
+
+  .combo-box.active{
+    background:#101613;
+    border-color:rgba(228,207,163,.12);
+  }
+
+  .combo-stepper{
+    background:#090D0B;
+    border-color:rgba(53,88,72,.30);
+  }
+
+  .combo-stepper button{
+    background:#244D3C;
+    color:#F7EED7;
+  }
+
+  .combo-stepper button.minus{
+    background:#19382D;
+  }
+
+  /* ================= MOBILE ================= */
+
+  @media (max-width:899px){
+
+    .card{
+      border-radius:15px;
+    }
+
+    .card-media{
+      height:286px;
+    }
+
+    .card-media img{
+      width:116%;
+      height:116%;
+      left:-8%;
+      top:-8%;
+      transform:scale(1.04);
+    }
+
+    .card:hover .card-media img{
+      transform:scale(1.06);
+    }
+
+    .card-body{
+      padding:24px 19px 20px;
+    }
+
+    .card-name{
+      font-size:27px;
+    }
+
+    .card-tagline{
+      font-size:14.5px;
+      max-width:96%;
+    }
+
+    .card-ingredients{
+      font-size:14.5px;
+      line-height:1.82;
+    }
+
+    .card-ingredients b{
+      font-size:18px;
+    }
+
+    .card-price-float{
+      font-size:21px;
+      bottom:12px;
+      right:12px;
+    }
+  }
+
+  @media (max-width:380px){
+    .card-media{
+      height:270px;
+    }
+
+    .card-ingredients{
+      font-size:14px;
+    }
+  }
+
 </style>
 </head>
 <body id="inicio">
