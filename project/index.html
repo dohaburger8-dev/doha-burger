@@ -7,7 +7,7 @@
 <meta name="description" content="DOHA Burger. Hamburguesas artesanales. Pide en minutos por WhatsApp. Menos promesas, más sabor.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Bitter:wght@500;600;700;800;900&family=Inter:wght@400;500;600;700;800&family=Caveat:wght@500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Bitter:wght@500;600;700;800;900&family=Inter:wght@400;500;600;700;800&family=Caveat:wght@500;600;700&family=Bodoni+Moda:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
   :root{
   --verde-doha:#18352B;
@@ -2234,13 +2234,14 @@
     max-width:540px;
     margin:0;
     color:var(--crema);
-    font-family:var(--font-accent);
+    font-family:'Bodoni Moda', serif;
     font-size:clamp(38px,5vw,64px);
-    font-weight:600;
+    font-weight:500;
     line-height:.95;
     text-align:left;
     text-shadow:0 5px 25px rgba(0,0,0,.65);
   }
+  
 
   .hero-sub{
     grid-area:sub;
@@ -2898,27 +2899,12 @@
     object-fit:cover;
     object-position:center center;
     transform:scale(1.08);
-    mix-blend-mode:screen;
     filter:
-      saturate(1.08)
-      contrast(1.06)
-      brightness(1.08)
-      drop-shadow(0 18px 20px rgba(0,0,0,.62));
-    -webkit-mask-image:
-      radial-gradient(
-        ellipse at center,
-        #000 48%,
-        rgba(0,0,0,.96) 62%,
-        transparent 94%
-      );
-    mask-image:
-      radial-gradient(
-        ellipse at center,
-        #000 48%,
-        rgba(0,0,0,.96) 62%,
-        transparent 94%
-      );
-  }
+    saturate(1.08)
+    contrast(1.06)
+    brightness(1.08)
+    drop-shadow(0 18px 20px rgba(0,0,0,.62));
+}
 
   .card:hover .card-media img{
     transform:scale(1.11);
@@ -2965,20 +2951,24 @@
   }
 
   .card-ingredients{
-    color:#F0E7D8;
-    font-size:15.5px;
-    line-height:1.76;
-    font-weight:550;
+    color:#FFFFFF !important;
+    font-family:var(--font-body);
+    font-size:15.5px !important;
+    font-weight:700 !important;
+    line-height:1.78;
+    letter-spacing:.15px;
     padding-top:17px;
     margin-bottom:20px;
     border-top:1px solid rgba(228,207,163,.16);
-  }
+}
 
-  .card-ingredients b{
-    color:var(--beige);
-    font-size:12px;
-    letter-spacing:1.15px;
-  }
+.card-ingredients b{
+    color:#E4CFA3 !important;
+    font-family:var(--font-accent);
+    font-size:19px;
+    font-weight:600;
+    letter-spacing:.2px;
+}
 
   /* ================= CONTROLES ================= */
 
@@ -3761,17 +3751,19 @@
     </div>
   </section>
 
-  <div class="drip" style="background:var(--negro);">
-    <svg viewBox="0 0 1200 90" preserveAspectRatio="none">
-      <path d="M0,0 L1200,0 L1200,20
-        C1150,20 1140,70 1090,70 C1040,70 1030,15 985,15
-        C935,15 925,80 875,80 C825,80 815,10 765,10
-        C715,10 705,65 655,65 C605,65 595,18 545,18
-        C495,18 485,75 435,75 C385,75 375,12 325,12
-        C275,12 265,68 215,68 C165,68 155,15 105,15
-        C60,15 45,45 0,45 Z" fill="var(--crema)" opacity=".12"/>
-    </svg>
-  </div>
+  <div class="drip" style="background:var(--beige);">
+  <svg viewBox="0 0 1200 90" preserveAspectRatio="none">
+    <path d="M0,0 L1200,0 L1200,20
+    C1150,20 1140,70 1090,70 C1040,70 1030,15 985,15
+    C935,15 925,80 875,80 C825,80 815,10 765,10
+    C715,10 705,65 655,65 C605,65 595,18 545,18
+    C495,18 485,75 435,75 C385,75 375,12 325,12
+    C275,12 265,68 215,68 C165,68 155,15 105,15
+    C60,15 45,45 0,45 Z"
+    fill="var(--beige)"
+    opacity="1"/>
+  </svg>
+</div>
 
   <!-- ============ HAMBURGUESAS ============ -->
   <section class="section" id="hamburguesas">
