@@ -1,0 +1,4444 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>DOHA Burger — Pedidos</title>
+<meta name="description" content="DOHA Burger. Hamburguesas artesanales. Pide en minutos por WhatsApp. Menos promesas, más sabor.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bitter:wght@500;600;700;800;900&family=Inter:wght@400;500;600;700;800&family=Caveat:wght@500;600;700&family=Bodoni+Moda:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+  --verde-doha:#18352B;
+  --verde-claro:#355848;
+
+  --crema:#F7EED7;
+  --beige:#E4CFA3;
+
+  --negro:#090909;
+  --negro-suave:#111111;
+  --carbon:#1A1A1A;
+
+  --marron:#8B3E2F;
+  --rojo-doha:#8F3328;
+
+  --blanco:#F8F5EF;
+  --gris:#A9A39A;
+
+  --font-display:'Bitter', Georgia, serif;
+  --font-body:'Inter', Arial, sans-serif;
+  --font-accent:'Caveat', cursive;
+
+  --radius-lg:18px;
+  --radius-md:12px;
+
+  --shadow-card:
+    0 18px 45px -18px rgba(0,0,0,.75);
+
+  --ease:cubic-bezier(.22,.9,.32,1);
+}
+
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+  margin:0;
+
+  background:var(--negro);
+
+  color:var(--crema);
+
+  font-family:var(--font-body);
+
+  -webkit-font-smoothing:antialiased;
+
+  overflow-x:hidden;
+
+  padding-bottom:86px;
+}
+  img{max-width:100%;display:block;}
+  a{text-decoration:none;color:inherit;}
+  ul{margin:0;padding:0;list-style:none;}
+  button{font-family:inherit;cursor:pointer;border:none;background:none;}
+  input,textarea,select{font-family:inherit;}
+  .container{max-width:560px;margin:0 auto;padding:0 20px;}
+  @media (min-width:900px){ .container{max-width:1080px;} }
+
+  .reveal{opacity:0;transform:translateY(26px);transition:opacity .7s var(--ease), transform .7s var(--ease);}
+  .reveal.in-view{opacity:1;transform:translateY(0);}
+  @media (prefers-reduced-motion: reduce){
+    .reveal{opacity:1;transform:none;transition:none;}
+    *{animation:none !important;}
+  }
+
+  /* ============ TOP BAR ============ */
+  .topbar{
+    position:fixed;top:0;left:0;right:0;z-index:60;
+    background:rgba(9,9,9,.94);
+    backdrop-filter:blur(10px);
+    border-bottom:1px solid rgba(243,235,221,.08);
+    transition:box-shadow .3s;
+  }
+  .topbar.scrolled{background:rgba(9,9,9,.98);box-shadow:0 10px 35px rgba(0,0,0,.55);}
+  .topbar-inner{
+    max-width:560px;margin:0 auto;padding:12px 20px;
+    display:flex;align-items:center;justify-content:space-between;gap:12px;
+  }
+  @media (min-width:900px){.topbar-inner{max-width:1080px;}}
+  .topbar-logo{
+  display:flex;
+  align-items:center;
+  gap:10px;
+
+  transition:transform .25s var(--ease);
+}
+
+.topbar-logo:active{
+  transform:scale(.97);
+}
+
+.topbar-logo svg{
+  height:32px;
+  width:auto;
+
+  filter:
+    brightness(1.08)
+    drop-shadow(0 5px 12px rgba(0,0,0,.55));
+}
+  .topbar-cart-btn{
+  position:relative;
+
+  display:flex;
+  align-items:center;
+  justify-content:center;
+
+  width:44px;
+  height:40px;
+
+  padding:0;
+
+  background:#1B1B1B;
+
+  color:var(--crema);
+
+  border:1px solid rgba(243,235,221,.12);
+
+  border-radius:6px;
+
+  box-shadow:
+    0 7px 20px rgba(0,0,0,.35);
+
+  transition:
+    transform .2s var(--ease),
+    background .2s,
+    border-color .2s;
+}
+
+.topbar-cart-btn:hover{
+  background:#252525;
+
+  border-color:rgba(243,235,221,.25);
+}
+
+.topbar-cart-btn:active{
+  transform:scale(.92);
+}
+
+.topbar-cart-btn svg{
+  width:19px;
+  height:19px;
+}
+  .cart-count{
+  position:absolute;
+
+  top:-7px;
+  right:-7px;
+
+  background:var(--rojo-doha);
+
+  color:#fff;
+
+  font-size:10px;
+  font-weight:900;
+
+  min-width:19px;
+  height:19px;
+
+  border-radius:50%;
+
+  display:flex;
+  align-items:center;
+  justify-content:center;
+
+  padding:0 4px;
+
+  border:2px solid #090909;
+
+  box-shadow:
+    0 4px 10px rgba(0,0,0,.4);
+
+  animation:cartPop .25s var(--ease);
+}
+
+@keyframes cartPop{
+  0%{
+    transform:scale(.5);
+    opacity:.4;
+  }
+
+  70%{
+    transform:scale(1.15);
+  }
+
+  100%{
+    transform:scale(1);
+    opacity:1;
+  }
+}
+/* ============ CATEGORY NAV — DOHA PREMIUM ============ */
+
+.quicknav{
+  position:sticky;
+  top:0;
+  z-index:50;
+
+  background:rgba(9,9,9,.96);
+  backdrop-filter:blur(18px);
+
+  border-bottom:1px solid rgba(243,235,221,.09);
+
+  overflow-x:auto;
+  -ms-overflow-style:none;
+  scrollbar-width:none;
+
+  box-shadow:0 8px 25px rgba(0,0,0,.25);
+}
+
+.quicknav::-webkit-scrollbar{
+  display:none;
+}
+
+.quicknav-inner{
+  display:flex;
+  align-items:center;
+  gap:8px;
+
+  padding:10px 20px;
+
+  max-width:1080px;
+  margin:0 auto;
+}
+
+@media (min-width:900px){
+  .quicknav-inner{
+    justify-content:center;
+  }
+}
+@keyframes cartPop{
+  0%{
+    transform:scale(.5);
+    opacity:.4;
+  }
+
+  70%{
+    transform:scale(1.15);
+  }
+
+  100%{
+    transform:scale(1);
+    opacity:1;
+  }
+}
+  /* ============ PREMIUM HERO ============ */
+
+.hero{
+  position:relative;
+  background:
+    radial-gradient(
+      circle at 50% 15%,
+      rgba(92,55,40,.18),
+      transparent 42%
+    ),
+    #090909;
+
+  padding:154px 20px 0;
+  overflow:hidden;
+
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  text-align:center;
+}
+
+.hero::before{
+  content:"";
+  position:absolute;
+  inset:0;
+
+  background:
+    linear-gradient(
+      90deg,
+      transparent 49.5%,
+      rgba(255,255,255,.025) 50%,
+      transparent 50.5%
+    );
+
+  opacity:.35;
+  pointer-events:none;
+}
+
+.hero-glow{
+  position:absolute;
+  inset:0;
+
+  background:
+    radial-gradient(
+      ellipse at 50% 35%,
+      rgba(255,255,255,.055),
+      transparent 55%
+    );
+
+  pointer-events:none;
+}
+
+.hero-logo{
+  position:relative;
+  z-index:2;
+
+  width:min(76vw,300px);
+  margin-bottom:20px;
+
+  filter:
+    drop-shadow(0 8px 20px rgba(0,0,0,.8));
+}
+
+.hero-tagline{
+  position:relative;
+  z-index:2;
+
+  font-family:var(--font-display);
+  font-weight:900;
+
+  font-size:clamp(32px,8vw,50px);
+  line-height:.98;
+
+  letter-spacing:-1.2px;
+
+  color:var(--crema);
+
+  margin:4px 0 12px;
+
+  text-transform:uppercase;
+}
+
+.hero-sub{
+  position:relative;
+  z-index:2;
+
+  color:#BEB4A5;
+
+  font-family:var(--font-body);
+  font-size:11px;
+
+  letter-spacing:2.5px;
+  text-transform:uppercase;
+
+  font-weight:700;
+
+  margin-bottom:30px;
+}
+
+/* BOTÓN PREMIUM */
+
+.hero::after{
+  content:"ORDENA TU BESTIA";
+
+  position:relative;
+  z-index:4;
+
+  display:flex;
+  align-items:center;
+  justify-content:center;
+
+  background:var(--crema);
+  color:#090909;
+
+  font-family:var(--font-body);
+  font-weight:900;
+  font-size:12px;
+
+  letter-spacing:1.4px;
+
+  padding:14px 27px;
+
+  border-radius:5px;
+
+  box-shadow:
+    0 10px 30px rgba(0,0,0,.45);
+
+  margin-bottom:34px;
+
+  transition:
+    transform .2s var(--ease),
+    background .2s;
+}
+
+/* FOTO PRINCIPAL */
+
+.hero-photo-wrap{
+  position:relative;
+  z-index:2;
+
+  width:100%;
+  max-width:440px;
+
+  border-radius:18px 18px 0 0;
+
+  overflow:hidden;
+
+  box-shadow:
+    0 -25px 70px -25px rgba(0,0,0,.95);
+}
+
+.hero-photo-wrap img{
+  width:100%;
+  height:370px;
+
+  object-fit:cover;
+  object-position:center 32%;
+
+  transform:scale(1.025);
+
+  filter:
+    saturate(.9)
+    contrast(1.05);
+}
+
+.hero-photo-caption{
+  position:absolute;
+  left:0;
+  right:0;
+  bottom:16px;
+
+  z-index:3;
+
+  display:flex;
+  justify-content:space-between;
+  align-items:flex-end;
+
+  padding:0 20px;
+}
+
+.hero-photo-caption .name{
+  font-family:var(--font-display);
+  font-weight:900;
+
+  color:#fff;
+
+  font-size:21px;
+
+  text-shadow:
+    0 4px 18px rgba(0,0,0,.9);
+}
+
+.hero-photo-caption .tag{
+  background:#090909;
+  color:var(--crema);
+
+  border:1px solid rgba(243,235,221,.25);
+
+  font-size:9px;
+  font-weight:900;
+
+  letter-spacing:1px;
+
+  padding:6px 11px;
+
+  border-radius:4px;
+
+  text-transform:uppercase;
+}
+
+  .drip{position:relative;width:100%;line-height:0;}
+  .drip svg{width:100%;height:auto;display:block;}
+
+  /* ============ SECTION HEADERS ============ */
+
+.section{
+  padding:68px 0 18px;
+}
+
+.section-head{
+  text-align:center;
+
+  margin-bottom:34px;
+}
+
+.section-title{
+  font-family:var(--font-display);
+
+  font-weight:900;
+
+  font-size:clamp(28px,6vw,40px);
+
+  letter-spacing:.3px;
+
+  color:#171717;
+
+  text-transform:uppercase;
+
+  margin:0;
+}
+
+.section-desc{
+  font-size:14px;
+
+  color:#777169;
+
+  max-width:440px;
+
+  margin:11px auto 0;
+
+  line-height:1.6;
+}
+ /* ============ BURGERS PREMIUM ============ */
+
+.grid{
+  display:grid;
+  grid-template-columns:1fr;
+  gap:22px;
+}
+
+@media (min-width:720px){
+  .grid{
+    grid-template-columns:1fr 1fr;
+    gap:24px;
+  }
+}
+
+.card{
+  background:#151C19;
+  border-radius:16px;
+  overflow:hidden;
+
+  box-shadow:
+    0 18px 45px -18px rgba(0,0,0,.75);
+
+  border:1px solid rgba(216,200,174,.16);
+
+  transition:
+    transform .4s var(--ease),
+    box-shadow .4s var(--ease),
+    border-color .3s;
+}
+
+.card:hover{
+  transform:translateY(-5px);
+
+  box-shadow:
+    0 28px 55px -20px rgba(0,0,0,.9);
+
+  border-color:rgba(243,235,221,.16);
+}
+
+.card-media::after{
+  content:"";
+
+  position:absolute;
+  inset:0;
+
+  background:
+    linear-gradient(
+      to bottom,
+      transparent 55%,
+      rgba(0,0,0,.65)
+    );
+
+  pointer-events:none;
+}
+
+.card-media img{
+  width:100%;
+  height:100%;
+
+  object-fit:cover;
+
+  transition:
+    transform .7s var(--ease),
+    filter .5s;
+}
+
+.card:hover .card-media img{
+  transform:scale(1.07);
+
+  filter:
+    saturate(1.05)
+    contrast(1.04);
+}
+
+.card-badge{
+  position:absolute;
+
+  top:13px;
+  left:13px;
+
+  z-index:2;
+
+  background:rgba(9,9,9,.88);
+
+  color:var(--crema);
+
+  border:1px solid rgba(243,235,221,.18);
+
+  font-size:9px;
+
+  font-weight:800;
+
+  letter-spacing:1px;
+
+  text-transform:uppercase;
+
+  padding:6px 10px;
+
+  border-radius:4px;
+
+  backdrop-filter:blur(6px);
+}
+
+.card-price-float{
+  position:absolute;
+
+  bottom:12px;
+  right:12px;
+
+  background:rgba(9,9,9,.92);
+  color:var(--crema);
+
+  font-family:var(--font-display);
+  font-weight:900;
+  font-size:18px;
+
+  padding:8px 12px;
+
+  border-radius:5px;
+
+  border:1px solid rgba(243,235,221,.16);
+
+  backdrop-filter:blur(8px);
+
+  box-shadow:
+    0 8px 20px rgba(0,0,0,.45);
+}
+
+.card-body{
+  padding:22px 20px 20px;
+}
+
+.card-name{
+  font-family:var(--font-display);
+  font-weight:900;
+  font-size:24px;
+
+  color:var(--crema);
+
+  margin:0 0 6px;
+  letter-spacing:.1px;
+}
+
+.card-tagline{
+  font-size:14px;
+  color:#C9C1B5;
+  font-weight:600;
+
+  margin:0 0 14px;
+  line-height:1.45;
+}
+
+.card-ingredients{
+  font-size:13px;
+  color:#B9B2A7;
+
+  line-height:1.6;
+
+  margin:0 0 18px;
+  padding-top:14px;
+
+  border-top:1px solid rgba(243,235,221,.10);
+}
+
+.card-ingredients b{
+  color:var(--verde-doha);
+  font-weight:800;
+}
+
+/* ============ COMBO STEPPER ============ */
+
+.combo-stepper{
+  display:flex;
+  align-items:center;
+
+  gap:6px;
+
+  flex:none;
+
+  background:#111;
+
+  border:1px solid rgba(243,235,221,.12);
+
+  border-radius:6px;
+
+  padding:4px;
+}
+
+.combo-stepper button{
+  width:29px;
+  height:29px;
+
+  border-radius:4px;
+
+  background:var(--crema);
+
+  color:#111;
+
+  font-size:16px;
+
+  font-weight:900;
+
+  line-height:1;
+
+  display:flex;
+  align-items:center;
+  justify-content:center;
+
+  transition:
+    transform .15s var(--ease),
+    background .2s,
+    opacity .2s;
+}
+
+.combo-stepper button:active{
+  transform:scale(.88);
+}
+
+.combo-stepper button.minus{
+  background:#292929;
+  color:var(--crema);
+}
+
+.combo-stepper button:disabled{
+  opacity:.25;
+  pointer-events:none;
+}
+
+.combo-stepper .cqty{
+  font-family:var(--font-display);
+
+  font-weight:900;
+
+  font-size:14px;
+
+  min-width:20px;
+
+  text-align:center;
+
+  color:var(--crema);
+}
+
+/* ============ SODA SELECTOR ============ */
+
+.combo-soda{
+  padding:0 14px;
+
+  max-height:0;
+
+  overflow:hidden;
+
+  transition:
+    max-height .35s var(--ease),
+    padding .35s var(--ease);
+}
+
+.combo-soda.show{
+  max-height:150px;
+
+  padding:0 14px 14px;
+}
+
+.combo-soda-inner{
+  padding-top:12px;
+
+  border-top:1px solid rgba(243,235,221,.08);
+}
+
+.combo-soda label{
+  display:flex;
+  align-items:center;
+
+  gap:6px;
+
+  font-size:11.5px;
+
+  font-weight:800;
+
+  color:var(--crema);
+
+  margin-bottom:9px;
+
+  text-transform:uppercase;
+  letter-spacing:.5px;
+}
+
+.combo-soda label .ic{
+  font-size:14px;
+}
+  /* ============ GASEOSAS EN CÍRCULOS ============ */
+
+.soda-options{
+  display:flex;
+  gap:10px;
+  margin-top:10px;
+}
+
+/* ============ COMBOS — DOHA PREMIUM ============ */
+
+.combo-box{
+  background:#181818;
+
+  border-top:1px solid rgba(216,200,174,.14);
+
+  border-radius:10px;
+
+  margin-bottom:16px;
+
+  overflow:hidden;
+
+  transition:
+    border-color .3s var(--ease),
+    box-shadow .3s var(--ease),
+    background .3s;
+}
+
+.combo-box.active{
+  background:#1D1D1D;
+
+  border-color:rgba(243,235,221,.28);
+
+  box-shadow:
+    0 12px 30px rgba(0,0,0,.38);
+}
+
+.combo-header{
+  display:flex;
+  align-items:center;
+  gap:12px;
+
+  padding:14px;
+}
+
+.combo-icon{
+  width:42px;
+  height:42px;
+
+  border-radius:7px;
+
+  flex:none;
+
+  background:#252525;
+
+  display:flex;
+  align-items:center;
+  justify-content:center;
+
+  font-size:20px;
+
+  border:1px solid rgba(243,235,221,.08);
+
+  transition:
+    background .3s,
+    transform .3s var(--ease);
+}
+
+.combo-box.active .combo-icon{
+  background:var(--crema);
+
+  transform:rotate(-5deg) scale(1.05);
+}
+
+.combo-header-text{
+  flex:1;
+  min-width:0;
+}
+
+.combo-header-text .t{
+  font-family:var(--font-display);
+
+  font-weight:900;
+
+  font-size:15px;
+
+  color:var(--crema);
+
+  display:flex;
+  align-items:baseline;
+
+  gap:7px;
+
+  flex-wrap:wrap;
+}
+
+.combo-header-text .p{
+  font-family:var(--font-display);
+
+  font-weight:900;
+
+  font-size:12px;
+
+  color:#111;
+
+  background:var(--crema);
+
+  padding:3px 7px;
+
+  border-radius:4px;
+}
+
+.combo-header-text .d{
+  font-size:11.5px;
+
+  color:#9F9990;
+
+  line-height:1.45;
+
+  margin-top:4px;
+}
+
+/* ============ COMBO STEPPER ============ */
+
+.combo-stepper{
+  display:flex;
+  align-items:center;
+
+  gap:6px;
+
+  flex:none;
+
+  background:#0D1411;
+
+  border:1px solid rgba(58,90,77,.55);
+
+  border-radius:6px;
+
+  padding:4px;
+}
+
+.combo-stepper button{
+  width:29px;
+  height:29px;
+
+  border-radius:4px;
+
+  background:var(--verde-doha);
+
+  color:var(--crema);
+
+  font-size:16px;
+
+  font-weight:900;
+
+  line-height:1;
+
+  display:flex;
+  align-items:center;
+  justify-content:center;
+
+  transition:
+    transform .15s var(--ease),
+    background .2s,
+    opacity .2s;
+}
+
+.combo-stepper button:active{
+  transform:scale(.88);
+}
+
+.combo-stepper button.minus{
+  background:#263D33;
+
+  color:var(--crema);
+}
+.combo-stepper button:disabled{
+  opacity:.25; 
+  pointer-events:none;
+}
+
+.combo-stepper .cqty{
+  font-family:var(--font-display);
+
+  font-weight:900;
+
+  font-size:14px;
+
+  min-width:20px;
+
+  text-align:center;
+
+  color:var(--crema);
+}
+
+/* ============ SODA SELECTOR ============ */
+
+.combo-soda{
+  padding:0 14px;
+
+  max-height:0;
+
+  overflow:hidden;
+
+  transition:
+    max-height .35s var(--ease),
+    padding .35s var(--ease);
+}
+
+.combo-soda.show{
+  max-height:150px;
+
+  padding:0 14px 14px;
+}
+
+.combo-soda-inner{
+  padding-top:12px;
+
+  border-top:1px solid rgba(243,235,221,.08);
+}
+
+.combo-soda label{
+  display:flex;
+  align-items:center;
+
+  gap:6px;
+
+  font-size:11.5px;
+
+  font-weight:800;
+
+  color:var(--crema);
+
+  margin-bottom:9px;
+
+  text-transform:uppercase;
+  letter-spacing:.5px;
+}
+
+.combo-soda label .ic{
+  font-size:14px;
+}
+/* ============ QTY STEPPER — DOHA ============ */
+
+.stepper{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+
+  background:#111;
+  border:1px solid rgba(243,235,221,.14);
+
+  border-radius:7px;
+  padding:5px;
+
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,.03),
+    0 8px 20px rgba(0,0,0,.25);
+}
+
+.stepper button{
+  width:40px;
+  height:40px;
+
+  border-radius:5px;
+
+  background:var(--crema);
+  color:#111;
+
+  font-size:21px;
+  font-weight:900;
+
+  display:flex;
+  align-items:center;
+  justify-content:center;
+
+  transition:
+    transform .15s var(--ease),
+    background .2s,
+    opacity .2s;
+}
+
+.stepper button:active{
+  transform:scale(.90);
+}
+
+.stepper button.minus{
+  background:#242424;
+  color:var(--crema);
+}
+
+.stepper button:disabled{
+  opacity:.3;
+  pointer-events:none;
+}
+
+.stepper .qty{
+  font-family:var(--font-display);
+  font-weight:900;
+  font-size:18px;
+
+  min-width:30px;
+  text-align:center;
+
+  color:var(--crema);
+}
+/* ============ STORY — DOHA PREMIUM ============ */
+
+.story{
+  background:#111;
+  padding:76px 0 80px;
+  margin-top:50px;
+
+  border-top:1px solid rgba(243,235,221,.08);
+  border-bottom:1px solid rgba(243,235,221,.08);
+}
+
+.story .section-head{
+  margin-bottom:36px;
+}
+
+.story .eyebrow{
+  color:#B9AA95;
+}
+
+.story .section-title{
+  color:var(--crema);
+}
+
+.story .section-desc{
+  color:#8F8A83;
+}
+
+.story-grid{
+  display:grid;
+
+  grid-template-columns:1fr;
+
+  gap:10px;
+}
+
+@media (min-width:720px){
+  .story-grid{
+    grid-template-columns:repeat(3,1fr);
+    gap:14px;
+  }
+}
+
+.story-item{
+  position:relative;
+
+  background:#191919;
+
+  border-radius:10px;
+
+  padding:24px;
+
+  border:1px solid rgba(243,235,221,.08);
+
+  overflow:hidden;
+
+  transition:
+    transform .35s var(--ease),
+    border-color .3s,
+    background .3s;
+}
+
+.story-item::before{
+  content:"";
+
+  position:absolute;
+
+  left:0;
+  top:0;
+  bottom:0;
+
+  width:3px;
+
+  background:var(--rojo-doha);
+
+  opacity:.8;
+}
+
+.story-item:hover{
+  transform:translateY(-4px);
+
+  background:#1D1D1D;
+
+  border-color:rgba(243,235,221,.18);
+}
+
+.story-item .num{
+  font-family:var(--font-display);
+
+  font-weight:900;
+
+  font-size:11px;
+
+  color:#A69C8E;
+
+  display:block;
+
+  margin-bottom:12px;
+
+  letter-spacing:1.5px;
+}
+
+.story-item h4{
+  font-family:var(--font-display);
+
+  font-weight:900;
+
+  font-size:19px;
+
+  margin:0 0 9px;
+
+  color:var(--crema);
+}
+
+.story-item p{
+  font-size:13px;
+
+  line-height:1.6;
+
+  color:#918C84;
+
+  margin:0;
+}
+/* ============ FOOTER — DOHA PREMIUM ============ */
+
+.footer{
+  background:#090909;
+
+  color:var(--crema);
+
+  padding:70px 0 34px;
+
+  text-align:center;
+
+  border-top:1px solid rgba(243,235,221,.08);
+}
+
+.footer-logo{
+  height:56px;
+
+  margin:0 auto 20px;
+
+  filter:
+    drop-shadow(0 8px 20px rgba(0,0,0,.5));
+}
+
+.footer h3{
+  font-family:var(--font-accent);
+
+  font-weight:600;
+
+  font-size:27px;
+
+  color:#B9AA95;
+
+  margin:0 0 28px;
+}
+
+.footer-cta{
+  display:inline-flex;
+
+  align-items:center;
+  justify-content:center;
+
+  gap:10px;
+
+  background:var(--crema);
+
+  color:#090909;
+
+  padding:15px 28px;
+
+  border-radius:6px;
+
+  font-weight:900;
+
+  font-size:12px;
+
+  letter-spacing:.6px;
+
+  text-transform:uppercase;
+
+  box-shadow:
+    0 12px 30px rgba(0,0,0,.45);
+
+  margin-bottom:38px;
+
+  transition:
+    transform .25s var(--ease),
+    background .2s,
+    box-shadow .2s;
+}
+
+.footer-cta:hover{
+  background:#fff;
+
+  transform:translateY(-3px);
+
+  box-shadow:
+    0 16px 34px rgba(0,0,0,.55);
+}
+
+.footer-cta:active{
+  transform:scale(.96);
+}
+
+.footer-cta svg{
+  width:19px;
+  height:19px;
+}
+
+.footer-meta{
+  font-size:11.5px;
+
+  color:rgba(243,235,221,.42);
+
+  line-height:1.9;
+
+  padding-top:22px;
+
+  border-top:1px solid rgba(243,235,221,.07);
+}
+
+.footer-meta strong{
+  color:rgba(243,235,221,.78);
+}
+
+/* ============ STICKY ORDER BAR — DOHA PREMIUM ============ */
+
+.orderbar{
+  position:fixed;
+  left:50%;
+  bottom:14px;
+  z-index:70;
+
+  width:calc(100% - 28px);
+  max-width:520px;
+
+  transform:translate(-50%,120px);
+  opacity:0;
+  pointer-events:none;
+
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:14px;
+
+  padding:10px;
+
+  background:rgba(12,12,12,.97);
+  border:1px solid rgba(243,235,221,.14);
+
+  border-radius:10px;
+
+  box-shadow:
+    0 18px 50px rgba(0,0,0,.55);
+
+  backdrop-filter:blur(18px);
+
+  transition:
+    transform .4s var(--ease),
+    opacity .3s var(--ease);
+}
+
+.orderbar.show{
+  transform:translate(-50%,0);
+  opacity:1;
+  pointer-events:auto;
+}
+
+.orderbar-info{
+  display:flex;
+  flex-direction:column;
+  gap:2px;
+
+  padding-left:10px;
+}
+
+.orderbar-info .count{
+  color:#9D9890;
+
+  font-size:11px;
+  font-weight:800;
+
+  text-transform:uppercase;
+  letter-spacing:.6px;
+}
+
+.orderbar-info .total{
+  color:var(--crema);
+
+  font-family:var(--font-display);
+  font-size:19px;
+  font-weight:900;
+}
+
+.orderbar-btn{
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  gap:8px;
+
+  min-height:46px;
+  padding:0 18px;
+
+  background:var(--crema);
+  color:#090909;
+
+  border-radius:6px;
+
+  font-size:12px;
+  font-weight:900;
+  letter-spacing:.5px;
+  text-transform:uppercase;
+
+  box-shadow:0 8px 20px rgba(0,0,0,.3);
+
+  transition:
+    transform .2s var(--ease),
+    background .2s;
+}
+
+.orderbar-btn:hover{
+  background:#fff;
+  transform:translateY(-1px);
+}
+
+.orderbar-btn:active{
+  transform:scale(.96);
+}
+
+.orderbar-btn svg{
+  width:18px;
+  height:18px;
+}
+/* ============ CART SHEET — DOHA PREMIUM ============ */
+
+.overlay{
+  position:fixed;
+  inset:0;
+  z-index:90;
+
+  background:rgba(0,0,0,.72);
+
+  opacity:0;
+  pointer-events:none;
+
+  transition:opacity .3s var(--ease);
+
+  display:flex;
+  align-items:flex-end;
+  justify-content:center;
+
+  backdrop-filter:blur(5px);
+}
+
+.overlay.show{
+  opacity:1;
+  pointer-events:auto;
+}
+
+.sheet{
+  background:#111;
+
+  width:100%;
+  max-width:560px;
+
+  max-height:90vh;
+
+  border-radius:18px 18px 0 0;
+
+  display:flex;
+  flex-direction:column;
+
+  transform:translateY(100%);
+
+  transition:transform .4s var(--ease);
+
+  box-shadow:
+    0 -25px 70px rgba(0,0,0,.65);
+
+  border:1px solid rgba(243,235,221,.10);
+  border-bottom:none;
+}
+
+.overlay.show .sheet{
+  transform:translateY(0);
+}
+
+.sheet-handle{
+  width:42px;
+  height:4px;
+
+  background:rgba(243,235,221,.25);
+
+  border-radius:100px;
+
+  margin:11px auto 5px;
+
+  flex:none;
+}
+
+.sheet-header{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+
+  padding:12px 20px 16px;
+
+  border-bottom:1px solid rgba(243,235,221,.10);
+
+  flex:none;
+}
+
+.sheet-header h3{
+  font-family:var(--font-display);
+  font-weight:900;
+
+  font-size:21px;
+
+  text-transform:uppercase;
+
+  margin:0;
+
+  color:var(--crema);
+
+  letter-spacing:.3px;
+}
+
+.sheet-close{
+  width:34px;
+  height:34px;
+
+  border-radius:5px;
+
+  background:#242424;
+
+  display:flex;
+  align-items:center;
+  justify-content:center;
+
+  font-size:17px;
+
+  color:var(--crema);
+
+  border:1px solid rgba(243,235,221,.10);
+
+  transition:
+    background .2s,
+    transform .2s var(--ease);
+}
+
+.sheet-close:hover{
+  background:#303030;
+}
+
+.sheet-close:active{
+  transform:scale(.9);
+}
+
+.sheet-body{
+  overflow-y:auto;
+
+  padding:8px 20px 12px;
+
+  flex:1;
+
+  scrollbar-width:thin;
+  scrollbar-color:#444 transparent;
+}
+
+.sheet-footer{
+  padding:16px 20px 22px;
+
+  border-top:1px solid rgba(243,235,221,.10);
+
+  flex:none;
+
+  background:#111;
+}
+
+/* ============ CART ITEMS ============ */
+
+.cart-line{
+  display:grid;
+
+  grid-template-columns:48px 1fr auto;
+
+  align-items:center;
+
+  gap:12px;
+
+  padding:16px 0;
+
+  border-bottom:1px solid rgba(243,235,221,.08);
+}
+
+.cart-line:last-child{
+  border-bottom:none;
+}
+
+.cart-line .emoji{
+  width:48px;
+  height:48px;
+
+  border-radius:7px;
+
+  background:#222;
+
+  display:flex;
+  align-items:center;
+  justify-content:center;
+
+  font-size:20px;
+
+  flex:none;
+
+  overflow:hidden;
+
+  border:1px solid rgba(243,235,221,.08);
+}
+
+.cart-line .emoji img{
+  width:100%;
+  height:100%;
+  object-fit:cover;
+}
+
+.cart-line .info{
+  min-width:0;
+}
+
+.cart-line .info .name{
+  font-family:var(--font-display);
+
+  font-weight:900;
+
+  font-size:15px;
+
+  color:var(--crema);
+
+  margin-bottom:3px;
+}
+
+.cart-line .info .unit{
+  font-size:11.5px;
+
+  color:#99938A;
+}
+
+.cart-line .info .combo-detail{
+  font-size:11.5px;
+
+  color:#C9BCA9;
+
+  font-weight:700;
+
+  margin-top:4px;
+}
+
+.cart-line .line-total{
+  font-family:var(--font-display);
+
+  font-weight:900;
+
+  font-size:14px;
+
+  color:var(--crema);
+
+  min-width:70px;
+
+  text-align:right;
+}
+
+.cart-line .stepper{
+  grid-column:2 / 3;
+
+  justify-self:start;
+
+  transform:none;
+  transform-origin:center;
+
+  margin-top:4px;
+}
+  .empty-cart{text-align:center;padding:40px 10px;color:var(--verde-claro);}
+  .empty-cart .icon{font-size:40px;margin-bottom:10px;}
+
+  .totals-row{display:flex;justify-content:space-between;align-items:center;padding:6px 0;font-size:14px;color:var(--verde-claro);}
+  .totals-row.grand{padding-top:10px;margin-top:6px;border-top:1.5px dashed rgba(15,61,46,.2);}
+  .totals-row.grand .amount{font-family:var(--font-display);font-weight:900;font-size:24px;color:var(--verde-doha);}
+  .totals-row.grand .label{font-family:var(--font-display);font-weight:800;font-size:15px;text-transform:uppercase;color:var(--verde-doha);}
+
+  .btn-primary{
+    width:100%;padding:16px 18px;border-radius:100px;
+    background:var(--verde-doha);color:var(--crema);
+    font-weight:700;font-size:15.5px;
+    display:flex;align-items:center;justify-content:center;gap:9px;
+    box-shadow:0 10px 22px -8px rgba(15,61,46,0.55);
+    transition:transform .2s var(--ease), background .2s;
+  }
+  .btn-primary:hover{background:var(--verde-claro);}
+  .btn-primary:active{transform:scale(.97);}
+  .btn-primary svg{width:19px;height:19px;flex:none;}
+  .btn-primary.wa{background:var(--marron);}
+  .btn-primary.wa:hover{background:#a4491f;}
+  .btn-primary:disabled{opacity:.45;pointer-events:none;}
+
+  .btn-ghost{
+    width:100%;padding:13px 18px;border-radius:100px;
+    background:transparent;color:var(--verde-doha);
+    font-weight:600;font-size:14px;border:1.5px solid rgba(15,61,46,.2);
+    margin-top:10px;text-align:center;
+  }
+
+  /* ============ CHECKOUT — DOHA PREMIUM ============ */
+  .empty-cart{text-align:center;padding:44px 10px;color:#9D9890;line-height:1.7;}
+  .empty-cart .icon{font-size:40px;margin-bottom:10px;}
+
+  .totals-row{display:flex;justify-content:space-between;align-items:center;padding:6px 0;font-size:14px;color:#9D9890;}
+  .totals-row.grand{padding-top:12px;margin-top:6px;border-top:1px dashed rgba(243,235,221,.16);}
+  .totals-row.grand .amount{font-family:var(--font-display);font-weight:900;font-size:24px;color:var(--crema);}
+  .totals-row.grand .label{font-family:var(--font-display);font-weight:900;font-size:15px;text-transform:uppercase;color:var(--crema);}
+
+  .btn-primary{
+    width:100%;padding:15px 18px;border-radius:6px;
+    background:var(--crema);color:#090909;
+    font-weight:900;font-size:13px;letter-spacing:.3px;text-transform:uppercase;
+    display:flex;align-items:center;justify-content:center;gap:9px;
+    box-shadow:0 10px 24px rgba(0,0,0,.35);
+    transition:transform .2s var(--ease),background .2s;
+  }
+  .btn-primary:hover{background:#fff;}
+  .btn-primary:active{transform:scale(.97);}
+  .btn-primary svg{width:19px;height:19px;flex:none;}
+  .btn-primary.wa{background:#25D366;color:#07130B;}
+  .btn-primary.wa:hover{background:#48E681;}
+  .btn-primary:disabled{opacity:.4;pointer-events:none;}
+
+  .btn-ghost{
+    width:100%;padding:12px 18px;border-radius:6px;
+    background:transparent;color:#BEB4A5;
+    font-weight:700;font-size:13px;
+    border:1px solid rgba(243,235,221,.14);
+    margin-top:10px;text-align:center;
+  }
+
+  .field{margin-bottom:16px;}
+  .field label{display:block;font-size:12px;font-weight:800;color:var(--crema);margin-bottom:7px;text-transform:uppercase;letter-spacing:.4px;}
+  .field .req{color:#C56A55;}
+  .field input[type="text"], .field textarea{
+    width:100%;padding:13px 14px;border-radius:7px;
+    border:1px solid rgba(243,235,221,.14);background:#1A1A1A;
+    font-size:14px;color:var(--crema);
+    transition:border-color .2s,background .2s;
+  }
+  .field input::placeholder,.field textarea::placeholder{color:#706C66;}
+  .field input:focus,.field textarea:focus{outline:none;border-color:rgba(243,235,221,.45);background:#202020;}
+  .field textarea{resize:vertical;min-height:76px;}
+  .field.invalid input,.field.invalid textarea{border-color:#B84C3C;}
+  .field-error{font-size:11.5px;color:#D26A58;margin-top:5px;display:none;font-weight:700;}
+  .field.invalid .field-error{display:block;}
+
+  .pay-options{display:flex;gap:10px;}
+  .pay-opt{
+    flex:1;padding:13px 10px;border-radius:7px;
+    border:1px solid rgba(243,235,221,.14);background:#1A1A1A;
+    text-align:center;font-weight:800;font-size:13px;color:#BEB4A5;
+    display:flex;flex-direction:column;align-items:center;gap:6px;
+    transition:border-color .2s,background .2s,transform .2s;
+    cursor:pointer;
+  }
+  .pay-opt .ic{font-size:20px;}
+  .pay-opt.selected{border-color:var(--crema);background:var(--crema);color:#090909;}
+  .pay-opt:active{transform:scale(.97);}
+
+  .checkout-summary{
+    background:#1A1A1A;border:1px solid rgba(243,235,221,.10);
+    border-radius:9px;padding:14px 16px;margin-bottom:18px;
+    font-size:13px;color:#BEB4A5;line-height:1.65;
+  }
+  .checkout-summary strong{display:block;font-family:var(--font-display);font-size:15px;color:var(--crema);margin-bottom:6px;}
+
+  .location-note{
+    display:flex;gap:12px;background:#181818;
+    border:1px solid rgba(243,235,221,.12);
+    border-radius:9px;padding:15px;font-size:12.5px;color:#9D9890;
+    line-height:1.6;margin-bottom:18px;align-items:flex-start;
+  }
+  .location-note .ic{
+    font-size:20px;flex:none;line-height:1;background:var(--crema);color:#090909;
+    width:38px;height:38px;border-radius:7px;display:flex;align-items:center;justify-content:center;
+  }
+  .location-note strong{color:var(--crema);}
+  .location-note .step{
+    display:inline-block;background:var(--crema);color:#090909;
+    font-size:10px;font-weight:900;width:18px;height:18px;border-radius:50%;
+    text-align:center;line-height:18px;margin-right:5px;flex:none;
+  }
+
+  .toast{
+    position:fixed;left:50%;bottom:96px;transform:translate(-50%,20px);
+    background:#F3EBDD;color:#090909;
+    padding:11px 20px;border-radius:6px;font-size:12.5px;font-weight:800;
+    box-shadow:0 10px 24px rgba(0,0,0,.4);
+    opacity:0;pointer-events:none;transition:opacity .3s,transform .3s;
+    z-index:95;display:flex;align-items:center;gap:8px;
+  }
+  .toast.show{opacity:1;transform:translate(-50%,0);}
+
+
+  .toast{
+    position:fixed;left:50%;bottom:96px;transform:translate(-50%,20px);
+    background:var(--verde-doha);color:var(--crema);
+    padding:11px 20px;border-radius:100px;font-size:13.5px;font-weight:600;
+    box-shadow:0 10px 24px -8px rgba(0,0,0,.4);
+    opacity:0;pointer-events:none;transition:opacity .3s, transform .3s;
+    z-index:95;display:flex;align-items:center;gap:8px;
+  }
+  .toast.show{opacity:1;transform:translate(-50%,0);}
+
+  /* ============ MISSING PRODUCT/SODA BASES — FINAL ============ */
+  .card-media{
+    position:relative;
+    width:100%;
+    height:270px;
+    overflow:hidden;
+    background:#222;
+  }
+  .card-media img{
+    height:100%;
+    width:100%;
+    object-fit:cover;
+  }
+  .soda-options{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px;}
+  .soda-option{
+    flex:1;
+    min-width:82px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    gap:6px;
+    padding:8px 7px;
+    border-radius:7px;
+    border:1px solid rgba(243,235,221,.10);
+    background:#202020;
+    color:#BEB4A5;
+    font-size:10.5px;
+    font-weight:800;
+    transition:all .2s var(--ease);
+  }
+  .soda-option:hover{border-color:rgba(243,235,221,.25);color:var(--crema);}
+  .soda-option.selected{
+    background:var(--crema);
+    color:#090909;
+    border-color:var(--crema);
+    transform:translateY(-1px);
+  }
+  .soda-circle{
+    width:24px;height:24px;border-radius:50%;
+    display:flex;align-items:center;justify-content:center;
+    font-size:11px;font-weight:900;
+    background:#333;color:#fff;
+  }
+  .soda-circle.pepsi{background:#2455A4;}
+  .soda-circle.coca{background:#B91C1C;}
+  .soda-circle.postobon{background:#D1A928;color:#111;}
+  .combo-hidden{display:none;}
+  .combo-box:not(.combo-hidden){display:block;}
+  @media (max-width:480px){
+    .card-media{height:245px;}
+    .card-body{padding:19px 17px 17px;}
+    .card-name{font-size:22px;}
+  }
+
+
+  /* ============ DOHA BRAND SIGNATURE ============ */
+  .topbar-cart-btn{
+    background:var(--verde-doha);
+    color:var(--crema);
+    border:1px solid rgba(112,154,133,.24);
+    box-shadow:0 8px 24px rgba(0,0,0,.42);
+  }
+  .topbar-cart-btn:hover{background:#21483A;}
+  .quicknav{
+    background:#0C0E0D;
+  }
+  .chip{
+    background:#151817;
+    border-color:rgba(112,154,133,.16);
+    color:#A9B0AA;
+  }
+  .chip.active{
+    background:var(--verde-doha);
+    color:var(--crema);
+    border-color:rgba(112,154,133,.45);
+    box-shadow:0 7px 18px rgba(24,53,43,.35);
+  }
+  .chip:hover{border-color:rgba(112,154,133,.35);color:var(--crema);}
+
+  .card-badge{
+    background:var(--verde-doha);
+    color:var(--crema);
+    border:1px solid rgba(112,154,133,.22);
+  }
+  .card-price-float{
+    background:rgba(9,9,9,.88);
+    color:var(--crema);
+    border:1px solid rgba(112,154,133,.24);
+  }
+
+  .stepper{
+    border-color:rgba(112,154,133,.22);
+    background:#151817;
+  }
+  .stepper button{
+    color:#B7C4BC;
+  }
+  .stepper button:hover{background:var(--verde-doha);color:var(--crema);}
+  .stepper .qty{color:var(--crema);}
+
+  .combo-box{
+    border-color:rgba(112,154,133,.18);
+  }
+  .combo-box.active{
+    border-color:rgba(112,154,133,.45);
+    background:#111714;
+    box-shadow:0 12px 28px rgba(0,0,0,.28);
+  }
+  .combo-icon{
+    background:var(--verde-doha);
+    color:var(--crema);
+  }
+  .combo-box.active .combo-icon{
+    background:#21483A;
+  }
+
+  .soda-option.selected{
+    background:var(--verde-doha);
+    color:var(--crema);
+    border-color:rgba(112,154,133,.55);
+    transform:translateY(-1px);
+  }
+
+  .orderbar{
+    border-top:1px solid rgba(112,154,133,.22);
+  }
+  .orderbar-btn{
+    background:var(--verde-doha);
+    color:var(--crema);
+    border:1px solid rgba(112,154,133,.28);
+  }
+  .orderbar-btn:hover{background:#21483A;}
+
+  .section-head .eyebrow{
+    color:#739685;
+  }
+  .section-title:after{
+    background:var(--verde-doha);
+  }
+
+  .footer-cta{
+    background:var(--verde-doha);
+    box-shadow:0 14px 30px -10px rgba(24,53,43,.7);
+    border:1px solid rgba(112,154,133,.25);
+  }
+  .footer-cta:hover{background:#21483A;}
+
+  .btn-primary{
+    border:1px solid rgba(112,154,133,.28);
+  }
+  .btn-primary:hover{
+    background:#EAF2EC;
+  }
+
+  .pay-opt.selected{
+    border-color:#739685;
+    box-shadow:0 0 0 1px rgba(115,150,133,.18);
+  }
+
+  /* Small brand accents */
+  .hero-tagline{color:var(--crema);}
+  .hero-sub{color:#A6B3AB;}
+  .story .num{color:#739685;}
+
+
+  /* ============ MENU NAV — CORRAL-INSPIRED, DOHA OWN ============ */
+  .quicknav-inner{
+    gap:7px;
+    padding:10px 16px;
+    overflow-x:auto;
+  }
+  .chip{
+    padding:9px 15px;
+    border-radius:5px;
+    font-size:10px;
+    letter-spacing:.7px;
+  }
+  .chip.active{
+    box-shadow:inset 0 -2px 0 #89A997, 0 6px 16px rgba(24,53,43,.25);
+  }
+
+  /* Ingredients: easier to read without becoming visually heavy */
+  .card-ingredients{
+    font-size:13.5px !important;
+    line-height:1.65 !important;
+    color:#6E6A63 !important;
+    letter-spacing:.05px;
+  }
+  .card-ingredients b{
+    color:#2B302D !important;
+    font-weight:900;
+  }
+
+  /* Product cards: cleaner premium menu hierarchy */
+  .card{
+    border-radius:14px !important;
+    border:1px solid rgba(24,53,43,.10) !important;
+    box-shadow:0 16px 36px rgba(0,0,0,.08) !important;
+    overflow:hidden;
+  }
+  .card-name{
+    letter-spacing:.1px;
+  }
+
+  /* More tactile controls */
+  .stepper{
+    border-radius:6px !important;
+  }
+  .stepper button{
+    min-width:34px;
+    min-height:34px;
+  }
+
+  /* Category strip feels like a real restaurant menu */
+  @media (max-width:899px){
+    .quicknav{
+      top:54px;
+    }
+    .quicknav-inner{
+      justify-content:flex-start;
+    }
+  }
+
+
+
+  /* =========================================================
+     DOHA FINAL VISUAL LAYER — NEGRO + CREMA + VERDE SUTIL
+     ========================================================= */
+  body{background:var(--negro);color:var(--crema);}
+
+  .quicknav{background:rgba(9,9,9,.94);border-bottom:1px solid rgba(112,154,133,.18);}
+  .chip{
+    background:#121514;color:#BEB8AE;border:1px solid rgba(112,154,133,.20);
+    transition:background .25s var(--ease),color .25s,border-color .25s,transform .2s var(--ease);
+  }
+  .chip.active,.chip:hover{background:var(--verde-doha);color:var(--crema);border-color:rgba(115,150,133,.60);}
+  .chip:active{transform:scale(.96);}
+
+  .hero{
+    background:
+      radial-gradient(circle at 50% 45%,rgba(58,90,77,.16),transparent 32%),
+      radial-gradient(circle at 50% 18%,rgba(216,200,174,.08),transparent 34%),#090909;
+  }
+  .hero::before{opacity:.18;}
+  .hero-glow{
+    background:
+      radial-gradient(ellipse at 50% 48%,rgba(243,235,221,.065),transparent 48%),
+      radial-gradient(ellipse at 50% 72%,rgba(58,90,77,.12),transparent 42%);
+  }
+  .hero-photo-wrap{
+    border:1px solid rgba(112,154,133,.34);border-bottom:0;
+    background:radial-gradient(circle at 50% 42%,rgba(243,235,221,.10),transparent 34%),linear-gradient(145deg,#171A18,#090909 70%);
+    box-shadow:0 -30px 90px -35px rgba(58,90,77,.55),0 22px 70px rgba(0,0,0,.70);isolation:isolate;
+  }
+  .hero-photo-wrap img{
+    position:relative;z-index:1;opacity:1;transform:scale(1.025);
+    transition:opacity .34s ease,transform .55s var(--ease),filter .5s ease;
+    filter:saturate(.94) contrast(1.06) brightness(.98);
+  }
+  .hero-photo-wrap.is-changing img{opacity:0;transform:scale(1.055);}
+  .hero-photo-glow{
+    position:absolute;inset:8% 8% 12%;z-index:0;
+    background:radial-gradient(circle,rgba(243,235,221,.13),transparent 58%);filter:blur(22px);pointer-events:none;
+  }
+  .hero-photo-shine{
+    position:absolute;inset:0;z-index:2;pointer-events:none;
+    background:linear-gradient(115deg,transparent 20%,rgba(243,235,221,.055) 48%,transparent 58%);
+    transform:translateX(-100%);animation:heroShine 7s ease-in-out infinite;
+  }
+  @keyframes heroShine{
+    0%,55%{transform:translateX(-100%);opacity:0;}63%{opacity:1;}76%,100%{transform:translateX(100%);opacity:0;}
+  }
+  .hero-photo-caption{
+    z-index:4;padding:48px 18px 20px;
+    background:linear-gradient(to top,rgba(0,0,0,.88),transparent);
+  }
+  .hero-photo-copy{display:flex;flex-direction:column;gap:3px;}
+  .hero-photo-caption .name{color:var(--crema);font-size:25px;letter-spacing:.2px;}
+  .hero-photo-caption .desc{color:#D0C8BA;font-size:11px;font-weight:600;}
+  .hero-photo-caption .tag{background:var(--beige);color:#111;border:1px solid rgba(243,235,221,.50);box-shadow:0 8px 24px rgba(0,0,0,.35);}
+  .hero-dots{position:absolute;left:50%;bottom:9px;z-index:5;transform:translateX(-50%);display:flex;gap:6px;}
+  .hero-dot{width:7px;height:7px;padding:0;border-radius:50%;background:rgba(243,235,221,.32);border:1px solid rgba(243,235,221,.28);transition:transform .25s var(--ease),background .25s,width .25s;}
+  .hero-dot.active{width:22px;border-radius:99px;background:var(--beige);border-color:var(--beige);}
+  .hero-dot:active{transform:scale(.88);}
+
+  .section{
+    background:radial-gradient(circle at 50% 0%,rgba(58,90,77,.08),transparent 35%),#090909;
+    padding-top:72px;
+  }
+  .section-head .eyebrow{color:#88A997;font-weight:800;letter-spacing:2px;}
+  .section-title{color:var(--crema);text-shadow:0 4px 22px rgba(0,0,0,.45);}
+  .section-title:after{content:"";display:block;width:34px;height:2px;margin:12px auto 0;background:var(--verde-claro);border-radius:99px;}
+  .section-desc{color:#BEB7AC;}
+
+  .card{
+    background:radial-gradient(circle at 50% 0%,rgba(243,235,221,.055),transparent 38%),linear-gradient(145deg,#171918,#101110 72%);
+    border:1px solid rgba(112,154,133,.48);box-shadow:0 20px 55px -25px rgba(0,0,0,.95);
+  }
+  .card:hover{border-color:rgba(115,150,133,.82);box-shadow:0 30px 65px -25px rgba(0,0,0,.95),0 0 0 1px rgba(58,90,77,.10);}
+  .card-media{background:radial-gradient(circle at 50% 48%,rgba(243,235,221,.10),transparent 44%),linear-gradient(145deg,#181B19,#080908);}
+  .card-media::after{background:linear-gradient(to bottom,transparent 45%,rgba(0,0,0,.78));}
+  .card-badge{background:rgba(9,9,9,.82);color:var(--beige);border-color:rgba(112,154,133,.48);}
+  .card-price-float{background:rgba(9,9,9,.88);color:var(--crema);border-color:rgba(112,154,133,.45);}
+  .card-name{color:var(--crema);}
+  .card-tagline{color:#D0C7B9;font-weight:600;}
+  .card-ingredients{color:#E1D9CC;font-size:13.5px;line-height:1.68;border-top-color:rgba(112,154,133,.22);}
+  .card-ingredients b{color:#91B19F;font-weight:900;}
+
+  .stepper{background:#101211;border-color:rgba(112,154,133,.42);}
+  .stepper button{background:var(--verde-doha);color:var(--crema);border:1px solid rgba(112,154,133,.28);}
+  .stepper button.minus{background:#202421;color:var(--crema);}
+  .stepper button:hover{background:#285342;color:var(--crema);}
+  .stepper .qty{color:var(--crema);}
+
+  .combo-box{background:#121413;border:1px solid rgba(112,154,133,.28);}
+  .combo-box.active{background:#151816;border-color:rgba(115,150,133,.62);}
+  .combo-icon{background:#202421;border-color:rgba(112,154,133,.30);}
+  .combo-box.active .combo-icon{background:var(--verde-doha);}
+  .combo-header-text .p{background:var(--beige);color:#111;}
+  .combo-header-text .d{color:#B8B0A4;}
+  .combo-stepper{border-color:rgba(112,154,133,.42);}
+  .combo-stepper button{background:var(--verde-doha);color:var(--crema);}
+  .combo-stepper button.minus{background:#202421;color:var(--crema);}
+  .soda-option{background:#181A19;color:#C8C0B4;border-color:rgba(112,154,133,.22);}
+  .soda-option.selected{background:var(--beige);color:#111;border-color:var(--beige);}
+
+  .hero::after{background:var(--beige);color:#111;}
+  .footer-cta{background:var(--verde-doha);color:var(--crema);}
+  .footer-cta:hover{background:#285342;}
+  .orderbar-btn{background:var(--beige);color:#111;}
+  .orderbar-btn:hover{background:#E8DCC8;}
+  .story{background:#0D0F0E;}
+  .story-item{background:#151716;border-color:rgba(112,154,133,.28);}
+  .story-item::before{background:var(--verde-doha);}
+  @media (prefers-reduced-motion:reduce){.hero-photo-shine{animation:none;}.hero-photo-wrap img{transition:none;}}
+
+
+  /* =========================================================
+     DOHA V4 — NEGRO CARBÓN / MARFIL / BEIGE ARENA / VERDE SUTIL
+     ========================================================= */
+
+  :root{
+    --crema:#F7EED7;
+    --beige:#E4CFA3;
+    --verde-claro:#355848;
+  }
+
+  body{
+    background:#090A09;
+    color:var(--crema);
+  }
+
+  /* ================= TOP / NAV ================= */
+
+  .quicknav{
+    background:rgba(9,10,9,.88);
+    border-bottom:1px solid rgba(228,207,163,.08);
+  }
+
+  .chip{
+    background:rgba(247,238,215,.035);
+    color:#D8CFBE;
+    border:1px solid rgba(228,207,163,.09);
+  }
+
+  .chip.active,
+  .chip:hover{
+    background:var(--beige);
+    color:#111;
+    border-color:var(--beige);
+    box-shadow:0 8px 22px rgba(0,0,0,.22);
+  }
+
+  /* ================= HERO — SIN CUADRO ================= */
+
+  .hero{
+    position:relative;
+    min-height:760px;
+    padding:120px 20px 20px;
+    display:grid;
+    grid-template-columns:minmax(300px,.86fr) minmax(430px,1.35fr);
+    grid-template-rows:auto auto auto 1fr;
+    grid-template-areas:
+      "logo photo"
+      "tagline photo"
+      "sub photo"
+      "dots photo";
+    align-items:center;
+    column-gap:18px;
+    overflow:hidden;
+    background:
+      radial-gradient(ellipse at 72% 50%,rgba(247,238,215,.075),transparent 28%),
+      radial-gradient(ellipse at 76% 67%,rgba(53,88,72,.075),transparent 35%),
+      linear-gradient(180deg,#070807 0%,#0A0D0B 100%);
+  }
+
+  .hero-glow{
+    position:absolute;
+    inset:0;
+    pointer-events:none;
+    background:
+      radial-gradient(circle at 72% 50%,rgba(247,238,215,.09),transparent 30%),
+      radial-gradient(circle at 72% 72%,rgba(53,88,72,.09),transparent 38%);
+    filter:blur(8px);
+  }
+
+  .hero-logo{
+    grid-area:logo;
+    width:min(100%,260px);
+    margin:0 0 4px;
+    justify-self:start;
+    filter:drop-shadow(0 6px 20px rgba(0,0,0,.4));
+  }
+
+  .hero-tagline{
+    grid-area:tagline;
+    max-width:540px;
+    margin:0;
+    color:var(--crema);
+    font-family:'Bodoni Moda', serif;
+    font-size:clamp(38px,5vw,64px);
+    font-weight:500;
+    line-height:.95;
+    text-align:left;
+    text-shadow:0 5px 25px rgba(0,0,0,.65);
+  }
+  
+
+  .hero-sub{
+    grid-area:sub;
+    max-width:410px;
+    margin:0;
+    color:#D8CFBF;
+    font-size:15px;
+    font-weight:600;
+    line-height:1.6;
+    text-align:left;
+  }
+
+  .hero-photo-wrap{
+    grid-area:photo;
+    position:relative;
+    align-self:stretch;
+    justify-self:stretch;
+    width:100%;
+    max-width:none;
+    min-height:600px;
+    margin:0;
+    overflow:visible;
+    border:0;
+    border-radius:0;
+    background:transparent;
+    box-shadow:none;
+    isolation:isolate;
+  }
+
+  .hero-photo-wrap::before{
+    content:"";
+    position:absolute;
+    z-index:0;
+    left:50%;
+    top:53%;
+    width:78%;
+    height:62%;
+    transform:translate(-50%,-50%);
+    background:
+      radial-gradient(ellipse,
+        rgba(247,238,215,.17) 0%,
+        rgba(228,207,163,.07) 31%,
+        transparent 70%);
+    filter:blur(30px);
+    pointer-events:none;
+  }
+
+  .hero-photo-wrap::after{
+    content:"DOHA";
+    position:absolute;
+    z-index:0;
+    left:42%;
+    top:48%;
+    transform:translate(-50%,-50%);
+    color:rgba(247,238,215,.035);
+    font-family:var(--font-display);
+    font-size:clamp(170px,22vw,330px);
+    font-weight:900;
+    line-height:1;
+    letter-spacing:-12px;
+    white-space:nowrap;
+    pointer-events:none;
+  }
+
+  .hero-photo-wrap img{
+    position:absolute;
+    z-index:2;
+    left:50%;
+    top:50%;
+    width:100%;
+    height:650px;
+    transform:translate(-43%,-48%) scale(1.12);
+    object-fit:contain;
+    object-position:center;
+    filter:
+      saturate(1.04)
+      contrast(1.045)
+      brightness(1.04)
+      drop-shadow(0 28px 32px rgba(0,0,0,.65))
+      drop-shadow(0 0 32px rgba(247,238,215,.10));
+    -webkit-mask-image:linear-gradient(
+      to bottom,
+      transparent 0%,
+      #000 8%,
+      #000 89%,
+      transparent 100%
+    );
+    mask-image:linear-gradient(
+      to bottom,
+      transparent 0%,
+      #000 8%,
+      #000 89%,
+      transparent 100%
+    );
+    transition:
+      opacity .48s var(--ease),
+      transform .72s var(--ease);
+  }
+
+  .hero-photo-wrap.is-changing img{
+    opacity:0;
+    transform:translate(-43%,-48%) scale(1.18);
+  }
+
+  .hero-photo-glow{
+    z-index:1;
+    position:absolute;
+    left:18%;
+    right:8%;
+    top:18%;
+    bottom:13%;
+    background:radial-gradient(
+      ellipse at center,
+      rgba(247,238,215,.11),
+      transparent 64%
+    );
+    filter:blur(28px);
+    pointer-events:none;
+  }
+
+  .hero-photo-shine{
+    z-index:3;
+    position:absolute;
+    inset:16% 7% 14%;
+    border-radius:50%;
+    background:radial-gradient(
+      ellipse at 52% 45%,
+      rgba(255,255,255,.035),
+      transparent 58%
+    );
+    pointer-events:none;
+  }
+
+  .hero-photo-caption{
+    z-index:5;
+    position:absolute;
+    left:7%;
+    right:auto;
+    bottom:70px;
+    width:290px;
+    padding:0;
+    transform:none;
+    display:flex;
+    flex-direction:column;
+    align-items:flex-start;
+    gap:4px;
+    background:none;
+    border:0;
+    box-shadow:none;
+  }
+
+  .hero-photo-copy{
+    text-align:left;
+  }
+
+  .hero-photo-caption .name{
+    display:block;
+    color:var(--crema);
+    font-family:var(--font-display);
+    font-size:32px;
+    font-weight:900;
+    line-height:1;
+    text-shadow:0 5px 22px rgba(0,0,0,.8);
+  }
+
+  .hero-photo-caption .desc{
+    display:block;
+    margin-top:6px;
+    color:#D9D0C0;
+    font-size:12.5px;
+    line-height:1.45;
+    font-weight:600;
+  }
+
+  .hero-photo-caption .tag{
+    display:inline-block;
+    margin-top:8px;
+    padding:5px 9px;
+    background:rgba(228,207,163,.12);
+    color:var(--beige);
+    border:1px solid rgba(228,207,163,.22);
+    border-radius:4px;
+    font-size:9px;
+    font-weight:900;
+    letter-spacing:1.3px;
+    text-transform:uppercase;
+  }
+
+  .hero-dots{
+    grid-area:dots;
+    position:relative;
+    left:auto;
+    bottom:auto;
+    z-index:6;
+    justify-self:start;
+    align-self:end;
+    display:flex;
+    gap:8px;
+    margin-bottom:16px;
+  }
+
+  .hero-dot{
+    width:8px;
+    height:8px;
+    background:rgba(247,238,215,.18);
+    border:1px solid rgba(247,238,215,.16);
+  }
+
+  .hero-dot.active{
+    width:24px;
+    border-radius:20px;
+    background:var(--beige);
+    border-color:var(--beige);
+  }
+
+  /* ================= SECCIÓN ================= */
+
+  .section{
+    background:
+      radial-gradient(circle at 50% 0%,rgba(228,207,163,.035),transparent 25%),
+      #090A09;
+    padding-top:74px;
+    padding-bottom:42px;
+  }
+
+  .section-head{
+    margin-bottom:38px;
+  }
+
+  .section-head .eyebrow{
+    color:var(--beige);
+    font-size:11px;
+    letter-spacing:2.4px;
+  }
+
+  .section-title{
+    color:var(--crema);
+    font-family:var(--font-display);
+    font-size:clamp(31px,7vw,45px);
+    line-height:1.05;
+    text-shadow:0 4px 20px rgba(0,0,0,.35);
+  }
+
+  .section-title:after{
+    width:48px;
+    height:2px;
+    margin-top:14px;
+    background:var(--beige);
+    opacity:.9;
+  }
+
+  .section-desc{
+    color:#D6CDBE;
+    font-size:14px;
+    line-height:1.72;
+  }
+
+  /* ================= TARJETAS — DETALLE SIN PESO ================= */
+
+  .grid{
+    gap:24px;
+  }
+
+  .card{
+    position:relative;
+    background:
+      radial-gradient(circle at 50% 0%,rgba(247,238,215,.045),transparent 34%),
+      linear-gradient(150deg,#141715 0%,#0D100F 100%);
+    border:1px solid rgba(53,88,72,.34);
+    border-radius:17px;
+    box-shadow:
+      0 20px 45px -32px rgba(0,0,0,.92),
+      inset 0 1px 0 rgba(247,238,215,.025);
+  }
+
+  .card::before{
+    content:"";
+    position:absolute;
+    inset:1px;
+    border-radius:16px;
+    pointer-events:none;
+    background:
+      linear-gradient(
+        135deg,
+        rgba(228,207,163,.035),
+        transparent 28%,
+        transparent 72%,
+        rgba(53,88,72,.035)
+      );
+  }
+
+  .card:hover{
+    transform:translateY(-4px);
+    border-color:rgba(53,88,72,.56);
+    box-shadow:
+      0 26px 55px -34px rgba(0,0,0,.94),
+      0 0 22px rgba(53,88,72,.06);
+  }
+
+  .card-media{
+    background:
+      radial-gradient(circle at 50% 50%,rgba(247,238,215,.085),transparent 45%),
+      #0A0C0B;
+  }
+
+  .card-media::after{
+    background:
+      linear-gradient(
+        to bottom,
+        transparent 45%,
+        rgba(5,6,6,.76)
+      );
+  }
+
+  .card-badge{
+    background:rgba(228,207,163,.92);
+    color:#15130F;
+    border:0;
+    box-shadow:0 6px 15px rgba(0,0,0,.24);
+    font-size:9px;
+    letter-spacing:1px;
+  }
+
+  .card-price-float{
+    background:rgba(9,10,9,.78);
+    color:var(--crema);
+    font-size:20px;
+    padding:8px 12px;
+    border:1px solid rgba(228,207,163,.18);
+    box-shadow:0 8px 18px rgba(0,0,0,.28);
+  }
+
+  .card-body{
+    padding:24px 21px 21px;
+  }
+
+  .card-name{
+    color:var(--crema);
+    font-family:var(--font-display);
+    font-size:28px;
+    font-weight:900;
+    line-height:1.05;
+    margin-bottom:8px;
+  }
+
+  .card-tagline{
+    color:#D9D0C1;
+    font-size:14.5px;
+    font-weight:600;
+    line-height:1.5;
+    margin-bottom:18px;
+  }
+
+  .card-ingredients{
+    color:#E8DFD1;
+    font-size:15px;
+    font-weight:550;
+    line-height:1.72;
+    margin:0 0 20px;
+    padding-top:16px;
+    border-top:1px solid rgba(228,207,163,.14);
+  }
+
+  .card-ingredients b{
+    color:var(--beige);
+    font-size:12px;
+    font-weight:900;
+    letter-spacing:1px;
+    text-transform:uppercase;
+  }
+
+  /* ================= CANTIDAD ================= */
+
+  .stepper{
+    background:rgba(7,9,8,.58) !important;
+    border:1px solid rgba(228,207,163,.10) !important;
+    border-radius:9px !important;
+    box-shadow:none !important;
+    padding:4px !important;
+  }
+
+  .stepper button{
+    width:40px !important;
+    height:40px !important;
+    min-width:40px !important;
+    background:var(--verde-doha) !important;
+    color:var(--crema) !important;
+    border:0 !important;
+    border-radius:7px !important;
+    box-shadow:0 5px 12px rgba(0,0,0,.18) !important;
+  }
+
+  .stepper button.minus{
+    background:#244638 !important;
+  }
+
+  .stepper button:hover{
+    background:var(--verde-claro) !important;
+    transform:translateY(-1px);
+  }
+
+  .stepper .qty{
+    color:var(--crema) !important;
+    font-size:15px;
+    font-weight:900;
+  }
+
+  /* ================= COMBOS ================= */
+
+  .combo-box{
+    background:rgba(7,9,8,.34);
+    border:1px solid rgba(228,207,163,.08);
+    box-shadow:none;
+  }
+
+  .combo-box.active{
+    background:rgba(228,207,163,.035);
+    border-color:rgba(228,207,163,.17);
+  }
+
+  .combo-header-text .p{
+    background:var(--beige);
+    color:#111;
+  }
+
+  .combo-stepper{
+    background:rgba(7,9,8,.48);
+    border:1px solid rgba(228,207,163,.10);
+  }
+
+  .combo-stepper button{
+    background:var(--verde-doha);
+    color:var(--crema);
+    border:0;
+  }
+
+  .combo-stepper button.minus{
+    background:#244638;
+    color:var(--crema);
+  }
+
+  .soda-option{
+    background:rgba(247,238,215,.035);
+    color:#D8CFBF;
+    border-color:rgba(228,207,163,.10);
+  }
+
+  .soda-option.selected{
+    background:var(--beige);
+    color:#111;
+    border-color:var(--beige);
+  }
+
+  .footer-cta,
+  .orderbar-btn{
+    background:var(--beige);
+    color:#111;
+  }
+
+  .footer-cta:hover,
+  .orderbar-btn:hover{
+    background:#F0DFC0;
+  }
+
+  /* ================= STORY ================= */
+
+  .story{
+    background:
+      radial-gradient(circle at 50% 0%,rgba(228,207,163,.035),transparent 28%),
+      #0A0D0B;
+  }
+
+  .story-item{
+    background:#111513;
+    border-color:rgba(53,88,72,.25);
+  }
+
+  .story-item .num{
+    color:var(--beige);
+  }
+
+  /* ================= MOBILE ================= */
+
+  @media (max-width:899px){
+    .hero{
+      min-height:720px;
+      padding:128px 20px 18px;
+      display:grid;
+      grid-template-columns:1fr;
+      grid-template-rows:auto auto auto 1fr;
+      grid-template-areas:
+        "logo"
+        "tagline"
+        "sub"
+        "photo";
+      align-items:start;
+      text-align:center;
+    }
+
+    .hero-logo{
+      justify-self:center;
+      width:210px;
+    }
+
+    .hero-tagline{
+      justify-self:center;
+      text-align:center;
+      font-size:clamp(37px,10vw,52px);
+      margin-top:5px;
+    }
+
+    .hero-sub{
+      justify-self:center;
+      text-align:center;
+      font-size:13px;
+      margin-top:9px;
+    }
+
+    .hero-photo-wrap{
+      min-height:470px;
+      width:100%;
+      margin-top:-5px;
+    }
+
+    .hero-photo-wrap img{
+      left:50%;
+      top:50%;
+      width:112%;
+      height:500px;
+      transform:translate(-50%,-48%) scale(1.05);
+    }
+
+    .hero-photo-wrap.is-changing img{
+      transform:translate(-50%,-48%) scale(1.12);
+    }
+
+    .hero-photo-wrap::after{
+      left:50%;
+      font-size:35vw;
+      letter-spacing:-6px;
+    }
+
+    .hero-photo-caption{
+      left:50%;
+      bottom:18px;
+      width:86%;
+      transform:translateX(-50%);
+      align-items:center;
+      text-align:center;
+    }
+
+    .hero-photo-copy{
+      text-align:center;
+    }
+
+    .hero-dots{
+      position:absolute;
+      left:50%;
+      bottom:0;
+      transform:translateX(-50%);
+      margin:0;
+    }
+
+    .card-name{
+      font-size:26px;
+    }
+
+    .card-ingredients{
+      font-size:15px;
+    }
+  }
+
+  @media (prefers-reduced-motion:reduce){
+    .hero-photo-wrap img{
+      transition:none;
+    }
+  }
+
+
+  /* =========================================================
+     DOHA V5 — MOBILE FIRST / MÁS AIRE / PRODUCTO SIN MARCO
+     ========================================================= */
+
+  /* El interior de las tarjetas pasa a un carbón más claro,
+     para que el contenido respire sin perder la elegancia. */
+  .card{
+    background:
+      radial-gradient(circle at 50% 0%,rgba(247,238,215,.065),transparent 38%),
+      linear-gradient(145deg,#1B211E 0%,#151A18 100%);
+    border-color:rgba(53,88,72,.28);
+    box-shadow:
+      0 18px 38px -28px rgba(0,0,0,.9),
+      inset 0 1px 0 rgba(247,238,215,.035);
+  }
+
+  .card::before{
+    background:
+      linear-gradient(
+        135deg,
+        rgba(228,207,163,.045),
+        transparent 32%,
+        transparent 68%,
+        rgba(53,88,72,.035)
+      );
+  }
+
+  /* ================= PRODUCTO: SIN MARCO ================= */
+
+  .card-media{
+    position:relative;
+    height:285px;
+    background:
+      radial-gradient(
+        ellipse at 50% 62%,
+        rgba(247,238,215,.12),
+        transparent 48%
+      ),
+      transparent;
+    overflow:visible;
+  }
+
+  .card-media::before{
+    content:"";
+    position:absolute;
+    z-index:0;
+    left:14%;
+    right:14%;
+    bottom:9%;
+    height:34%;
+    background:radial-gradient(
+      ellipse,
+      rgba(228,207,163,.13),
+      transparent 68%
+    );
+    filter:blur(18px);
+    pointer-events:none;
+  }
+
+  .card-media::after{
+    background:
+      linear-gradient(
+        to bottom,
+        transparent 56%,
+        rgba(11,13,12,.42) 88%,
+        rgba(11,13,12,.72) 100%
+      );
+    z-index:1;
+  }
+
+  .card-media img{
+    position:relative;
+    z-index:2;
+    width:100%;
+    height:100%;
+    object-fit:cover;
+    object-position:center center;
+    transform:scale(1.08);
+    filter:
+    saturate(1.08)
+    contrast(1.06)
+    brightness(1.08)
+    drop-shadow(0 18px 20px rgba(0,0,0,.62));
+}
+
+  .card:hover .card-media img{
+    transform:scale(1.11);
+  }
+
+  .card-badge{
+    z-index:4;
+    top:14px;
+    left:14px;
+    background:rgba(228,207,163,.94);
+    color:#15130F;
+  }
+
+  .card-price-float{
+    z-index:4;
+    bottom:14px;
+    right:14px;
+    background:rgba(9,10,9,.84);
+    color:var(--beige);
+    font-size:22px;
+    font-weight:900;
+    padding:9px 13px;
+    border:1px solid rgba(228,207,163,.22);
+    box-shadow:0 8px 18px rgba(0,0,0,.32);
+  }
+
+  /* ================= TEXTO MÁS LEGIBLE ================= */
+
+  .card-body{
+    padding:25px 20px 20px;
+  }
+
+  .card-name{
+    color:#FFF7E7;
+    font-size:27px;
+    margin-bottom:9px;
+  }
+
+  .card-tagline{
+    color:#E5DCCC;
+    font-size:15px;
+    line-height:1.55;
+    margin-bottom:19px;
+  }
+
+  .card-ingredients{
+    color:#FFFFFF !important;
+    font-family:var(--font-body);
+    font-size:15.5px !important;
+    font-weight:700 !important;
+    line-height:1.78;
+    letter-spacing:.15px;
+    padding-top:17px;
+    margin-bottom:20px;
+    border-top:1px solid rgba(228,207,163,.16);
+}
+
+.card-ingredients b{
+    color:#E4CFA3 !important;
+    font-family:var(--font-accent);
+    font-size:19px;
+    font-weight:600;
+    letter-spacing:.2px;
+}
+
+  /* ================= CONTROLES ================= */
+
+  .stepper{
+    background:rgba(9,10,9,.40) !important;
+    border-color:rgba(228,207,163,.13) !important;
+  }
+
+  .stepper button{
+    background:var(--verde-doha) !important;
+    color:var(--crema) !important;
+  }
+
+  .stepper button.minus{
+    background:#294D3D !important;
+  }
+
+  /* ================= MOBILE: MÁS AIRE ================= */
+
+  @media (max-width:899px){
+
+    body{
+      padding-bottom:92px;
+    }
+
+    .container{
+      padding-left:17px;
+      padding-right:17px;
+    }
+
+    .hero{
+      min-height:760px;
+      padding:118px 17px 10px;
+    }
+
+    .hero-logo{
+      width:195px;
+      margin-bottom:5px;
+    }
+
+    .hero-tagline{
+      max-width:350px;
+      font-size:clamp(38px,10.5vw,52px);
+      line-height:.96;
+    }
+
+    .hero-sub{
+      max-width:330px;
+      font-size:13.5px;
+      line-height:1.55;
+    }
+
+    .hero-photo-wrap{
+      min-height:485px;
+      margin-top:-4px;
+    }
+
+    .hero-photo-wrap img{
+      width:118%;
+      height:515px;
+      transform:translate(-50%,-47%) scale(1.04);
+    }
+
+    .hero-photo-wrap.is-changing img{
+      transform:translate(-50%,-47%) scale(1.11);
+    }
+
+    .hero-photo-wrap::after{
+      font-size:36vw;
+      color:rgba(247,238,215,.028);
+    }
+
+    .hero-photo-caption{
+      bottom:18px;
+      width:88%;
+    }
+
+    .hero-photo-caption .name{
+      font-size:30px;
+    }
+
+    .section{
+      padding-top:66px;
+      padding-bottom:36px;
+    }
+
+    .section-head{
+      margin-bottom:32px;
+    }
+
+    .section-title{
+      font-size:34px;
+    }
+
+    .section-desc{
+      font-size:14px;
+      line-height:1.7;
+    }
+
+    .grid{
+      gap:22px;
+    }
+
+    .card{
+      border-radius:16px;
+    }
+
+    .card-media{
+      height:300px;
+    }
+
+    .card-media img{
+      transform:scale(1.10);
+    }
+
+    .card:hover .card-media img{
+      transform:scale(1.10);
+    }
+
+    .card-body{
+      padding:25px 20px 21px;
+    }
+
+    .card-name{
+      font-size:28px;
+    }
+
+    .card-tagline{
+      font-size:15px;
+      max-width:95%;
+    }
+
+    .card-ingredients{
+      font-size:15.5px;
+      line-height:1.78;
+    }
+
+    .card-price-float{
+      font-size:22px;
+      bottom:13px;
+      right:13px;
+    }
+
+    .stepper{
+      margin-top:4px;
+    }
+
+    .stepper button{
+      width:42px !important;
+      height:42px !important;
+      min-width:42px !important;
+    }
+  }
+
+  @media (max-width:380px){
+    .hero{
+      min-height:720px;
+    }
+
+    .hero-photo-wrap{
+      min-height:445px;
+    }
+
+    .hero-photo-wrap img{
+      height:470px;
+    }
+
+    .card-media{
+      height:275px;
+    }
+
+    .card-name{
+      font-size:25px;
+    }
+
+    .card-ingredients{
+      font-size:14.5px;
+    }
+  }
+
+
+  /* =========================================================
+     DOHA V6 — PRODUCTO LIMPIO / CARBÓN ELEGANTE / TEXTO LEGIBLE
+     ========================================================= */
+
+  /* ================= TARJETA: CARBÓN PROFUNDO ================= */
+
+  .card{
+    background:
+      radial-gradient(
+        ellipse at 50% 0%,
+        rgba(247,238,215,.035),
+        transparent 40%
+      ),
+      linear-gradient(145deg,#111614 0%,#0D100F 100%);
+    border:1px solid rgba(53,88,72,.30);
+    box-shadow:
+      0 18px 42px -30px rgba(0,0,0,.95),
+      inset 0 1px 0 rgba(247,238,215,.025);
+  }
+
+  .card::before{
+    background:
+      linear-gradient(
+        135deg,
+        rgba(228,207,163,.025),
+        transparent 30%,
+        transparent 70%,
+        rgba(53,88,72,.025)
+      );
+  }
+
+  .card:hover{
+    border-color:rgba(53,88,72,.46);
+    box-shadow:
+      0 24px 48px -32px rgba(0,0,0,.95),
+      0 0 24px rgba(53,88,72,.045);
+  }
+
+  /* ================= FOTO: QUE SE FUNDA CON EL NEGRO ================= */
+
+  .card-media{
+    height:292px;
+    background:
+      radial-gradient(
+        ellipse at 50% 56%,
+        rgba(228,207,163,.075) 0%,
+        rgba(53,88,72,.035) 31%,
+        transparent 64%
+      ),
+      #090B0A;
+    border-bottom:1px solid rgba(53,88,72,.10);
+    overflow:hidden;
+  }
+
+  .card-media::before{
+    content:"";
+    position:absolute;
+    z-index:3;
+    inset:0;
+    pointer-events:none;
+    background:
+      radial-gradient(
+        ellipse at center 54%,
+        transparent 45%,
+        rgba(9,11,10,.42) 82%,
+        rgba(9,11,10,.88) 100%
+      );
+  }
+
+  .card-media::after{
+    z-index:4;
+    background:
+      linear-gradient(
+        to bottom,
+        transparent 50%,
+        rgba(9,11,10,.10) 70%,
+        rgba(9,11,10,.58) 100%
+      );
+  }
+
+  .card-media img{
+    z-index:2;
+    width:112%;
+    height:112%;
+    left:-6%;
+    top:-6%;
+    object-fit:cover;
+    object-position:center center;
+
+    /* El negro de la fotografía se mezcla con el negro de la página. */
+    mix-blend-mode:screen;
+
+    filter:
+      brightness(1.10)
+      contrast(1.16)
+      saturate(1.08)
+      drop-shadow(0 18px 22px rgba(0,0,0,.72));
+
+    -webkit-mask-image:
+      radial-gradient(
+        ellipse 48% 49% at 50% 51%,
+        #000 48%,
+        rgba(0,0,0,.96) 60%,
+        rgba(0,0,0,.40) 73%,
+        transparent 88%
+      );
+    mask-image:
+      radial-gradient(
+        ellipse 48% 49% at 50% 51%,
+        #000 48%,
+        rgba(0,0,0,.96) 60%,
+        rgba(0,0,0,.40) 73%,
+        transparent 88%
+      );
+
+    transform:scale(1.06);
+  }
+
+  .card:hover .card-media img{
+    transform:scale(1.09);
+  }
+
+  /* Un brillo fino, no una caja clara. */
+  .card-media .media-glow{
+    position:absolute;
+    z-index:1;
+    left:17%;
+    right:17%;
+    top:15%;
+    bottom:13%;
+    border-radius:50%;
+    background:
+      radial-gradient(
+        ellipse,
+        rgba(247,238,215,.07),
+        transparent 66%
+      );
+    filter:blur(22px);
+    pointer-events:none;
+  }
+
+  /* ================= PRECIO ================= */
+
+  .card-price-float{
+    background:rgba(7,9,8,.88);
+    color:#F3DDAF;
+    border:1px solid rgba(228,207,163,.24);
+    box-shadow:
+      0 7px 18px rgba(0,0,0,.40),
+      0 0 16px rgba(228,207,163,.035);
+    font-size:21px;
+    letter-spacing:.15px;
+  }
+
+  /* ================= TEXTO ================= */
+
+  .card-body{
+    background:transparent;
+    padding:24px 20px 20px;
+  }
+
+  .card-name{
+    color:#F8EFD9;
+    font-size:27px;
+    letter-spacing:-.1px;
+    text-shadow:0 2px 14px rgba(0,0,0,.30);
+  }
+
+  .card-tagline{
+    color:#D7CCBA;
+    font-size:14.5px;
+    font-weight:550;
+    line-height:1.58;
+  }
+
+  /* Ingredientes: cuerpo limpio + etiqueta con personalidad. */
+  .card-ingredients{
+    color:#DAD0C0;
+    font-family:var(--font-body);
+    font-size:14.5px;
+    font-weight:500;
+    line-height:1.82;
+    letter-spacing:.05px;
+    padding-top:17px;
+    border-top:1px solid rgba(228,207,163,.12);
+    text-shadow:0 1px 8px rgba(0,0,0,.28);
+  }
+
+  .card-ingredients b{
+    display:inline-block;
+    color:#E4CFA3;
+    font-family:var(--font-accent);
+    font-size:19px;
+    font-weight:600;
+    letter-spacing:.2px;
+    text-transform:none;
+    margin-right:4px;
+    vertical-align:-1px;
+  }
+
+  /* ================= SELECTOR: VERDE + CARBÓN, NADA BLANCO ================= */
+
+  .stepper{
+    background:#090D0B !important;
+    border:1px solid rgba(53,88,72,.34) !important;
+    box-shadow:inset 0 1px 0 rgba(247,238,215,.025) !important;
+  }
+
+  .stepper button{
+    background:#244D3C !important;
+    color:#F7EED7 !important;
+    border:1px solid rgba(247,238,215,.05) !important;
+    box-shadow:none !important;
+  }
+
+  .stepper button.minus{
+    background:#19382D !important;
+  }
+
+  .stepper button:hover{
+    background:#2D5B48 !important;
+  }
+
+  .stepper .qty{
+    color:#F1E7D3 !important;
+    font-size:16px;
+  }
+
+  /* ================= COMBO: MISMA LÍNEA VISUAL ================= */
+
+  .combo-box{
+    background:#0B0F0D;
+    border:1px solid rgba(53,88,72,.24);
+  }
+
+  .combo-box.active{
+    background:#101613;
+    border-color:rgba(228,207,163,.12);
+  }
+
+  .combo-stepper{
+    background:#090D0B;
+    border-color:rgba(53,88,72,.30);
+  }
+
+  .combo-stepper button{
+    background:#244D3C;
+    color:#F7EED7;
+  }
+
+  .combo-stepper button.minus{
+    background:#19382D;
+  }
+
+  /* ================= MOBILE ================= */
+
+  @media (max-width:899px){
+
+    .card{
+      border-radius:15px;
+    }
+
+    .card-media{
+      height:286px;
+    }
+
+    .card-media img{
+      width:116%;
+      height:116%;
+      left:-8%;
+      top:-8%;
+      transform:scale(1.04);
+    }
+
+    .card:hover .card-media img{
+      transform:scale(1.06);
+    }
+
+    .card-body{
+      padding:24px 19px 20px;
+    }
+
+    .card-name{
+      font-size:27px;
+    }
+
+    .card-tagline{
+      font-size:14.5px;
+      max-width:96%;
+    }
+
+    .card-ingredients{
+      font-size:14.5px;
+      line-height:1.82;
+    }
+
+    .card-ingredients b{
+      font-size:18px;
+    }
+
+    .card-price-float{
+      font-size:21px;
+      bottom:12px;
+      right:12px;
+    }
+  }
+
+  @media (max-width:380px){
+    .card-media{
+      height:270px;
+    }
+
+    .card-ingredients{
+      font-size:14px;
+    }
+  }
+
+
+  /* =========================================================
+     DOHA V7 — DETALLES FINALES DE MARCA
+     BEIGE EN LA BANDA + GASEOSAS + INGREDIENTES DESTACADOS
+     ========================================================= */
+
+  /* ---------- BANDA BEIGE ---------- */
+  .section-beige-band{
+    width:100%;
+    height:8px;
+    margin:0 0 48px;
+    background:
+      linear-gradient(
+        90deg,
+        transparent 0%,
+        rgba(228,207,163,.18) 12%,
+        var(--beige) 50%,
+        rgba(228,207,163,.18) 88%,
+        transparent 100%
+      );
+    box-shadow:
+      0 0 22px rgba(228,207,163,.08);
+    opacity:.78;
+  }
+
+  /* ---------- GASEOSAS EN EL HEADER ---------- */
+  .topbar-drinks{
+    display:flex;
+    align-items:center;
+    justify-content:flex-end;
+    gap:7px;
+    margin-left:auto;
+    margin-right:4px;
+  }
+
+  .top-drink{
+    width:34px;
+    height:34px;
+    border-radius:50%;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    flex:none;
+    overflow:hidden;
+    text-align:center;
+    font-family:Arial,sans-serif;
+    font-weight:900;
+    font-size:7px;
+    line-height:1;
+    letter-spacing:-.2px;
+    color:#fff;
+    border:1px solid rgba(255,255,255,.22);
+    box-shadow:
+      0 5px 12px rgba(0,0,0,.38),
+      inset 0 1px 4px rgba(255,255,255,.18);
+    user-select:none;
+  }
+
+  .top-drink.coca{
+    background:
+      radial-gradient(circle at 32% 25%,rgba(255,255,255,.28),transparent 17%),
+      #D71920;
+    font-family:var(--font-accent);
+    font-size:9px;
+    letter-spacing:-.5px;
+  }
+
+  .top-drink.pepsi{
+    background:
+      radial-gradient(circle at 32% 25%,rgba(255,255,255,.24),transparent 16%),
+      linear-gradient(145deg,#E31B23 0 43%,#fff 44% 55%,#005CB9 56%);
+    font-size:14px;
+    text-shadow:0 1px 3px rgba(0,0,0,.35);
+  }
+
+  .top-drink.postobon{
+    background:
+      radial-gradient(circle at 30% 23%,rgba(255,255,255,.22),transparent 16%),
+      #D51B58;
+    font-size:11px;
+  }
+
+  .topbar-cart-btn{
+    background:var(--verde-doha);
+    border-color:rgba(228,207,163,.16);
+    color:var(--crema);
+  }
+
+  .topbar-cart-btn:hover{
+    background:var(--verde-claro);
+    border-color:rgba(228,207,163,.28);
+  }
+
+  /* ---------- INGREDIENTES: MÁS CONTRASTE SIN HACERLOS PESADOS ---------- */
+  .card-ingredients{
+    color:#E9DFCF !important;
+    font-family:var(--font-body);
+    font-size:15.5px !important;
+    font-weight:650 !important;
+    line-height:1.78 !important;
+    letter-spacing:.05px;
+    text-shadow:0 1px 8px rgba(0,0,0,.18);
+  }
+
+  .card-ingredients b{
+    color:var(--beige) !important;
+    font-family:var(--font-display);
+    font-size:12.5px !important;
+    font-weight:900 !important;
+    letter-spacing:1.25px;
+    text-transform:uppercase;
+  }
+
+  /* ---------- PRECIO ---------- */
+  .card-price-float{
+    color:#F4E2BC !important;
+    background:rgba(7,8,7,.88) !important;
+    border-color:rgba(228,207,163,.25) !important;
+  }
+
+  /* ---------- MARCO DE FOTO: MUY SUTIL ---------- */
+  .card-media{
+    border-bottom:1px solid rgba(53,88,72,.12);
+    box-shadow:
+      inset 0 -22px 32px -28px rgba(228,207,163,.18);
+  }
+
+  .card-media img{
+    filter:
+      saturate(1.08)
+      contrast(1.055)
+      brightness(1.08)
+      drop-shadow(0 20px 22px rgba(0,0,0,.66))
+      drop-shadow(0 0 18px rgba(228,207,163,.07));
+  }
+
+  /* ---------- MOBILE HEADER ---------- */
+  @media (max-width:899px){
+    .topbar-inner{
+      padding:12px 16px;
+      gap:8px;
+    }
+
+    .topbar-logo svg{
+      height:34px;
+    }
+
+    .topbar-drinks{
+      gap:5px;
+      margin-right:2px;
+    }
+
+    .top-drink{
+      width:31px;
+      height:31px;
+    }
+
+    .top-drink.coca{
+      font-size:8px;
+    }
+
+    .top-drink.pepsi{
+      font-size:13px;
+    }
+
+    .top-drink.postobon{
+      font-size:10px;
+    }
+
+    .topbar-cart-btn{
+      width:44px;
+      height:42px;
+    }
+
+    .section-beige-band{
+      height:6px;
+      margin-bottom:38px;
+    }
+
+    .card-ingredients{
+      font-size:15px !important;
+      line-height:1.76 !important;
+    }
+  }
+
+  @media (max-width:430px){
+    .topbar-drinks{
+      gap:4px;
+    }
+
+    .top-drink{
+      width:28px;
+      height:28px;
+      font-size:6px;
+    }
+
+    .top-drink.coca{
+      font-size:7px;
+    }
+
+    .top-drink.pepsi{
+      font-size:12px;
+    }
+
+    .top-drink.postobon{
+      font-size:9px;
+    }
+
+    .topbar-cart-btn{
+      width:42px;
+      height:40px;
+    }
+  }
+
+</style>
+</head>
+<body id="inicio">
+
+  <!-- ============ TOPBAR ============ -->
+  <header class="topbar" id="topbar">
+    <div class="topbar-inner">
+      <a class="topbar-logo" href="#inicio" aria-label="DOHA Burger">
+        <svg viewBox="0 0 300 80" xmlns="http://www.w3.org/2000/svg">
+          <text x="150" y="48" text-anchor="middle" font-family="Bitter, serif" font-weight="900" font-size="52" fill="#F2E8D3" letter-spacing="2">DOHA</text>
+          <text x="150" y="72" text-anchor="middle" font-family="Caveat, cursive" font-weight="600" font-size="22" fill="#E8CFA8">burger</text>
+        </svg>
+      </a>
+
+      <div class="topbar-drinks" aria-label="Gaseosas disponibles">
+        <span class="top-drink coca" title="Coca-Cola">Coca-Cola</span>
+        <span class="top-drink pepsi" title="Pepsi">P</span>
+        <span class="top-drink postobon" title="Postobón Manzana">M</span>
+      </div>
+
+      <button class="topbar-cart-btn" id="openCartTop" type="button" aria-label="Abrir pedido">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <circle cx="9" cy="21" r="1.5" fill="currentColor" stroke="none"/>
+          <circle cx="18" cy="21" r="1.5" fill="currentColor" stroke="none"/>
+          <path d="M2 3h2l2.6 12.6a2 2 0 002 1.6h8.8a2 2 0 002-1.6L21 7H6"/>
+        </svg>
+        <span class="cart-count" id="topCartCount" style="display:none">0</span>
+      </button>
+    </div>
+  </header>
+
+  <!-- ============ CATEGORY NAV ============ -->
+  <nav class="quicknav" aria-label="Categorías">
+    <div class="quicknav-inner">
+      <a class="chip active" href="#inicio">Inicio</a>
+      <a class="chip" href="#hamburguesas">Hamburguesas</a>
+      <a class="chip" href="#contacto">Contacto</a>
+    </div>
+  </nav>
+ 
+
+  <!-- ============ HERO ============ -->
+  <section class="hero" id="inicio">
+    <div class="hero-glow"></div>
+    <svg class="hero-logo" viewBox="0 0 300 80" xmlns="http://www.w3.org/2000/svg" aria-label="DOHA Burger — logo">
+      <text x="150" y="48" text-anchor="middle" font-family="Bitter, serif" font-weight="900" font-size="52" fill="#F2E8D3" letter-spacing="2">DOHA</text>
+      <text x="150" y="72" text-anchor="middle" font-family="Caveat, cursive" font-weight="600" font-size="22" fill="#E8CFA8">burger</text>
+    </svg>
+    <p class="hero-tagline">A la parrilla, sin atajos.</p>
+    <p class="hero-sub">Menos promesas. Más sabor.</p>
+
+    <div class="hero-photo-wrap" id="heroPhotoWrap">
+      <div class="hero-photo-glow"></div>
+      <img id="heroPhoto" class="hero-changing" src="/images/dulcinea.jpg" alt="Dulcinea — doble carne 240g" loading="eager">
+      <div class="hero-photo-shine"></div>
+      <div class="hero-photo-caption">
+        <div class="hero-photo-copy">
+          <span class="name" id="heroPhotoName">Dulcinea</span>
+          <span class="desc" id="heroPhotoDesc">240g de carne en dos capas.</span>
+        </div>
+        <span class="tag" id="heroPhotoTag">La más grande</span>
+      </div>
+      <div class="hero-dots" id="heroDots" aria-label="Hamburguesa destacada">
+        <button type="button" class="hero-dot" data-hero-dot="0" aria-label="Ver Doha Clásica"></button>
+        <button type="button" class="hero-dot" data-hero-dot="1" aria-label="Ver Monarca"></button>
+        <button type="button" class="hero-dot active" data-hero-dot="2" aria-label="Ver Dulcinea"></button>
+      </div>
+    </div>
+  </section>
+
+  <div class="drip" style="background:var(--beige);">
+  <svg viewBox="0 0 1200 90" preserveAspectRatio="none">
+    <path d="M0,0 L1200,0 L1200,20
+    C1150,20 1140,70 1090,70 C1040,70 1030,15 985,15
+    C935,15 925,80 875,80 C825,80 815,10 765,10
+    C715,10 705,65 655,65 C605,65 595,18 545,18
+    C495,18 485,75 435,75 C385,75 375,12 325,12
+    C275,12 265,68 215,68 C165,68 155,15 105,15
+    C60,15 45,45 0,45 Z"
+    fill="var(--beige)"
+    opacity="1"/>
+  </svg>
+</div>
+
+  <!-- ============ HAMBURGUESAS ============ -->
+  <section class="section" id="hamburguesas">
+    <div class="section-beige-band" aria-hidden="true"></div>
+    <div class="container">
+      <div class="section-head reveal">
+        <span class="eyebrow">nuestras hamburguesas</span>
+        <h2 class="section-title">A la parrilla, sin atajos</h2>
+        <p class="section-desc">Pan artesanal horneado a diario, carne 100% de res y salsas de casa. Elige, agrega cantidad y arma tu pedido.</p>
+      </div>
+
+      <div class="grid" id="burgerGrid"></div>
+    </div>
+  </section>
+
+  <!-- ============ HISTORIA / ESENCIA ============ -->
+  <section class="story" id="historia">
+    <div class="container">
+      <div class="section-head reveal">
+        <span class="eyebrow">nuestra esencia</span>
+        <h2 class="section-title">De qué está hecha Doha</h2>
+        <p class="section-desc">Cada color y cada textura de nuestra marca representa algo que también está en el sabor.</p>
+      </div>
+      <div class="story-grid">
+        <div class="story-item reveal">
+          <span class="num">NEGRO DOHA</span>
+          <h4>Elegancia y carácter</h4>
+          <p>Nuestro color dominante. Representa el carácter, la fuerza y la personalidad de Doha.</p>
+        </div>
+        <div class="story-item reveal">
+          <span class="num">BEIGE ARENA</span>
+          <h4>Calidez artesanal</h4>
+          <p>El toque natural y honesto de un pan horneado a diario y preparado a mano.</p>
+        </div>
+        <div class="story-item reveal">
+          <span class="num">MARRÓN BBQ</span>
+          <h4>Sabor y fuego</h4>
+          <p>El acento gourmet: la parrilla, el ahumado y ese punto justo de dulzura.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ FOOTER / CONTACTO ============ -->
+  <footer class="footer" id="contacto">
+    <div class="container">
+      <svg class="footer-logo" viewBox="0 0 300 80" xmlns="http://www.w3.org/2000/svg" aria-label="DOHA Burger">
+        <text x="150" y="48" text-anchor="middle" font-family="Bitter, serif" font-weight="900" font-size="52" fill="#F2E8D3" letter-spacing="2">DOHA</text>
+        <text x="150" y="72" text-anchor="middle" font-family="Caveat, cursive" font-weight="600" font-size="22" fill="#E8CFA8">burger</text>
+      </svg>
+      <h3>menos promesas, más sabor.</h3>
+      <button class="footer-cta" id="openCartFooter" type="button">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="9" cy="21" r="1.5" fill="currentColor" stroke="none"/><circle cx="18" cy="21" r="1.5" fill="currentColor" stroke="none"/><path d="M2 3h2l2.6 12.6a2 2 0 002 1.6h8.8a2 2 0 002-1.6L21 7H6"/></svg>
+        Armar mi pedido
+      </button>
+      <p class="footer-meta">
+        <strong>DOHA Burger</strong> · Hamburguesas artesanales<br>
+        Dirección y horario: agrega aquí tus datos reales.<br>
+        © 2026 DOHA Burger. Todos los derechos reservados.
+      </p>
+    </div>
+  </footer>
+
+  <!-- ============ STICKY ORDER BAR ============ -->
+  <div class="orderbar" id="orderbar">
+    <div class="orderbar-info">
+      <span class="count" id="orderbarCount">0 productos</span>
+      <span class="total" id="orderbarTotal">$0</span>
+    </div>
+    <button class="orderbar-btn" id="openCartBar" type="button">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="9" cy="21" r="1.5" fill="currentColor" stroke="none"/><circle cx="18" cy="21" r="1.5" fill="currentColor" stroke="none"/><path d="M2 3h2l2.6 12.6a2 2 0 002 1.6h8.8a2 2 0 002-1.6L21 7H6"/></svg>
+      Ver pedido
+    </button>
+  </div>
+
+  <!-- ============ CART OVERLAY / SHEET ============ -->
+  <div class="overlay" id="cartOverlay">
+    <div class="sheet">
+      <div class="sheet-handle"></div>
+      <div class="sheet-header">
+        <h3>Tu pedido</h3>
+        <button class="sheet-close" id="closeCart" type="button">✕</button>
+      </div>
+      <div class="sheet-body" id="cartBody"></div>
+      <div class="sheet-footer">
+        <div class="totals-row grand">
+          <span class="label">Total</span>
+          <span class="amount" id="cartGrandTotal">$0</span>
+        </div>
+        <button class="btn-primary" id="goCheckout" type="button">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+          Continuar con mi pedido
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============ CHECKOUT OVERLAY / SHEET ============ -->
+  <div class="overlay" id="checkoutOverlay">
+    <div class="sheet">
+      <div class="sheet-handle"></div>
+      <div class="sheet-header">
+        <h3>Datos de entrega</h3>
+        <button class="sheet-close" id="closeCheckout" type="button">✕</button>
+      </div>
+      <div class="sheet-body">
+        <div class="checkout-summary" id="checkoutSummary"></div>
+
+        <form id="checkoutForm" novalidate>
+          <div class="field" id="field-nombre">
+            <label>Nombre <span class="req">*</span></label>
+            <input type="text" id="inpNombre" placeholder="Ej. Camila Rodríguez" autocomplete="name">
+            <span class="field-error">Escribe tu nombre.</span>
+          </div>
+
+          <div class="field" id="field-direccion">
+            <label>Dirección <span class="req">*</span></label>
+            <input type="text" id="inpDireccion" placeholder="Ej. Calle 18 # 22-30" autocomplete="street-address">
+            <span class="field-error">Escribe tu dirección.</span>
+          </div>
+
+          <div class="field" id="field-barrio">
+            <label>Barrio <span class="req">*</span></label>
+            <input type="text" id="inpBarrio" placeholder="Ej. San Ignacio">
+            <span class="field-error">Escribe tu barrio.</span>
+          </div>
+
+          <div class="field" id="field-pago">
+            <label>Método de pago <span class="req">*</span></label>
+            <div class="pay-options">
+              <div class="pay-opt" data-pago="Nequi"><span class="ic">📱</span>Nequi</div>
+              <div class="pay-opt" data-pago="Efectivo"><span class="ic">💵</span>Efectivo</div>
+            </div>
+            <span class="field-error">Elige un método de pago.</span>
+          </div>
+
+          <div class="field">
+            <label>Observaciones (opcional)</label>
+            <textarea id="inpObs" placeholder="Ej. sin cebolla, tocar el timbre, etc."></textarea>
+          </div>
+        </form>
+
+        <div class="location-note">
+          <span class="ic">📍</span>
+          <span><strong>Importante:</strong> al enviar el pedido se abrirá WhatsApp. Para confirmar tu entrega debes enviar tu <strong>ubicación en tiempo real</strong> desde el chat de WhatsApp (toca el clip → ubicación → ubicación en tiempo real).</span>
+        </div>
+      </div>
+      <div class="sheet-footer">
+        <button class="btn-primary wa" id="sendWa" type="button">
+          <svg viewBox="0 0 32 32" fill="currentColor"><path d="M16 3C9 3 3.2 8.8 3.2 15.8c0 2.5.7 4.8 1.9 6.8L3 29l6.6-2c1.9 1 4.1 1.6 6.4 1.6 7 0 12.8-5.7 12.8-12.8C28.8 8.8 23 3 16 3zm0 23.3c-2 0-3.9-.5-5.6-1.5l-.4-.2-3.9 1.2 1.2-3.8-.3-.4c-1.1-1.8-1.7-3.8-1.7-5.9C5.3 10 10 5.3 16 5.3S26.7 10 26.7 15.8 22 26.3 16 26.3zm6-8.7c-.3-.2-2-1-2.3-1.1-.3-.1-.5-.2-.8.2s-.9 1.1-1.1 1.3-.4.3-.7.1c-.3-.2-1.4-.5-2.7-1.6-1-.9-1.7-2-1.9-2.3-.2-.3 0-.5.2-.7.2-.2.3-.3.5-.6.2-.2.2-.4.3-.6.1-.2 0-.5 0-.7-.1-.2-.8-2-1.1-2.7-.3-.7-.6-.6-.8-.6h-.7c-.2 0-.6.1-.9.4-.3.3-1.2 1.1-1.2 2.8s1.2 3.2 1.4 3.5c.2.3 2.4 3.6 5.7 5 .8.3 1.4.5 1.9.7.8.2 1.5.2 2.1.1.6-.1 2-.8 2.2-1.6.3-.8.3-1.5.2-1.6-.1-.2-.3-.3-.6-.4z"/></svg>
+          Enviar pedido por WhatsApp
+        </button>
+        <button class="btn-ghost" id="backToCart" type="button">← Volver al pedido</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="toast" id="toast"><span>🍔</span><span id="toastMsg">Agregado al pedido</span></div>
+
+<script>
+  /* ===================== CONFIG ===================== */
+  const WA_NUMBER = "573161568650";
+  const COMBO_PRICE = 4000;
+  const SODAS = ['Pepsi', 'Coca-Cola', 'Postobón Manzana'];
+
+  /* ===================== PRODUCT DATA ===================== */
+  const PRODUCTS = [
+    {
+      id:'doha', cat:'burger', emoji:'🍔', badge:'La original',
+      name:'Doha Clásica ',
+      tagline:'La original. Equilibrada, jugosa y con el sabor que nos representa.',
+      ingredients:'Pan Artesanal • Carne De Res 120 G • Queso Doble Crema • Jamón • Cebolla Caramelizada • Salsa BBQ • Salsa De La Casa • Tomate • Lechuga Crespa • Salsa De Tomate.',
+      price:16000, img:'/images/doha_clasica.jpg'
+    },
+    {
+      id:'callejera', cat:'burger', emoji:'🍔', badge:'Nueva',
+      name:'La Callejera',
+      tagline:'Todo el sabor, en una hamburguesa.',
+      ingredients:'Pan Artesanal • Carne De Res 120 G • Queso Doble Crema • Tocineta • Papa Callejera • Pepinillos Dulces • Lechuga • Salsa De La Casa • Salsa De Tomate.',
+      price:15000, img:'/images/callejera.jpg'
+    },
+    {
+      id:'chiken-bbq', cat:'burger', emoji:'🍔', badge:'Nueva',
+      name:'Chiken BBQ',
+      tagline:'Crocante que se disfruta en cada mordida.',
+      ingredients:'Pan Artesanal • Pollo Apanado 120 G • Bañada En Salsa BBQ • Cubitos De Tocineta • Salsa Especial Chiken • Salsa De Tomate • Lechuga • Queso Doble Crema.',
+      price:16000, img:'/images/chiken_bbq.jpg'
+    },
+    {
+      id:'monarca', cat:'burger', emoji:'🍔', badge:'',
+      name:'Monarca',
+      tagline:'Doble queso. Para los que no negocian con el hambre.',
+      ingredients:'Pan Artesanal • Carne De Res 150 G • Queso Cheddar • Jamón • Cebolla Crispy • Tocineta • Piña Dulce • Salsa Especial • Salsa De Tomate • Lechuga Rayada.',
+      price:16000, img:'/images/monarca.jpg'
+    },
+    {
+      id:'dulcinea', cat:'burger', emoji:'🍔', badge:'La más grande',
+      name:'Dulcinea',
+      tagline:'240g de carne en dos capas. La más grande. La más contundente.',
+      ingredients:'Pan Artesanal • Doble Carne De Res 240 G • Doble Queso Cheddar • Jamón • Cebolla Crispy • Tocineta • Piña Dulce • Salsa BBQ • Salsa Especial • Tomate • Lechuga Rayada.',
+      price:24000, img:'/images/dulcinea.jpg'
+    }
+  ];
+
+  /* cart: id -> { qty, combos, soda } */
+  const cart = {};
+  let selectedPago = null;
+
+  const fmt = n => '$' + n.toLocaleString('es-CO');
+
+  /* ===================== HERO ROTATIVO ===================== */
+  const HERO_ITEMS = [
+    {name:'Doha Clásica',desc:'La original. Equilibrada, jugosa y con carácter.',tag:'La original',img:'/images/doha_clasica.jpg'},
+    {name:'Monarca',desc:'Doble queso. Para los que no negocian con el hambre.',tag:'Doble queso',img:'/images/monarca.jpg'},
+    {name:'Dulcinea',desc:'240g de carne en dos capas. La más contundente.',tag:'La más grande',img:'/images/dulcinea.jpg'}
+  ];
+
+  const heroPhotoWrap = document.getElementById('heroPhotoWrap');
+  const heroPhoto = document.getElementById('heroPhoto');
+  const heroPhotoName = document.getElementById('heroPhotoName');
+  const heroPhotoDesc = document.getElementById('heroPhotoDesc');
+  const heroPhotoTag = document.getElementById('heroPhotoTag');
+  const heroDots = document.querySelectorAll('[data-hero-dot]');
+  let heroIndex = 0;
+  let heroTimer = null;
+  let heroBusy = false;
+
+  function setHero(index, animate=true){
+    if(!heroPhoto || !heroPhotoWrap || !HERO_ITEMS[index] || heroBusy) return;
+    heroIndex=index;
+    const item=HERO_ITEMS[index];
+    const apply=()=>{
+      heroPhoto.src=item.img;
+      heroPhoto.alt=item.name;
+      heroPhotoName.textContent=item.name;
+      heroPhotoDesc.textContent=item.desc;
+      heroPhotoTag.textContent=item.tag;
+      heroDots.forEach(dot=>dot.classList.toggle('active',Number(dot.dataset.heroDot)===index));
+      heroPhotoWrap.classList.remove('is-changing');
+      heroBusy=false;
+    };
+    if(!animate){apply();return;}
+    heroBusy=true;
+    heroPhotoWrap.classList.add('is-changing');
+    window.setTimeout(apply,300);
+  }
+
+  heroDots.forEach(dot=>{
+    dot.addEventListener('click',()=>{
+      const index=Number(dot.dataset.heroDot);
+      setHero(index);
+      if(heroTimer) window.clearInterval(heroTimer);
+      heroTimer=window.setInterval(()=>setHero((heroIndex+1)%HERO_ITEMS.length),5200);
+    });
+  });
+  heroTimer=window.setInterval(()=>setHero((heroIndex+1)%HERO_ITEMS.length),5200);
+
+
+  /* ===================== RENDER PRODUCT CARDS ===================== */
+  const burgerGrid = document.getElementById('burgerGrid');
+
+  function stepperHTML(id){
+    return `
+      <div class="stepper" data-stepper="${id}">
+        <button type="button" class="minus" data-action="dec" data-id="${id}" aria-label="Quitar una ${id}">−</button>
+        <span class="qty" data-qty="${id}">0</span>
+        <button type="button" class="plus" data-action="inc" data-id="${id}" aria-label="Agregar una ${id}">+</button>
+      </div>`;
+  }
+
+  function comboHTML(id){
+  return `<div class="combo-box combo-hidden" data-combo="${id}">
+    
+      <div class="combo-header">
+        <span class="combo-icon">🍟</span>
+
+        <div class="combo-header-text">
+          <span class="t">
+            Combos
+            <span class="p">+${fmt(COMBO_PRICE)} c/u</span>
+          </span>
+          <span class="d">Papas a la francesa + gaseosa a elección</span>
+        </div>
+
+        <div class="combo-stepper" data-combo-stepper="${id}">
+          <button type="button" class="minus"
+            data-combo-action="dec"
+            data-id="${id}"
+            aria-label="Quitar combo">−</button>
+
+          <span class="cqty" data-combo-qty="${id}">0</span>
+
+          <button type="button" class="plus"
+            data-combo-action="inc"
+            data-id="${id}"
+            aria-label="Agregar combo">+</button>
+        </div>
+      </div>
+
+      <div class="combo-soda" data-soda-wrap="${id}">
+        <div class="combo-soda-inner">
+
+          <label>
+            <span class="ic">🥤</span>
+            Elige tu gaseosa
+          </label>
+
+          <div class="soda-options" data-soda-options="${id}">
+
+            <button type="button"
+              class="soda-option selected"
+              data-soda="${id}"
+              data-soda-value="Pepsi">
+              <span class="soda-circle pepsi">P</span>
+              <span>Pepsi</span>
+            </button>
+
+            <button type="button"
+              class="soda-option"
+              data-soda="${id}"
+              data-soda-value="Coca-Cola">
+              <span class="soda-circle coca">C</span>
+              <span>Coca-Cola</span>
+            </button>
+
+            <button type="button"
+              class="soda-option"
+              data-soda="${id}"
+              data-soda-value="Postobón Manzana">
+              <span class="soda-circle postobon">M</span>
+              <span>Manzana</span>
+            </button>
+
+          </div>
+
+        </div>
+      </div>
+    </div>`;
+}
+
+  PRODUCTS.forEach(p=>{
+    const card = document.createElement('article');
+    card.className = 'card reveal';
+    card.innerHTML = `
+      <div class="card-media">
+        <img src="${p.img}" alt="${p.name}" loading="lazy">
+        <span class="card-badge">${p.badge}</span>
+        <span class="card-price-float">${fmt(p.price)}</span>
+      </div>
+      <div class="card-body">
+        <h3 class="card-name">${p.name}</h3>
+        <p class="card-tagline">${p.tagline}</p>
+        <p class="card-ingredients"><b>Ingredientes:</b> ${p.ingredients}</p>
+        ${stepperHTML(p.id)}
+        ${comboHTML(p.id)}
+      </div>`;
+    burgerGrid.appendChild(card);
+  });
+
+  /* ===================== COMBO LOGIC ===================== */
+  function changeComboQty(id, delta){
+    const burgerQty = cart[id] ? cart[id].qty : 0;
+    const current = cart[id] ? cart[id].combos : 0;
+    const next = Math.max(0, Math.min(burgerQty, current + delta));
+    if(cart[id]){
+      cart[id].combos = next;
+      if(next === 0) delete cart[id].soda;
+      else if(!cart[id].soda) cart[id].soda = SODAS[0];
+    }
+    syncComboDisplays(id);
+    updateOrderbar();
+    if(document.getElementById('cartOverlay').classList.contains('show')) renderCart();
+  }
+
+  function syncComboDisplays(id){
+    const combos = cart[id] ? cart[id].combos : 0;
+    const burgerQty = cart[id] ? cart[id].qty : 0;
+    document.querySelectorAll(`[data-combo-qty="${id}"]`).forEach(el=> el.textContent = combos);
+    document.querySelectorAll(`[data-combo-stepper="${id}"] .minus`).forEach(btn=> btn.disabled = combos === 0);
+    document.querySelectorAll(`[data-combo-stepper="${id}"] .plus`).forEach(btn=> btn.disabled = burgerQty === 0 || combos >= burgerQty);
+    const sodaWrap = document.querySelector(`[data-soda-wrap="${id}"]`);
+    const comboBox = document.querySelector(`[data-combo="${id}"]`);
+    if(sodaWrap) sodaWrap.classList.toggle('show', combos > 0);
+
+if(comboBox){
+  comboBox.classList.toggle('active', combos > 0);
+  comboBox.classList.toggle('combo-hidden', burgerQty === 0);
+  }
+  }
+
+  document.addEventListener('click', (e)=>{
+    const btn = e.target.closest('[data-combo-action]');
+    if(!btn) return;
+    const id = btn.getAttribute('data-id');
+    const action = btn.getAttribute('data-combo-action');
+    changeComboQty(id, action === 'inc' ? 1 : -1);
+  });
+
+  document.addEventListener('click', (e)=>{
+  const sodaBtn = e.target.closest('[data-soda-value]');
+  if(!sodaBtn) return;
+
+  const id = sodaBtn.getAttribute('data-soda');
+  const soda = sodaBtn.getAttribute('data-soda-value');
+
+  if(!cart[id] || cart[id].combos <= 0) return;
+
+  cart[id].soda = soda;
+
+  document.querySelectorAll(`[data-soda-options="${id}"] .soda-option`)
+    .forEach(btn => btn.classList.remove('selected'));
+
+  sodaBtn.classList.add('selected');
+
+  if(document.getElementById('cartOverlay').classList.contains('show')){
+    renderCart();
+  }
+});
+
+  /* ===================== STEPPER LOGIC ===================== */
+  function getProduct(id){ return PRODUCTS.find(p=>p.id===id); }
+
+  function unitPrice(id){
+    const p = getProduct(id);
+    if(!p) return 0;
+    let price = p.price;
+    if(cart[id] && cart[id].combos > 0) price += cart[id].combos * COMBO_PRICE;
+    return price;
+  }
+
+  function changeQty(id, delta){
+    const current = cart[id] ? cart[id].qty : 0;
+    const next = Math.max(0, current + delta);
+    if(next === 0){
+      delete cart[id];
+    } else {
+      const existing = cart[id] || {};
+      const sodaSelect = document.querySelector(`[data-soda="${id}"]`);
+      const combos = Math.min(existing.combos || 0, next);
+      const soda = existing.soda || (sodaSelect ? sodaSelect.value : SODAS[0]);
+      cart[id] = { qty: next, combos, soda: combos > 0 ? soda : undefined };
+    }
+    syncQtyDisplays(id);
+    syncComboDisplays(id);
+    updateOrderbar();
+    if(delta > 0) showToast(`${getProduct(id).name} agregado`);
+  }
+
+  function syncQtyDisplays(id){
+    const qty = cart[id] ? cart[id].qty : 0;
+    document.querySelectorAll(`[data-qty="${id}"]`).forEach(el=> el.textContent = qty);
+    document.querySelectorAll(`[data-stepper="${id}"] .minus`).forEach(btn=> btn.disabled = qty === 0);
+  }
+
+  document.addEventListener('click', (e)=>{
+    const btn = e.target.closest('[data-action]');
+    if(!btn) return;
+    const id = btn.getAttribute('data-id');
+    const action = btn.getAttribute('data-action');
+    changeQty(id, action === 'inc' ? 1 : -1);
+    if(document.getElementById('cartOverlay').classList.contains('show')) renderCart();
+  });
+
+
+  /* ===================== TOPBAR INTERACTION ===================== */
+  const topbar = document.getElementById('topbar');
+  document.getElementById('openCartTop').addEventListener('click', ()=>{
+    renderCart();
+    openSheet(cartOverlay);
+  });
+  window.addEventListener('scroll', ()=>{
+    topbar.classList.toggle('scrolled', window.scrollY > 8);
+  }, {passive:true});
+
+  /* ===================== ORDER BAR ===================== */
+  const orderbar = document.getElementById('orderbar');
+  const orderbarCount = document.getElementById('orderbarCount');
+  const orderbarTotal = document.getElementById('orderbarTotal');
+  const topCartCount = document.getElementById('topCartCount');
+
+  function cartEntries(){
+    return Object.keys(cart).map(id => ({ product: getProduct(id), item: cart[id] })).filter(e=>e.item.qty>0);
+  }
+  function cartTotals(){
+    const entries = cartEntries();
+    const items = entries.reduce((s,e)=>s+e.item.qty,0);
+    const total = entries.reduce((s,e)=>s+e.item.qty*unitPrice(e.product.id),0);
+    return {entries, items, total};
+  }
+
+  function updateOrderbar(){
+  const {items, total} = cartTotals();
+
+  orderbar.classList.toggle('show', items > 0);
+
+  orderbarCount.textContent =
+    `${items} ${items === 1 ? 'producto' : 'productos'}`;
+
+  orderbarTotal.textContent = fmt(total);
+}
+
+  /* ===================== CART SHEET ===================== */
+  const cartOverlay = document.getElementById('cartOverlay');
+  const checkoutOverlay = document.getElementById('checkoutOverlay');
+  const cartBody = document.getElementById('cartBody');
+  const cartGrandTotal = document.getElementById('cartGrandTotal');
+
+  function openSheet(overlay){ overlay.classList.add('show'); document.body.style.overflow='hidden'; }
+  function closeSheet(overlay){ overlay.classList.remove('show'); if(!cartOverlay.classList.contains('show') && !checkoutOverlay.classList.contains('show')) document.body.style.overflow=''; }
+
+  function renderCart(){
+    const {entries, total} = cartTotals();
+    if(entries.length === 0){
+      cartBody.innerHTML = `<div class="empty-cart"><div class="icon">🛒</div>Tu pedido está vacío.<br>Agrega hamburguesas y arma tu combo.</div>`;
+      document.getElementById('goCheckout').disabled = true;
+    } else {
+      document.getElementById('goCheckout').disabled = false;
+      cartBody.innerHTML = entries.map(e=>{
+        const thumb = e.product.img ? `<img src="${e.product.img}" alt="${e.product.name}">` : e.product.emoji;
+        const comboDetail = e.item.combos > 0 ? `<div class="combo-detail">🍟 ${e.item.combos} combo${e.item.combos>1?'s':''}: papas + ${e.item.soda || SODAS[0]}</div>` : '';
+        return `
+        <div class="cart-line">
+          <div class="emoji">${thumb}</div>
+          <div class="info">
+            <div class="name">${e.product.name}</div>
+            <div class="unit">${fmt(e.product.price)} c/u</div>
+            ${comboDetail}
+          </div>
+          <div class="stepper" data-stepper="${e.product.id}">
+            <button type="button" class="minus" data-action="dec" data-id="${e.product.id}">−</button>
+            <span class="qty" data-qty="${e.product.id}">${e.item.qty}</span>
+            <button type="button" class="plus" data-action="inc" data-id="${e.product.id}">+</button>
+          </div>
+          <div class="line-total">${fmt(unitPrice(e.product.id) * e.item.qty)}</div>
+        </div>`;
+      }).join('');
+    }
+    cartGrandTotal.textContent = fmt(total);
+  }
+
+  document.getElementById('openCartBar').addEventListener('click', ()=>{ renderCart(); openSheet(cartOverlay); });
+  document.getElementById('openCartFooter').addEventListener('click', ()=>{ renderCart(); openSheet(cartOverlay); });
+  document.getElementById('closeCart').addEventListener('click', ()=> closeSheet(cartOverlay));
+  cartOverlay.addEventListener('click', (e)=>{ if(e.target === cartOverlay) closeSheet(cartOverlay); });
+
+  /* ===================== CHECKOUT ===================== */
+  const checkoutSummary = document.getElementById('checkoutSummary');
+
+  document.getElementById('goCheckout').addEventListener('click', ()=>{
+    const {entries, total} = cartTotals();
+    if(entries.length === 0) return;
+    checkoutSummary.innerHTML = `<strong>Resumen de tu pedido</strong>` +
+      entries.map(e=>{
+        const combo = e.item.combos > 0 ? ` (+${e.item.combos} combo${e.item.combos>1?'s':''}: papas + ${e.item.soda || SODAS[0]})` : '';
+        return `${e.item.qty}x ${e.product.name}${combo} — ${fmt(unitPrice(e.product.id)*e.item.qty)}`;
+      }).join('<br>') +
+      `<br><br><strong style="margin:0;">Total: ${fmt(total)}</strong>`;
+    closeSheet(cartOverlay);
+    openSheet(checkoutOverlay);
+  });
+  document.getElementById('backToCart').addEventListener('click', ()=>{
+    closeSheet(checkoutOverlay); renderCart(); openSheet(cartOverlay);
+  });
+  document.getElementById('closeCheckout').addEventListener('click', ()=> closeSheet(checkoutOverlay));
+  checkoutOverlay.addEventListener('click', (e)=>{ if(e.target === checkoutOverlay) closeSheet(checkoutOverlay); });
+
+  document.querySelectorAll('.pay-opt').forEach(opt=>{
+    opt.addEventListener('click', ()=>{
+      document.querySelectorAll('.pay-opt').forEach(o=>o.classList.remove('selected'));
+      opt.classList.add('selected');
+      selectedPago = opt.getAttribute('data-pago');
+      document.getElementById('field-pago').classList.remove('invalid');
+    });
+  });
+
+  function validateField(id, value){
+    const field = document.getElementById('field-'+id);
+    const ok = value.trim().length > 0;
+    field.classList.toggle('invalid', !ok);
+    return ok;
+  }
+
+  document.getElementById('sendWa').addEventListener('click', ()=>{
+    const nombre = document.getElementById('inpNombre').value;
+    const direccion = document.getElementById('inpDireccion').value;
+    const barrio = document.getElementById('inpBarrio').value;
+    const obs = document.getElementById('inpObs').value.trim();
+
+    const okNombre = validateField('nombre', nombre);
+    const okDireccion = validateField('direccion', direccion);
+    const okBarrio = validateField('barrio', barrio);
+    const pagoField = document.getElementById('field-pago');
+    const okPago = !!selectedPago;
+    pagoField.classList.toggle('invalid', !okPago);
+
+    if(!okNombre || !okDireccion || !okBarrio || !okPago){
+      const firstInvalid = document.querySelector('.field.invalid');
+      if(firstInvalid) firstInvalid.scrollIntoView({behavior:'smooth', block:'center'});
+      return;
+    }
+
+    const {entries, total} = cartTotals();
+    const pedidoId = `DOHA-${Date.now()}`;
+    if(entries.length === 0){
+      showToast('Tu pedido está vacío');
+      return;
+    }
+
+    let msg = `Hola, quiero realizar el siguiente pedido de Doha Burger:\n\n`;
+    entries.forEach(e=>{
+      msg += `${e.product.emoji} ${e.product.name} x${e.item.qty}`;
+      if(e.item.combos > 0) msg += ` (+${e.item.combos} combo${e.item.combos>1?'s':''}: papas + ${e.item.soda || SODAS[0]})`;
+      msg += ` — ${fmt(unitPrice(e.product.id)*e.item.qty)}\n`;
+    });
+    msg += `\nTotal: ${fmt(total)}\n\n`;
+    msg += `Nombre: ${nombre.trim()}\n`;
+    msg += `Dirección: ${direccion.trim()}\n`;
+    msg += `Barrio: ${barrio.trim()}\n`;
+    msg += `Método de pago: ${selectedPago}\n`;
+    msg += `Observaciones: ${obs.length ? obs : 'Ninguna'}\n\n`;
+    msg += `⚠️ IMPORTANTE: Para confirmar la entrega, enviaré mi ubicación en tiempo real por este chat.`;
+
+    fetch("https://hook.us2.make.com/y67ufuujbrglwtlbacy41urrgw2l4b16", {
+  method: "POST",
+  headers: {
+    "Content-Type": "application/json"
+  },
+  body: JSON.stringify({
+    pedido: msg
+  })
+   }).catch(console.error);
+    const url = `https://wa.me/${WA_NUMBER}?text=${encodeURIComponent(msg)}`;
+    window.open(url, '_blank', 'noopener');
+  });
+
+  /* ===================== TOAST ===================== */
+  let toastTimer;
+  function showToast(text){
+    const toast = document.getElementById('toast');
+    document.getElementById('toastMsg').textContent = text;
+    toast.classList.add('show');
+    clearTimeout(toastTimer);
+    toastTimer = setTimeout(()=> toast.classList.remove('show'), 1600);
+  }
+
+  /* ===================== ACTIVE CHIP ON SCROLL ===================== */
+  const chips = document.querySelectorAll('.chip');
+  const sectionIds = ['inicio','hamburguesas','contacto'];
+  const sections = sectionIds.map(id=>document.getElementById(id)).filter(Boolean);
+  const chipObserver = new IntersectionObserver((entries)=>{
+    entries.forEach(entry=>{
+      if(entry.isIntersecting){
+        const idx = sections.indexOf(entry.target);
+        chips.forEach(c=>c.classList.remove('active'));
+        if(chips[idx]) chips[idx].classList.add('active');
+      }
+    });
+  }, {rootMargin:"-40% 0px -50% 0px"});
+  sections.forEach(s=> chipObserver.observe(s));
+
+  /* ===================== SCROLL REVEAL ===================== */
+  const revealObserver = new IntersectionObserver((entries)=>{
+    entries.forEach(entry=>{
+      if(entry.isIntersecting){
+        entry.target.classList.add('in-view');
+        revealObserver.unobserve(entry.target);
+      }
+    });
+  }, {threshold:0.15});
+  document.querySelectorAll('.reveal').forEach(el=>revealObserver.observe(el));
+
+  /* init displays */
+  PRODUCTS.forEach(p=>{ syncQtyDisplays(p.id); syncComboDisplays(p.id); });
+  updateOrderbar();
+</script>
+
+</body>
+</html>
